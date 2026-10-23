@@ -1,0 +1,20 @@
+Đề tài bài nhóm (4 học viên): "Phân tích và tự động hóa quy trình cấp giấy xác nhận sinh viên tại trường cao đẳng Y Dược." Đây là đợt hoàn thiện cuối: chỉ làm pass 2 cho mục 6–10 của báo cáo. Mục 1–5 đã chốt, không sửa.
+
+Nguồn cần đọc trong workspace (chỉ đọc):
+- docs/bao-cao-phan-tich.md: báo cáo hiện tại. Mục 1–5 là bối cảnh và mã hoạt động (A01–A17, L1–L5, G1–G3, GA1–GA14). Mục 6–10 (từ dòng "## 6." trở đi) là bản cần cải thiện.
+- docs/ai-collab-run-1/17-r3p1-critique-claude-valid.md: phản biện của pass trước.
+- docs/project-brief.md: yêu cầu gốc của giảng viên và của nhóm.
+
+Phạm vi: báo cáo và slide làm trước; n8n, web, Docker sẽ triển khai sau, nên mục 6 chỉ là đặc tả. Mọi số liệu Process Mining là DỮ LIỆU MÔ PHỎNG; mọi mục tiêu KPI là dự kiến. Không bịa quy định, nguồn hay số liệu chính thức.
+
+Chia việc trong đợt này (1 vòng, 2 pass, mỗi pass propose → critique → synthesize):
+- Pass 1: mục 6 (đặc tả prototype) và mục 7 (đánh giá cải tiến, KPI).
+- Pass 2: mục 8 (dàn ý slide 20 phút và phân công 4 thành viên), mục 9 (kịch bản demo 10 phút, rủi ro, dự phòng), mục 10 (checklist ánh xạ yêu cầu giảng viên sang bằng chứng).
+Người đề xuất cải thiện bản hiện có, không viết lại từ đầu. Người phản biện kiểm tra tính khả thi khi dựng bằng n8n Community Edition, tính nhất quán với mục 1–5, chỗ thiếu so với yêu cầu giảng viên, và khẳng định không có cơ sở. Người tổng hợp viết bản cuối của các mục thuộc pass đó và giải quyết từng phản biện.
+Riêng mục 8: slide phục vụ người nghe; không ghi thời lượng lên slide; không chứa chỉ dẫn nội bộ. Mỗi slide có tiêu đề, thông điệp chính, nội dung chính (2–4 ý), hình hoặc sơ đồ nên dùng, người trình bày.
+
+RÀNG BUỘC ĐỊNH DẠNG BẮT BUỘC (lượt trước bị loại vì vi phạm):
+1. Trường summary tối đa 7000 ký tự. Đếm trước khi trả lời; nếu dài hơn thì rút gọn bằng bảng và gạch đầu dòng ngắn. Không chép lại phần không đổi; ghi "giữ nguyên như bản hiện tại" cho phần đó.
+2. Không dùng LaTeX, không dùng ký tự gạch chéo ngược (\) ở bất kỳ đâu trong nội dung. Viết công thức bằng chữ thường, ví dụ "lớn hơn hoặc bằng" hoặc ">=".
+3. Chỉ trả về đúng một khối JSON theo hợp đồng, viết bằng tiếng Việt, Markdown trong summary.
+Những gì còn thiếu hoặc cần nhóm xác minh đưa vào limitations.

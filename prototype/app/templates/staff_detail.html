@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Xử lý {{ item.case_id }} · Cổng cán bộ{% endblock %}
+{% block content %}
+<div class="page-heading"><div><a class="back-link" href="/staff">← Danh sách hồ sơ</a><h1>{{ item.case_id }}</h1><p class="muted">{{ student.full_name }} · {{ item.student_id }}</p></div><span class="status-badge" data-status="{{ item.status }}">{{ item.status }}</span></div>
+<div class="staff-layout">
+  <section class="panel"><h2>Thông tin hồ sơ</h2><dl class="detail-list wide">
+    <div><dt>Email</dt><dd>{{ student.email }}</dd></div><div><dt>Hình thức nhận</dt><dd>{{ item.delivery_method }}</dd></div><div><dt>Mục đích</dt><dd>{{ item.purpose }}</dd></div><div><dt>Lần xử lý</dt><dd>{{ item.attempt_no|default(1) }}</dd></div><div><dt>Nguồn dữ liệu</dt><dd>{{ item.data_source }}</dd></div><div><dt>Trạng thái tự động hóa</dt><dd><span class="automation-status" data-automation-status="{{ item.automation_status }}">{{ item.automation_status }}</span></dd></div>
+  </dl>{% if item.reason %}<div class="reason-box"><strong>Phản hồi gần nhất</strong><p>{{ item.reason }}</p></div>{% endif %}</section>
+  <aside class="panel action-panel"><p class="eyebrow">Thao tác hợp lệ</p><h2>Cập nhật hồ sơ</h2>
+    {% if item.status == 'PRECHECK_OK' %}<form action="/requests/{{ item.case_id }}/actions/claim" method="post" data-idempotent-form><input type="hidden" name="idempotency_key" value=""><input type="hidden" name="version" value="{{ item.version }}"><button class="button button-primary button-block" type="submit">Nhận xử lý</button></form>
+    {% elif item.status == 'IN_REVIEW' %}
+      <form action="/requests/{{ item.case_id }}/actions/approve" method="post" data-idempotent-form><input type="hidden" name="idempotency_key" value=""><input type="hidden" name="version" value="{{ item.version }}"><button class="button button-primary button-block" type="submit">Phê duyệt hồ sơ</button></form>
+      <details class="action-details"><summary>Yêu cầu bổ sung</summary><form action="/requests/{{ item.case_id }}/actions/request-supplement" method="post" class="stack-form" data-idempotent-form><input type="hidden" name="idempotency_key" value=""><input type="hidden" name="version" value="{{ item.version }}"><label>Lý do<textarea name="reason" required rows="3"></textarea></label><button class="button button-secondary button-block" type="submit">Gửi yêu cầu bổ sung</button></form></details>
+      <details class="action-details danger-zone"><summary>Từ chối hồ sơ</summary><form action="/requests/{{ item.case_id }}/actions/reject" method="post" class="stack-form" data-idempotent-form data-confirm="Xác nhận từ chối hồ sơ này?"><input type="hidden" name="idempotency_key" value=""><input type="hidden" name="version" value="{{ item.version }}"><label>Lý do từ chối<textarea name="reason" required rows="3"></textarea></label><button class="button button-danger button-block" type="submit">Từ chối</button></form></details>
+    {% elif item.status == 'APPROVED' %}<form action="/requests/{{ item.case_id }}/actions/issue" method="post" data-idempotent-form><input type="hidden" name="idempotency_key" value=""><input type="hidden" name="version" value="{{ item.version }}"><button class="button button-primary button-block" type="submit">Xác nhận đã cấp giấy</button></form>
+    {% else %}<p class="empty-state">Không có thao tác thủ công phù hợp ở trạng thái hiện tại.</p>{% endif %}
+    <p class="form-note">Thao tác sai trạng thái sẽ bị từ chối và không ghi thêm sự kiện.</p>
+  </aside>
+</div>
+<section class="panel section-gap"><h2>Nhật ký hồ sơ</h2><ol class="timeline compact">{% for event in events|default([]) %}<li class="timeline-item"><span class="timeline-dot"></span><div><strong data-activity="{{ event.activity }}">{{ event.activity }}</strong><p>{{ event.lifecycle }} · {{ event.timestamp }} · {{ event.role }}</p></div></li>{% else %}<li class="empty-state">Chưa có sự kiện.</li>{% endfor %}</ol></section>
+{% endblock %}

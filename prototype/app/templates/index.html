@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Nộp yêu cầu · Cổng xác nhận sinh viên{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Dịch vụ sinh viên</p>
+    <h1>Giấy xác nhận sinh viên,<br><span>theo dõi rõ từng bước.</span></h1>
+    <p class="lead">Gửi yêu cầu trực tuyến, nhận mã hồ sơ và xem trạng thái xử lý mà không cần hỏi lại nhiều nơi.</p>
+    <div class="trust-row" aria-label="Đặc điểm dịch vụ">
+      <span>✓ Có mã tra cứu</span><span>✓ Thông báo qua email thử nghiệm</span><span>✓ Lưu vết xử lý</span>
+    </div>
+  </div>
+  <aside class="hero-card" aria-label="Quy trình tóm tắt">
+    <p class="eyebrow">Quy trình</p>
+    <ol class="mini-steps">
+      <li><span>01</span><div><strong>Nộp yêu cầu</strong><small>Điền thông tin và mục đích sử dụng</small></div></li>
+      <li><span>02</span><div><strong>Kiểm tra & phê duyệt</strong><small>Theo dõi trạng thái bằng mã hồ sơ</small></div></li>
+      <li><span>03</span><div><strong>Nhận kết quả</strong><small>Hệ thống ghi nhận cấp giấy và thông báo</small></div></li>
+    </ol>
+  </aside>
+</section>
+
+<div class="content-grid">
+  <section class="panel">
+    <div class="section-heading">
+      <div><p class="eyebrow">Tạo hồ sơ</p><h2>Yêu cầu cấp giấy xác nhận</h2></div>
+      <span class="step-chip">Khoảng 2 phút</span>
+    </div>
+    <form action="/requests" method="post" class="form-grid" data-idempotent-form>
+      <input type="hidden" name="idempotency_key" value="">
+      <label>Mã số sinh viên <span aria-hidden="true">*</span>
+        <input name="student_id" autocomplete="off" required maxlength="30" placeholder="Ví dụ: 25MSB43044">
+      </label>
+      <label>Họ và tên <span aria-hidden="true">*</span>
+        <input name="full_name" autocomplete="name" required maxlength="120" placeholder="Nguyễn Văn A">
+      </label>
+      <label>Email nhận thông báo <span aria-hidden="true">*</span>
+        <input name="email" type="email" autocomplete="email" required maxlength="160" placeholder="sinhvien@example.edu.vn">
+      </label>
+      <label>Loại giấy xác nhận
+        <select name="certificate_type">
+          <option value="student_status">Xác nhận đang là sinh viên</option>
+          <option value="military_service">Tạm hoãn nghĩa vụ quân sự</option>
+          <option value="loan">Vay vốn học tập</option>
+          <option value="other">Mục đích khác</option>
+        </select>
+      </label>
+      <label class="span-2">Mục đích sử dụng <span aria-hidden="true">*</span>
+        <textarea name="purpose" rows="3" required maxlength="500" placeholder="Mô tả ngắn gọn nơi nộp và mục đích sử dụng giấy xác nhận"></textarea>
+        <small class="field-hint">Không nhập dữ liệu sức khỏe hoặc thông tin nhạy cảm không cần thiết.</small>
+      </label>
+      <div class="span-2 form-actions">
+        <button class="button button-primary" type="submit">Gửi yêu cầu</button>
+        <p class="form-note">Sau khi gửi, bạn sẽ nhận mã hồ sơ để tra cứu.</p>
+      </div>
+    </form>
+  </section>
+
+  <aside class="panel lookup-panel">
+    <p class="eyebrow">Đã có hồ sơ?</p>
+    <h2>Tra cứu trạng thái</h2>
+    <p>Nhập mã hồ sơ được cấp sau khi gửi yêu cầu.</p>
+    <form data-lookup-form class="lookup-form">
+      <label for="case-id">Mã hồ sơ</label>
+      <input id="case-id" name="case_id" required placeholder="Ví dụ: GXN-2026-0012">
+      <button class="button button-secondary" type="submit">Tra cứu</button>
+    </form>
+    <div class="privacy-note"><strong>Lưu ý:</strong> Đây là prototype với dữ liệu giả lập và dữ liệu demo, không dùng thay hệ thống chính thức.</div>
+  </aside>
+</div>
+{% endblock %}

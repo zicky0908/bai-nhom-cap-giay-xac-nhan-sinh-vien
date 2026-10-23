@@ -1,0 +1,17 @@
+edge,freq,cases,median,p90,over,school_wait,a_top3,b_over50,f_freq10,color,phan_tan
+A04→A13,18,18,4312.7,5477.7,1.0,False,False,False,False,,False
+A04→A05,122,104,825.6,1861.1,0.9,False,False,False,True,,False
+A11→A12,339,339,690.5,1740.4,0.7,False,False,False,True,,False
+A06→A07,369,369,621.1,1200.9,0.6,True,True,True,True,đỏ,False
+A03→A07,15,15,510.1,979.5,0.6,True,True,True,False,vàng,False
+A01→A02,400,400,249.1,422.5,0.1,True,True,False,True,vàng,False
+A07→A08,358,358,135.0,146.7,0.0,True,False,False,True,,False
+A09→A11,358,358,53.5,93.2,0.0,True,False,False,True,,False
+A08→A09,358,358,26.6,76.9,0.0,True,False,False,True,,False
+A05→A03,122,104,17.9,64.3,0.0,True,False,False,True,,True
+A10→A14,24,24,16.9,46.2,0.0,True,False,False,False,,False
+A02→A03,400,400,11.8,68.6,0.0,True,False,False,True,,True
+A03→A04,140,122,11.2,64.6,0.0,True,False,False,True,,True
+A03→A06,367,367,9.9,61.8,0.0,True,False,False,True,,True
+A07→A06,2,2,8.2,12.1,0.0,True,False,False,False,,False
+A07→A10,24,24,0.0,0.0,0.0,True,False,False,False,,False

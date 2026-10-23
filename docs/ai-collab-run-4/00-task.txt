@@ -1,0 +1,25 @@
+Đề tài: "Phân tích và tự động hóa quy trình cấp giấy xác nhận sinh viên tại trường cao đẳng Y Dược." Đợt này kiểm chứng các bản sửa sau lượt rà soát trước và chốt thông điệp slide từ số liệu cuối.
+
+Nguồn (chỉ đọc; bỏ qua analysis/.venv):
+- docs/ai-collab-run-3/07-p2-synthesize-antigravity-rejected-length.md và 03-p1-synthesize-codex-valid.md: danh sách phát hiện của lượt rà soát trước.
+- analysis/simulate.py, analysis/analyze.py, analysis/test_sim.py, analysis/test_handcalc.py: code đã sửa.
+- analysis/out/results.md, analysis/out/kpi_paired_diff.csv, analysis/out/edges_AS-IS.csv: kết quả chạy lại 20 seed sau khi sửa.
+- analysis/README.md: các quy ước đã chọn.
+- docs/bao-cao-phan-tich.md mục 4 và mục 8 (dàn ý slide).
+
+Các bản sửa đã áp dụng (cần xác minh từng mục là ĐÚNG, SAI hay CHƯA ĐỦ, kèm file:dòng):
+1. Thứ tự A13 start/complete: sort ổn định theo t (simulate.py, to_frame).
+2. K4 và thời gian xử lý dùng work_between(s, c) (analyze.py).
+3. K5 dùng tuổi net = gross trừ thời gian SV tới mốc; thêm K5b gross (analyze.py, net_age).
+4. A07 và A10 dùng add_work; A10 nằm trong cùng lượt giữ tài nguyên L3 (simulate.py, to_l3).
+5. Lỗi mới tìm thấy sau lượt trước: dispatch giữ chỗ cán bộ cho tác vụ có thời điểm sẵn sàng ở tương lai làm hàng đợi AS-IS tích tụ; đã sửa bằng cách không dispatch tác vụ chưa sẵn sàng (simulate.py, dispatch) và thêm test_officer_queue_stable.
+6. Tiêu chí (b) tính theo ca; bảng biến thể chuẩn hóa; bảng hiệu theo cặp.
+
+Chia việc (1 vòng, 2 pass):
+- Pass 1: xác minh 6 bản sửa và tìm lỗi còn sót có ảnh hưởng tới số liệu.
+- Pass 2: dựa trên results.md cuối, chốt 4–6 thông điệp cho slide 7, 8, 12 (mỗi thông điệp 1–2 câu, có con số, có nhãn "Dữ liệu mô phỏng") và danh sách điều KHÔNG được kết luận.
+
+RÀNG BUỘC ĐỊNH DẠNG BẮT BUỘC (Antigravity đã 4 lần bị loại vì quá dài):
+1. Trường summary TỐI ĐA 5000 ký tự. Không chép lại code hay bảng dài; chỉ dẫn file:dòng.
+2. Không dùng LaTeX, không dùng ký tự gạch chéo ngược ở bất kỳ đâu.
+3. Chỉ trả về đúng một khối JSON theo hợp đồng, tiếng Việt.

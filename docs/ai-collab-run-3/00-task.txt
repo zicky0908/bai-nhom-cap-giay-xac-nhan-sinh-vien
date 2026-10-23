@@ -1,0 +1,22 @@
+Đề tài: "Phân tích và tự động hóa quy trình cấp giấy xác nhận sinh viên tại trường cao đẳng Y Dược." Đợt này rà soát và kiểm chứng phần Process Mining đã được hiện thực bằng code. Không viết lại báo cáo.
+
+Nguồn trong workspace (chỉ đọc; bỏ qua thư mục analysis/.venv):
+- docs/bao-cao-phan-tich.md, mục 4 (schema 4.1, công thức 4.2, tô màu 4.3, tham số bộ sinh dữ liệu 4.4, kết quả cần trình bày 4.5, tính tay 4.6) và mục 3 (tiêu chí điểm nghẽn).
+- analysis/workcal.py: lịch làm việc GA1 và các hàm tính phút làm việc.
+- analysis/simulate.py: bộ mô phỏng sự kiện rời rạc, 7 cấu hình × 20 seed, CRN theo từng hồ sơ.
+- analysis/analyze.py: KPI tính bằng pandas, DFG và biến thể bằng PM4Py, tô màu cạnh, biểu đồ.
+- analysis/test_handcalc.py: kiểm thử đối chiếu bộ tính tay ở mục 4.6.
+- analysis/out/results.md, analysis/out/kpi_summary.csv, analysis/out/edges_AS-IS.csv, analysis/out/edges_TB-S1-p15.csv: kết quả đã chạy.
+
+Mọi số liệu là DỮ LIỆU MÔ PHỎNG. Mức cải thiện phụ thuộc giả định (đặc biệt lịch ký S1 và xác suất bổ sung p), không phải hiệu quả đã chứng minh tại trường.
+
+Chia việc (1 vòng, 2 pass, mỗi pass propose → critique → synthesize):
+- Pass 1 – tính đúng của mô phỏng: simulate.py và workcal.py có khớp tham số 4.4 không (N, kỳ, phân phối, p theo vòng, lịch ký AS-IS/S0/S1, chuyển L3→L4, rà quá hạn thứ Sáu và timer TO-BE, CRN, hàng đợi 1 cán bộ FIFO, quy ước GA10 cho A01)? Có lỗi logic nào làm sai log (thứ tự event, start/complete, due_at, rework_round, decision/origin, kiểm tra hợp lệ R1–R8)? Nêu cụ thể file:dòng, hậu quả và cách sửa.
+- Pass 2 – tính đúng của phân tích và cách diễn giải: analyze.py tính K1–K9, chờ/xử lý, tô màu (a)(b)(f) có đúng mục 4.2–4.3 không? Các cạnh A04→A05, A11→A12, vào A16/A13 bị loại khỏi "chờ của trường" có hợp lý không? Dựa trên results.md, nhóm được phép kết luận gì và KHÔNG được kết luận gì; viết 3–5 thông điệp dùng được cho slide 7, 8 và 12, mỗi thông điệp kèm con số và nhãn "Dữ liệu mô phỏng".
+Người đề xuất kiểm tra và liệt kê phát hiện. Người phản biện xác minh lại từng phát hiện bằng cách đọc code, bác bỏ phát hiện sai, bổ sung phát hiện còn thiếu. Người tổng hợp đưa ra danh sách cuối, xếp theo mức nghiêm trọng, chỉ giữ phát hiện đã được xác minh.
+
+RÀNG BUỘC ĐỊNH DẠNG BẮT BUỘC (các lượt trước bị loại vì vi phạm):
+1. Trường summary TỐI ĐA 6000 ký tự. Ưu tiên bảng ngắn và gạch đầu dòng. Nếu dài hơn, cắt bớt các phát hiện ít nghiêm trọng.
+2. Không dùng LaTeX, không dùng ký tự gạch chéo ngược ở bất kỳ đâu. Viết công thức bằng chữ hoặc ký hiệu thường như ">=".
+3. Chỉ trả về đúng một khối JSON theo hợp đồng, nội dung tiếng Việt, Markdown trong summary.
+Những gì chưa kiểm được hoặc cần chạy thêm đưa vào limitations.

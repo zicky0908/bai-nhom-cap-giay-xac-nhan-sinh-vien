@@ -1,0 +1,14 @@
+# Môi trường và phụ thuộc cài lại được
+.venv/
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+# Bí mật local của prototype (dùng .env.example làm mẫu)
+prototype/.env
+# Sản phẩm trung gian khi soát slide
+slides/qa/
+slides/.fonts/
+slides/*.pdf
+analysis/out/run.log
+*.db

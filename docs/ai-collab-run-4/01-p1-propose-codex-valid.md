@@ -1,0 +1,7 @@
+Pass 1, đối chiếu tĩnh: (1) ĐÚNG: sort ổn định giữ A13 start trước complete, analysis/simulate.py:171–173,267–268. (2) ĐÚNG: K4 và xử lý dùng work_between, analysis/analyze.py:73,257. (3) ĐÚNG: net_age trừ thời gian SV tới mốc, K5b gross riêng, analysis/analyze.py:78–104. (4) ĐÚNG: A07/A10 dùng add_work và giữ L3 tới hết A10, analysis/simulate.py:183–192. (5) ĐÚNG về mã: chặn dispatch việc tương lai, analysis/simulate.py:100–105; CHƯA ĐỦ kiểm chứng: test chỉ kiểm P90 trên 5 seed, analysis/test_sim.py:46–54. (6) ĐÚNG: tiêu chí theo ca, chuẩn hóa và hiệu ghép seed, analysis/analyze.py:124–127,148–156,171. Chưa xác nhận độc lập số liệu chạy lại.
+
+[proposals] [{"id": "D1", "claim": "Bổ sung kiểm thử biên cho dispatch và net_age trước khi chốt số liệu.", "evidence": [{"source": "analysis/test_sim.py:46–54", "detail": "Chỉ kiểm P90 chờ dưới 900; không kiểm trực tiếp tác vụ tương lai có giữ chỗ."}], "acceptance": ["Việc sẵn sàng chạy trước việc tương lai khi L2 rảnh.", "Tuổi net khớp tính tay trước và sau hạn bổ sung."]}]
+
+---
+Limitations:
+- Chỉ đọc; chưa chạy test hoặc tái sinh 20 seed. rg không có sẵn; dùng nl, sed, find. Pass 2 chưa thực hiện. K5 trung vị 0 không chứng minh mọi mốc đều không quá hạn.

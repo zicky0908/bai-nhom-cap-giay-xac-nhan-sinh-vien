@@ -1,0 +1,264 @@
+{
+  "id": "student-certificate-v1",
+  "name": "Cấp giấy xác nhận sinh viên - Điều phối nghiệp vụ",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "certificate-process",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Nhận yêu cầu từ Web",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-900, 80],
+      "webhookId": "student-certificate-process"
+    },
+    {
+      "parameters": {
+        "url": "=http://app:8000/api/internal/requests/{{$node[\"Nhận yêu cầu từ Web\"].json.body.case_id}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{$env.INTERNAL_API_TOKEN}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "get-case",
+      "name": "Đọc hồ sơ và nguồn dữ liệu sinh viên",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-680, 80]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "operation-is-precheck",
+              "leftValue": "={{$node[\"Nhận yêu cầu từ Web\"].json.body.operation}}",
+              "rightValue": "precheck",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "operation-condition",
+      "name": "Là yêu cầu tiền kiểm?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [-460, 80]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "student-active",
+              "leftValue": "={{$json.student.active}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "required-fields-complete",
+              "leftValue": "={{$json.complete}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "eligibility-condition",
+      "name": "Đủ điều kiện và đủ thông tin?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [-220, -80]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://app:8000/api/internal/requests/{{$node[\"Nhận yêu cầu từ Web\"].json.body.case_id}}/transition",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {"name": "X-Internal-Token", "value": "={{$env.INTERNAL_API_TOKEN}}"},
+            {"name": "Idempotency-Key", "value": "={{$node[\"Nhận yêu cầu từ Web\"].json.body.idempotency_key + ':pass'}}"}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{JSON.stringify({action: 'PRECHECK_PASS'})}}",
+        "options": {}
+      },
+      "id": "precheck-pass",
+      "name": "Ghi kết quả tiền kiểm đạt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [40, -180]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://app:8000/api/internal/requests/{{$node[\"Nhận yêu cầu từ Web\"].json.body.case_id}}/transition",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {"name": "X-Internal-Token", "value": "={{$env.INTERNAL_API_TOKEN}}"},
+            {"name": "Idempotency-Key", "value": "={{$node[\"Nhận yêu cầu từ Web\"].json.body.idempotency_key + ':supplement'}}"}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{JSON.stringify({action: 'REQUEST_SUPPLEMENT', reason: 'Thông tin chưa đầy đủ hoặc sinh viên không ở trạng thái đang học'})}}",
+        "options": {}
+      },
+      "id": "request-supplement",
+      "name": "Ghi yêu cầu bổ sung",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [40, 20]
+    },
+    {
+      "parameters": {
+        "fromEmail": "Phòng Đào tạo <phongdaotao@example.local>",
+        "toEmail": "={{$node[\"Đọc hồ sơ và nguồn dữ liệu sinh viên\"].json.email}}",
+        "subject": "=Hồ sơ {{$node[\"Nhận yêu cầu từ Web\"].json.body.case_id}}: cập nhật trạng thái",
+        "emailFormat": "text",
+        "text": "=Kính chào {{$node[\"Đọc hồ sơ và nguồn dữ liệu sinh viên\"].json.full_name}},\n\nHồ sơ {{$node[\"Nhận yêu cầu từ Web\"].json.body.case_id}} đã được hệ thống xử lý tự động. Vui lòng mở cổng dịch vụ để xem trạng thái mới nhất và chi tiết cần bổ sung (nếu có).\n\nĐây là email thử nghiệm local được lưu tại Mailpit, không gửi ra Internet.",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "send-mailpit",
+      "name": "Gửi thông báo qua Mailpit",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [300, 160],
+      "credentials": {
+        "smtp": {
+          "id": "mailpit-local-smtp",
+          "name": "Mailpit Local SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://app:8000/api/internal/requests/{{$node[\"Nhận yêu cầu từ Web\"].json.body.case_id}}/automation-callback",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {"name": "X-Internal-Token", "value": "={{$env.INTERNAL_API_TOKEN}}"},
+            {"name": "Idempotency-Key", "value": "={{$node[\"Nhận yêu cầu từ Web\"].json.body.idempotency_key + ':callback'}}"}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{JSON.stringify({status: 'SYNCED', message_id: $json.messageId || $json.message_id || null})}}",
+        "options": {}
+      },
+      "id": "automation-callback",
+      "name": "Xác nhận đồng bộ thông báo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [540, 160]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({ok: true, case_id: $node[\"Nhận yêu cầu từ Web\"].json.body.case_id, automation_status: 'SYNCED'})}}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-success",
+      "name": "Phản hồi thành công",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [780, 160]
+    }
+  ],
+  "connections": {
+    "Nhận yêu cầu từ Web": {
+      "main": [[{"node": "Đọc hồ sơ và nguồn dữ liệu sinh viên", "type": "main", "index": 0}]]
+    },
+    "Đọc hồ sơ và nguồn dữ liệu sinh viên": {
+      "main": [[{"node": "Là yêu cầu tiền kiểm?", "type": "main", "index": 0}]]
+    },
+    "Là yêu cầu tiền kiểm?": {
+      "main": [
+        [{"node": "Đủ điều kiện và đủ thông tin?", "type": "main", "index": 0}],
+        [{"node": "Gửi thông báo qua Mailpit", "type": "main", "index": 0}]
+      ]
+    },
+    "Đủ điều kiện và đủ thông tin?": {
+      "main": [
+        [{"node": "Ghi kết quả tiền kiểm đạt", "type": "main", "index": 0}],
+        [{"node": "Ghi yêu cầu bổ sung", "type": "main", "index": 0}]
+      ]
+    },
+    "Ghi kết quả tiền kiểm đạt": {
+      "main": [[{"node": "Gửi thông báo qua Mailpit", "type": "main", "index": 0}]]
+    },
+    "Ghi yêu cầu bổ sung": {
+      "main": [[{"node": "Gửi thông báo qua Mailpit", "type": "main", "index": 0}]]
+    },
+    "Gửi thông báo qua Mailpit": {
+      "main": [[{"node": "Xác nhận đồng bộ thông báo", "type": "main", "index": 0}]]
+    },
+    "Xác nhận đồng bộ thông báo": {
+      "main": [[{"node": "Phản hồi thành công", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
+

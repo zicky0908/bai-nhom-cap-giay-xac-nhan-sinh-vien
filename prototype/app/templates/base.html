@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prototype quy trình cấp giấy xác nhận sinh viên">
+  <title>{% block title %}Cổng xác nhận sinh viên{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script defer src="/static/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Bỏ qua đến nội dung chính</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Trang chủ Cổng xác nhận sinh viên">
+        <span class="brand-mark" aria-hidden="true">+</span>
+        <span><strong>Cổng xác nhận sinh viên</strong><small>Prototype học thuật · Cao đẳng Y Dược</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <a href="/">Sinh viên</a>
+        <a href="/staff">Cán bộ</a>
+        <a href="/analytics">Phân tích quy trình</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="shell page-space">
+    {% if flash %}
+      <div class="alert alert-{{ flash.type|default('info') }}" role="status" data-flash>{{ flash.message }}</div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><strong>Phạm vi:</strong> minh họa học thuật, không phát hành giấy tờ có giá trị pháp lý.</p>
+      <p>Múi giờ hiển thị: Asia/Ho_Chi_Minh</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,34 @@
+flowchart LR
+  %% TO-BE prototype — API là bên duy nhất ghi trạng thái và event
+  subgraph SV["Sinh viên · Web"]
+    A([Gửi yêu cầu]) --> B[Nhận mã hồ sơ]
+    H[Nhận yêu cầu bổ sung] --> I[Gửi nội dung bổ sung]
+    O[Tra cứu / nhận thông báo]
+  end
+  subgraph API["Ứng dụng FastAPI"]
+    C[(PostgreSQL: hồ sơ + event + outbox)]
+    J[Nhận xử lý]
+    K{Quyết định cán bộ}
+    N[Xác nhận đã cấp giấy]
+    P[Dashboard PM4Py]
+  end
+  subgraph N8N["n8n CE"]
+    D[[Webhook trigger]] --> E[Đọc hồ sơ + sinh viên]
+    E --> F{Đủ trường và còn tư cách?}
+    F -- Không --> G[Gọi API: NEED_SUPPLEMENT]
+    F -- Có --> Q[Gọi API: PRECHECK_OK]
+    R[Gửi email qua Mailpit] --> S[Gọi callback SYNCED / FAILED]
+  end
+  A -->|transaction + Idempotency-Key| C
+  C -->|outbox| D
+  G --> C --> H
+  I --> C
+  Q --> C --> J --> K
+  K -- Bổ sung --> C
+  K -- Từ chối --> C --> R
+  K -- Duyệt --> C --> N --> C --> R
+  S --> C
+  C --> P
+  C --> O
+  classDef auto fill:#dff3ef,stroke:#087c74,color:#054c47;
+  class D,E,F,G,Q,R,S auto;

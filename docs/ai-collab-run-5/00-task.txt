@@ -1,0 +1,16 @@
+Đề tài: "Phân tích và tự động hóa quy trình cấp giấy xác nhận sinh viên tại trường cao đẳng Y Dược." Đợt này rà soát 2 sơ đồ BPMN vừa sinh để dùng cho slide 4 (AS-IS) và slide 9 (TO-BE).
+
+Nguồn (chỉ đọc; bỏ qua analysis/.venv):
+- diagrams/generate_bpmn.py: bảng NODES/FLOWS và cách sinh XML (AS_IS, TO_BE).
+- diagrams/as-is.bpmn, diagrams/to-be.bpmn: BPMN 2.0 XML có DI.
+- docs/bao-cao-phan-tich.md: mục 2 (bảng AS-IS A01–A14, G1–G3, biến thể V1–V5, R1–R6) và mục 5 (bảng TO-BE A01–A17, L5, R3′, R4′, R7, R8).
+
+Chia việc (1 vòng, 2 pass):
+- Pass 1 – khớp đặc tả: mỗi hoạt động, lane, gateway, nhánh (đủ / thiếu / không đủ tư cách; duyệt / từ chối / trả lại chỉ khi từ A03), vòng bổ sung, timer, kết thúc E1/E2/E3 trong 2 sơ đồ có đúng bảng mục 2 và mục 5 không? Liệt kê chỗ thiếu, thừa hoặc sai, kèm id phần tử hoặc dòng trong generate_bpmn.py.
+- Pass 2 – đúng chuẩn BPMN 2.0 và dễ đọc: event-based gateway chỉ nối tới sự kiện nhận; sequence flow không vượt pool; mỗi phần tử có incoming/outgoing hợp lệ; loại task (user/service/send/manual) hợp lý; bpmn.io có mở được không (namespace, DI, bpmnElement). Đề xuất sửa cụ thể, ưu tiên thay đổi nhỏ trong bảng NODES/FLOWS.
+Người đề xuất liệt kê phát hiện. Người phản biện kiểm tra lại từng phát hiện trong file, bác bỏ cái sai. Người tổng hợp chỉ giữ phát hiện đã xác minh, xếp theo mức nghiêm trọng.
+
+RÀNG BUỘC ĐỊNH DẠNG BẮT BUỘC:
+1. Trường summary TỐI ĐA 5000 ký tự; không chép lại XML, chỉ dẫn id hoặc file:dòng.
+2. Không dùng LaTeX, không dùng ký tự gạch chéo ngược.
+3. Chỉ trả về đúng một khối JSON theo hợp đồng, tiếng Việt.

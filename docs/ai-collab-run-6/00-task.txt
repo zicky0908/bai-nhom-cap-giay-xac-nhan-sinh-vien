@@ -1,0 +1,17 @@
+Đề tài: "Phân tích và tự động hóa quy trình cấp giấy xác nhận sinh viên tại trường cao đẳng Y Dược." Đợt này soát nội dung bộ slide 13 trang trước khi nhóm 4 người trình bày 20 phút trước giảng viên.
+
+Nguồn (chỉ đọc; bỏ qua mọi thư mục .venv và node_modules):
+- slides/slide-text.md: toàn bộ chữ trên 13 slide và ghi chú người trình bày (trích từ file .pptx).
+- docs/bao-cao-phan-tich.md: báo cáo gốc; đặc biệt mục 3 (điểm nghẽn), mục 4.6 (tính tay), mục 4.7 (kết quả mô phỏng, điều không được kết luận), mục 5 (TO-BE), mục 6 (prototype đã dựng), mục 9 (kịch bản demo).
+- analysis/out/results.md: bảng KPI 20 seed.
+- bai-tap yêu cầu của giảng viên tóm tắt: Business Problem & Process Overview; AS-IS (BPMN/Swimlane); ít nhất 1 bottleneck (ở đâu, nguyên nhân, ảnh hưởng); Process Mining (variants, frequency, cycle time, waiting time, bottleneck, rework, loop và kết luận vấn đề chính); TO-BE; prototype (1 trigger, 4 actions, 1 condition, 1 data source, 1 notification; giảng viên đã đồng ý thay Power Automate bằng n8n); đánh giá kết quả cải tiến.
+
+Chia việc (1 vòng, 2 pass):
+- Pass 1 – đúng số liệu và không nói quá: mọi con số trên slide (1.363, 944, 788, 551, 584, 121, 621, 63%, 369/400, 62,3%, 18,5%, 4,5%, 43→21, 1.239→0, 843, 1.693, 1.233, 5.740, 555, 585, 2.130, 95, 20/20, 0/20) có khớp nguồn không; câu nào khẳng định mạnh hơn bằng chứng (ví dụ hiệu quả thực tế, nguyên nhân chắc chắn, số test); slide và ghi chú có mâu thuẫn với mục 6 (kiến trúc prototype thật) không.
+- Pass 2 – đủ yêu cầu giảng viên và dễ trình bày: mỗi yêu cầu của giảng viên có slide nào đáp ứng; còn thiếu gì (ví dụ cycle time, rework, loop có được nói rõ không); tiêu đề slide có nêu được thông điệp; lỗi chính tả hoặc diễn đạt tiếng Việt; câu hỏi giảng viên có thể hỏi và gợi ý trả lời ngắn.
+Người đề xuất liệt kê phát hiện kèm số slide. Người phản biện kiểm lại từng phát hiện trong nguồn, bác cái sai. Người tổng hợp chỉ giữ phát hiện đã xác minh, xếp theo mức nghiêm trọng, mỗi phát hiện kèm câu sửa cụ thể.
+
+RÀNG BUỘC ĐỊNH DẠNG BẮT BUỘC:
+1. Trường summary TỐI ĐA 5000 ký tự.
+2. Không dùng LaTeX, không dùng ký tự gạch chéo ngược.
+3. Chỉ trả về đúng một khối JSON theo hợp đồng, tiếng Việt.

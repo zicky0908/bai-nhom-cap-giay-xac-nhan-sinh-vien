@@ -1,0 +1,7 @@
+Pass 1: các số KPI trên slide 12 khớp bảng 20 seed; 621, 63%, 369/400 và các tỷ lệ biến thể slide 7 khớp seed chính. Các số tính tay slide 8 khớp báo cáo, nhưng 95 là tuổi net C004 tại mốc 13/03 12:00, không phải khi đóng; nên thêm mốc này. Slide 8 ghi Gemini rà code, trong khi mục 4.7 ghi Antigravity: cần xác minh và sửa tên. Slide 10 khớp kiến trúc mục 6. Slide 11 khẳng định vòng bổ sung chạy đạt qua giao diện, nhưng mục 6 chỉ mô tả smoke test luồng cấp giấy: chưa đủ bằng chứng xác nhận câu này. Slide 12 cần ghi S0/S1 là cấu hình p15; 0/20 không áp dụng mọi mức p, vì p22 và p30 lần lượt có 3/20 và 4/20 seed giảm chờ ký.
+
+[proposals] [{"id": "D1", "claim": "Slide 7: sửa 4,5% thành tỷ lệ của biến thể cụ thể, tránh hiểu là tổng tỷ lệ hồ sơ đóng quá hạn.", "evidence": [{"source": "analysis/out/results.md:76", "detail": "4,5% ứng với chuỗi A01 → A02 → A03 → A04 → A13, không phải phép cộng mọi biến thể kết thúc A13."}], "acceptance": ["Ghi: 4,5% theo biến thể báo bổ sung một lần rồi đóng quá hạn.", "Không gọi 4,5% là tổng tỷ lệ đóng quá hạn."]}]
+
+---
+Limitations:
+- rg không có; đã đọc bằng find, sed và nl. Không sửa tệp, chạy test hay kiểm tra prototype staging. Báo cáo là bằng chứng chưa xác minh độc lập; chưa soát hình trong PPTX.

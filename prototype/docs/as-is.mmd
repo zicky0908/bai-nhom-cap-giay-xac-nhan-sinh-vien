@@ -1,0 +1,26 @@
+flowchart LR
+  %% AS-IS giả định — chỉnh sửa các bước/thời gian sau khi phỏng vấn đơn vị thực tế
+  subgraph SV["Sinh viên"]
+    A([Phát sinh nhu cầu]) --> B[Nộp yêu cầu trực tiếp / qua email]
+    G[Nhận yêu cầu bổ sung] --> H[Bổ sung thông tin] --> B
+    N[Nhận kết quả]
+  end
+  subgraph CTSV["Cán bộ công tác sinh viên"]
+    C[Tiếp nhận thủ công] --> D{Thông tin đầy đủ?}
+    D -- Không --> F[Liên hệ yêu cầu bổ sung]
+    D -- Có --> I[Đối chiếu tư cách sinh viên]
+    I --> J[Chuyển hồ sơ chờ duyệt]
+    M[In / xác nhận đã cấp giấy]
+  end
+  subgraph LD["Người phê duyệt"]
+    K{Phê duyệt?}
+    K -- Có --> L[Chấp thuận]
+    K -- Không --> R[Từ chối và nêu lý do]
+  end
+  B --> C
+  F --> G
+  J --> K
+  L --> M --> N
+  R --> N
+  classDef wait fill:#fff2cc,stroke:#b26b00,color:#583700;
+  class C,J wait;

@@ -1,0 +1,36 @@
+Đề tài bài nhóm (4 học viên): "Phân tích và tự động hóa quy trình cấp giấy xác nhận sinh viên tại trường cao đẳng Y Dược."
+
+Mục tiêu đợt này: soạn nội dung BÁO CÁO PHÂN TÍCH và DÀN Ý SLIDE (20 phút trình bày + 10 phút demo). Chưa xây dựng n8n, web hay Docker; phần prototype chỉ cần đặc tả đủ để triển khai bằng n8n Community Edition ở giai đoạn sau. Viết bằng tiếng Việt, cụ thể, dùng được ngay để làm slide; không đưa lời khuyên chung chung.
+
+Bối cảnh nghiệp vụ (giả định học thuật, chưa có dữ liệu hay quy trình chính thức của trường):
+- Sinh viên nộp yêu cầu cấp giấy xác nhận (ví dụ: xác nhận đang học, để hoãn nghĩa vụ quân sự, vay vốn, xin học bổng...).
+- Cán bộ kiểm tra thông tin và tư cách sinh viên.
+- Hồ sơ thiếu hoặc sai thông tin phải bổ sung (có thể nhiều lần).
+- Hồ sơ hợp lệ được chuyển phê duyệt; có thể được duyệt hoặc bị từ chối kèm lý do.
+- Sau phê duyệt, cán bộ xác nhận đã cấp giấy; hệ thống thông báo kết quả cho sinh viên.
+Mọi giả định phải được ghi rõ và có thể điều chỉnh. Không bịa quy định pháp luật, số liệu chính thức hay nguồn trích dẫn. Số liệu Process Mining là DỮ LIỆU MÔ PHỎNG và phải gắn nhãn như vậy; không trình bày mức cải thiện mô phỏng như hiệu quả đã chứng minh tại trường.
+
+Yêu cầu của giảng viên phải được đáp ứng đầy đủ:
+1. Business Problem và Process Overview (bối cảnh, mục tiêu, điểm bắt đầu/kết thúc, các bên liên quan, đầu vào/đầu ra, phạm vi, giả định).
+2. AS-IS bằng BPMN hoặc Swimlane: mã hóa từng hoạt động (A01, A02...), lane/người thực hiện, gateway, vòng lặp bổ sung, nhánh duyệt/từ chối. Đặc tả dạng bảng đủ để vẽ lại sơ đồ.
+3. Tối thiểu 1 bottleneck: vị trí (bước hoặc chuyển tiếp), nguyên nhân giả định, ảnh hưởng, và dữ liệu cần có để kiểm chứng. Không kết luận nguyên nhân chắc chắn chỉ từ một con số thời gian lớn.
+4. Process Mining với dữ liệu mô phỏng (Python + PM4Py):
+   - Schema event log: case_id, activity, timestamp (có múi giờ, hiển thị Asia/Ho_Chi_Minh), resource/role, scenario (AS-IS/TO-BE), lifecycle (start/complete) và các trường cần thiết khác (loại giấy, kênh nộp, số lần bổ sung...).
+   - Cách tách thời gian chờ, thời gian xử lý, tổng thời gian hoàn thành, hồ sơ tồn và tuổi hồ sơ, vòng lặp bổ sung, các biến thể.
+   - Thiết kế bộ sinh dữ liệu có seed: số hồ sơ, phân phối thời gian, xác suất bổ sung/từ chối, giờ làm việc; giải thích từng tham số. AS-IS và TO-BE dùng cùng cơ sở so sánh; nêu rõ tham số nào giữ cố định, tham số nào thay đổi và vì sao.
+   - Kết quả cần trình bày: bản đồ quy trình (DFG), tần suất và thời gian chuyển tiếp, biến thể phổ biến, tỷ lệ phải bổ sung, hồ sơ quá hạn theo ngưỡng cấu hình, so sánh AS-IS/TO-BE. Nếu tô màu nút nghẽn thì nêu công thức/tiêu chí.
+   - Một tập dữ liệu nhỏ (3-5 hồ sơ) kèm kết quả tính tay để đối chiếu các chỉ số.
+5. TO-BE: quy trình cải tiến đầy đủ; bảng đối chiếu thay đổi AS-IS → nguyên nhân → TO-BE; nêu bước bị loại bỏ, được tự động hóa hoặc kiểm soát lại; đặc tả để vẽ BPMN TO-BE.
+6. Đặc tả prototype tự động hóa (sẽ dựng bằng n8n sau): tối thiểu 1 trigger, 4 actions, 1 condition, 1 data source, 1 notification. Mô tả cấu trúc dữ liệu, máy trạng thái hồ sơ (trạng thái và chuyển tiếp hợp lệ), từng node/bước, điều kiện và nhánh xử lý, ghi event log, chống gửi trùng (idempotency), xử lý thiếu hồ sơ/quá hạn/từ chối/yêu cầu bổ sung, thông báo bằng hộp thư thử nghiệm local (ví dụ Mailpit, ghi rõ là email thử nghiệm).
+7. Đánh giá cải tiến: KPI về efficiency và effectiveness, với định nghĩa, công thức, nguồn dữ liệu, tần suất đo và mục tiêu (ghi rõ là mục tiêu dự kiến). So sánh AS-IS và TO-BE trên dữ liệu mô phỏng, kèm giới hạn của phân tích.
+8. Dàn ý slide cho 20 phút: mỗi slide có tiêu đề, thông điệp chính, nội dung, hình/sơ đồ nên dùng. Phân công 4 thành viên. Không ghi thời lượng lên slide; slide không chứa chỉ dẫn nội bộ.
+9. Kịch bản demo 10 phút (trình tự thao tác và kết quả mong đợi), rủi ro khi demo và phương án dự phòng.
+10. Checklist ánh xạ từng yêu cầu của giảng viên sang phần nội dung/bằng chứng tương ứng.
+
+Phân công nội dung theo vòng (mỗi vòng có hai pass propose → critique → synthesize):
+- Vòng 1: mục 1, 2, 3.
+- Vòng 2: mục 4, 5.
+- Vòng 3: mục 6, 7, 8, 9, 10.
+Người đề xuất (propose) viết bản nháp chi tiết cho các mục của vòng. Người phản biện (critique) tìm giả định yếu, mâu thuẫn, chỗ thiếu so với yêu cầu giảng viên, và các con số hoặc khẳng định không có cơ sở. Người tổng hợp (synthesize) viết lại TOÀN VĂN đã chỉnh sửa của các mục thuộc vòng đó và giải quyết từng phản biện. Pass thứ hai của mỗi vòng cải thiện bản tổng hợp của pass thứ nhất, không viết lại từ đầu.
+
+Quy ước đầu ra: đặt nội dung báo cáo vào trường summary dưới dạng Markdown, có tiêu đề mục rõ ràng (## 1. ..., ## 2. ...). Nếu không đủ chỗ, ưu tiên bảng và gạch đầu dòng súc tích. Đưa những gì còn thiếu hoặc cần nhóm xác minh vào limitations. Quyết định kiến trúc quan trọng ghi vào ledger dưới dạng proposal/decision, có tiêu chí nghiệm thu kiểm chứng được. Workspace chỉ chứa brief gốc của đề tài (docs/project-brief.md); có thể đọc để tham chiếu, không cần công cụ nào khác.
