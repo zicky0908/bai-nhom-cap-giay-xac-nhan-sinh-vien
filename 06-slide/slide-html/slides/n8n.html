@@ -1,0 +1,25 @@
+<section id="n8n" data-transition="fade" style="background:#F5F7F5;color:#1E2B2D;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px">
+<!-- cols lefts 128,365,602,839,1076,1313,1550 (w200); R1 top250 h120; R2 top440 h120; R3 top660 h130 (mid y725) -->
+<h2 style="position:absolute;left:128px;top:112px;width:1664px;font-size:60px;font-weight:700;line-height:1.1;color:#0F3A3F">Workflow n8n: đủ 5 thành phần đề yêu cầu</h2>
+<p data-build-in="fade order 1" style="position:absolute;left:128px;top:660px;width:200px;height:130px;background:#0F3A3F;border-radius:16px;padding:14px 16px;font-size:24px;line-height:1.25;color:#F2F6F5"><span style="color:#7FD1C4">Trigger</span><br><b>Webhook từ web</b></p>
+<p data-build-in="fade order 1" style="position:absolute;left:365px;top:660px;width:200px;height:130px;background:#FFFFFF;border:2px solid #9DBFB9;border-radius:16px;padding:14px 16px;font-size:24px;line-height:1.25;color:#0F3A3F"><span style="color:#0E7C74">Data source</span><br><b>Đọc hồ sơ qua API</b></p>
+<p data-build-in="fade order 2" style="position:absolute;left:602px;top:660px;width:200px;height:130px;background:#E3EFEC;border:2px dashed #0E7C74;border-radius:16px;padding:14px 16px;font-size:24px;line-height:1.25;color:#0F3A3F"><span style="color:#0E7C74">Condition</span><br><b>Cần tiền kiểm?</b></p>
+<p data-build-in="fade order 3" style="position:absolute;left:839px;top:440px;width:200px;height:120px;background:#E3EFEC;border:2px dashed #0E7C74;border-radius:16px;padding:12px 16px;font-size:24px;line-height:1.25;color:#0F3A3F"><span style="color:#0E7C74">Condition</span><br><b>Đủ điều kiện, đủ thông tin?</b></p>
+<p data-build-in="fade order 4" style="position:absolute;left:1076px;top:250px;width:200px;height:120px;background:#FFFFFF;border:2px solid #9DBFB9;border-radius:16px;padding:12px 16px;font-size:24px;line-height:1.25;color:#0F3A3F"><span style="color:#4D5E60">Action</span><br><b>Ghi: đạt</b></p>
+<p data-build-in="fade order 4" style="position:absolute;left:1076px;top:440px;width:200px;height:120px;background:#FFFFFF;border:2px solid #9DBFB9;border-radius:16px;padding:12px 16px;font-size:24px;line-height:1.25;color:#0F3A3F"><span style="color:#4D5E60">Action</span><br><b>Ghi: cần bổ sung</b></p>
+<p data-build-in="fade order 5" style="position:absolute;left:1313px;top:660px;width:200px;height:130px;background:#0E7C74;border-radius:16px;padding:14px 16px;font-size:24px;line-height:1.25;color:#FFFFFF"><span style="color:#D7EAE6">Notification</span><br><b>Gửi email</b></p>
+<p data-build-in="fade order 6" style="position:absolute;left:1550px;top:660px;width:200px;height:130px;background:#FFFFFF;border:2px solid #9DBFB9;border-radius:16px;padding:14px 16px;font-size:24px;line-height:1.25;color:#0F3A3F"><span style="color:#4D5E60">Action ×2</span><br><b>Báo lại web, phản hồi</b></p>
+<x-connector data-build-in="fade order 1" x1="328" y1="725" x2="365" y2="725" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 2" x1="565" y1="725" x2="602" y2="725" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 3" x1="802" y1="701" x2="939" y2="560" route="hv" style="color:#0E7C74;border-width:3px"></x-connector>
+<p data-build-in="fade order 3" style="position:absolute;left:820px;top:610px;width:110px;font-size:24px;font-weight:700;color:#0B5F59">Có</p>
+<x-connector data-build-in="fade order 5" x1="802" y1="749" x2="1313" y2="749" style="color:#9DBFB9;border-width:3px"></x-connector>
+<p data-build-in="fade order 5" style="position:absolute;left:830px;top:760px;width:460px;font-size:24px;color:#4D5E60">Không: chỉ gửi thông báo</p>
+<x-connector data-build-in="fade order 4" x1="939" y1="440" x2="1076" y2="310" route="vh" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 4" x1="1039" y1="500" x2="1076" y2="500" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 5" x1="1276" y1="310" x2="1453" y2="660" route="hv" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 5" x1="1276" y1="500" x2="1373" y2="660" route="hv" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 6" x1="1513" y1="725" x2="1550" y2="725" style="color:#5E7C78;border-width:3px"></x-connector>
+<p data-build-in="fade order 7" style="position:absolute;left:128px;top:880px;width:1664px;font-size:26px;line-height:1.4;color:#1E2B2D"><b>1</b> trigger · <b>1</b> data source · <b>2</b> condition · <b>4</b> action · <b>1</b> notification, vượt mức tối thiểu của đề (1 · 1 · 1 · 4 · 1).</p>
+<aside>TV4: đọc từ ô Trigger ở góc trái dưới. n8n nhận webhook, đọc hồ sơ, rồi hỏi: sự kiện này có cần tiền kiểm không. Có thì kiểm điều kiện và thông tin, ghi kết quả "đạt" hoặc "cần bổ sung" về web, sau đó gửi email. Không, ví dụ khi giấy đã cấp, thì đi thẳng tới gửi email. Cuối cùng n8n báo lại web là đã gửi và trả phản hồi cho webhook. Đề yêu cầu 1 trigger, 4 action, 1 condition, 1 data source, 1 notification; workflow có 2 condition.</aside>
+</section>

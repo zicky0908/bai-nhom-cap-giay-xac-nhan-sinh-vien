@@ -1,0 +1,21 @@
+<section id="tong-quan" data-transition="fade" style="background:#F5F7F5;color:#1E2B2D;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:60px;font-weight:700;line-height:1.1;color:#0F3A3F">Một hồ sơ, ba cách kết thúc</h2>
+<!-- A 0,110,320,160  B 520,40,480,300  E1 1224,0,440,100  E2 1224,140,440,100  E3 1224,280,440,100  bars y 470 / 590 -->
+<div style="position:relative;width:1664px;height:700px">
+<p data-build-in="fade order 1" style="position:absolute;left:0px;top:110px;width:320px;height:160px;background:#FFFFFF;border:2px solid #9DBFB9;border-radius:20px;padding:24px;font-size:28px;line-height:1.3;color:#0F3A3F"><b>Sinh viên nộp yêu cầu</b><br><span style="color:#4D5E60">đơn giấy hoặc form</span></p>
+<div data-build-in="fade order 2" style="position:absolute;left:520px;top:40px;width:480px;height:300px;background:#E3EFEC;border:2px solid #0E7C74;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:10px">
+<p style="font-size:28px;font-weight:700;color:#0F3A3F">Trường xử lý</p>
+<p style="font-size:26px;line-height:1.45;color:#2E4143">Tiếp nhận, ghi sổ<br>Kiểm tra thông tin, tư cách<br>Soạn giấy, trình ký<br>Ký, đóng dấu, báo kết quả</p>
+</div>
+<p data-build-in="fade order 3" style="position:absolute;left:1224px;top:0px;width:440px;height:100px;background:#D7EAE6;border-radius:20px;padding:20px 28px;font-size:28px;line-height:1.3;color:#0F3A3F"><b>E1</b> · Nhận giấy</p>
+<p data-build-in="fade order 3" style="position:absolute;left:1224px;top:140px;width:440px;height:100px;background:#F2DCDA;border-radius:20px;padding:20px 28px;font-size:28px;line-height:1.3;color:#7A2A24"><b>E2</b> · Bị từ chối, có lý do</p>
+<p data-build-in="fade order 3" style="position:absolute;left:1224px;top:280px;width:440px;height:100px;background:#F6E3C4;border-radius:20px;padding:20px 28px;font-size:28px;line-height:1.3;color:#7A4306"><b>E3</b> · Đóng do quá hạn bổ sung</p>
+<x-connector data-build-in="fade order 2" x1="320" y1="190" x2="520" y2="190" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 3" x1="1000" y1="110" x2="1224" y2="50" route="elbow" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 3" x1="1000" y1="190" x2="1224" y2="190" style="color:#5E7C78;border-width:3px"></x-connector>
+<x-connector data-build-in="fade order 3" x1="1000" y1="270" x2="1224" y2="330" route="elbow" style="color:#5E7C78;border-width:3px"></x-connector>
+<p data-build-in="rise order 4" style="position:absolute;left:0px;top:470px;width:1200px;height:80px;background:#0E7C74;border-radius:16px;padding:20px 28px;font-size:28px;color:#F2F6F5"><b>Thời gian phía trường</b> · từ lúc nộp tới lúc SV biết kết quả</p>
+<p data-build-in="rise order 5" style="position:absolute;left:0px;top:590px;width:1664px;height:80px;background:#9DBFB9;border-radius:16px;padding:20px 28px;font-size:28px;color:#0F3A3F"><b>Thời gian phía SV</b> · cộng thêm lúc SV chuẩn bị bổ sung và đến nhận giấy</p>
+</div>
+<aside>TV1: phạm vi từ lúc sinh viên nộp tới một trong ba kết cục E1, E2, E3. Ngoài phạm vi: ký số, giá trị pháp lý, tích hợp cơ sở dữ liệu của trường. Hai thanh dưới cùng là hai mốc đo: tách thời gian của sinh viên ra để không tính nhầm thành điểm nghẽn của trường. Giả định giờ làm việc thứ Hai đến thứ Sáu, 7:30–11:30 và 13:30–17:00.</aside>
+</section>

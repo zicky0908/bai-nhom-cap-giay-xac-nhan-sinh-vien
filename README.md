@@ -19,7 +19,7 @@ Repo chứa **toàn bộ** bài thu hoạch nhóm (4 học viên) môn BPM & AI:
 ├── 03-so-do-quy-trinh/     Sơ đồ BPMN AS-IS / TO-BE
 ├── 04-process-mining/      Mô phỏng + phân tích (Python, PM4Py) và kết quả
 ├── 05-prototype/           Ứng dụng demo: web + n8n + Mailpit + PostgreSQL (Docker)
-├── 06-slide/               3 bản slide, hình cho slide, mã nguồn dựng slide
+├── 06-slide/               Slide HTML (mới nhất), 3 bản PowerPoint, hình, mã nguồn
 └── 07-nhat-ky-ai/          Câu trả lời thật của các AI qua 6 lượt làm việc
 ```
 
@@ -39,6 +39,7 @@ Repo chứa **toàn bộ** bài thu hoạch nhóm (4 học viên) môn BPM & AI:
 | `05-prototype/docs/chuan-bi-truoc-demo.md` | Checklist trước giờ demo | **Trước mỗi buổi tập / demo** |
 | `05-prototype/docs/demo-script.md` | Kịch bản demo 10 phút | Tập demo |
 | `05-prototype/docs/slide-outline.md`, `ai-collaboration-log.md` | Dàn ý và nhật ký **cũ** của phiên dựng prototype | Chỉ tham khảo; bản chuẩn là `02-tai-lieu/ke-hoach-tao-slide` |
+| **`06-slide/slide-html/`** | **Bản slide mới nhất**: 16 slide HTML do Claude làm, sơ đồ vẽ lại cho dễ đọc; link trình chiếu và cách sửa trong `README.md` của thư mục | **Dùng để trình bày** |
 | `06-slide/Slide-Claude.pptx` | Bản slide do Claude làm (13 slide, có ghi chú người nói) | Bản đề xuất làm khung |
 | `06-slide/Slide-Codex.pptx`, `Slide-Antigravity.pptx` | Hai bản do Codex và Antigravity làm từ cùng dàn ý | So sánh, lấy ý |
 | `06-slide/hinh-anh/01…13-*.png` | 13 hình đánh số dùng cho slide | Chèn slide (bảng hình ↔ slide trong kế hoạch) |
@@ -61,6 +62,7 @@ Repo chứa **toàn bộ** bài thu hoạch nhóm (4 học viên) môn BPM & AI:
 Đọc `02-tai-lieu/tong-hop-kien-thuc.docx` (7 trang), đặc biệt mục 11 "Câu hỏi giảng viên có thể hỏi". Xem phần mình trình bày trong `02-tai-lieu/ke-hoach-tao-slide.docx`, mục 2.
 
 ### 4.2 Sửa slide
+- **Bản mới nhất là slide HTML** trong `06-slide/slide-html/` (xem `06-slide/slide-html/README.md`): mỗi slide một file `slides/<id>.html`, ghi chú người nói trong thẻ `<aside>`. Sửa file rồi nhờ chủ repo dùng Claude đăng lại lên link trình chiếu. Các ý dưới áp dụng cho bản PowerPoint.
 - Mở file trong `06-slide/` bằng PowerPoint và sửa trực tiếp. Sửa xong, commit file `.pptx`.
 - Lấy hình trong `06-slide/hinh-anh/`; tên file có số thứ tự khớp bảng hình trong kế hoạch.
 - Mọi con số lấy từ `02-tai-lieu/tong-hop-kien-thuc` mục 6 và 9; slide nào có số liệu Process Mining phải ghi "Dữ liệu mô phỏng".

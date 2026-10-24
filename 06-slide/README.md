@@ -1,5 +1,7 @@
 # Slide
 
+**Bản mới nhất: `slide-html/`** (16 slide HTML, sơ đồ vẽ lại cho dễ đọc; xem `slide-html/README.md`). Ba file `.pptx` dưới đây là bản PowerPoint trước đó.
+
 | File | Ai làm | Ghi chú |
 |---|---|---|
 | `Slide-Claude.pptx` | Claude | 13 slide; đã soát số liệu 2 lần; có ghi chú người trình bày |
