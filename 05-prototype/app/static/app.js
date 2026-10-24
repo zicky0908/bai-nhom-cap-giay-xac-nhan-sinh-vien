@@ -20,7 +20,7 @@ const ACTIVITY_LABELS = {
   NOTIFY_SENT: "Gửi thông báo"
 };
 
-document.querySelectorAll("[data-status]").forEach((el) => {
+document.querySelectorAll("[data-status]:not([data-table-row])").forEach((el) => {
   const value = el.dataset.status;
   el.textContent = STATUS_LABELS[value] || value || "Chưa xác định";
 });

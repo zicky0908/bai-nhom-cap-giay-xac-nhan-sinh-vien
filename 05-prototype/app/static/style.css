@@ -21,8 +21,8 @@ a { color: inherit; } button, input, select, textarea { font: inherit; } button,
 .page-space { min-height: calc(100vh - 170px); padding-block: 46px 70px; }
 .hero { display: grid; grid-template-columns: 1.35fr .65fr; gap: 32px; align-items: center; margin-bottom: 42px; }
 .eyebrow { margin: 0 0 8px; color: var(--teal); text-transform: uppercase; font-size: 12px; letter-spacing: .16em; font-weight: 800; }
-h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 14px; font: 750 clamp(35px, 5vw, 60px)/1.06 Georgia, serif; letter-spacing: -.025em; } h1 span { color: var(--teal); }
-h2 { margin-bottom: 14px; font: 730 clamp(22px, 2.2vw, 28px)/1.2 Georgia, serif; } .lead { max-width: 680px; color: #516075; font-size: 19px; }
+h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 14px; font: 750 clamp(35px, 5vw, 60px)/1.06 "Segoe UI", Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.025em; } h1 span { color: var(--teal); }
+h2 { margin-bottom: 14px; font: 730 clamp(22px, 2.2vw, 28px)/1.2 "Segoe UI", Inter, ui-sans-serif, system-ui, sans-serif; } .lead { max-width: 680px; color: #516075; font-size: 19px; }
 .trust-row { display: flex; flex-wrap: wrap; gap: 12px 20px; color: var(--green); font-weight: 700; font-size: 13px; }
 .hero-card { background: var(--navy); color: white; padding: 28px; border-radius: var(--radius); box-shadow: var(--shadow); }
 .hero-card .eyebrow { color: #79d8ce; }.mini-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 19px; }
