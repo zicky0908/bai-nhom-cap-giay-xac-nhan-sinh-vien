@@ -1,0 +1,854 @@
+=== TRANG 1 ===
+
+BPM • AI • PROCESS EXCELLENCE
+BÀI TẬP CÁ NHÂN: 
+PHÂN TÍCH VÀ ĐỀ XUẤT CẢI TIẾN MỘT QUY TRÌNH NGHIỆP VỤ
+Mỗi Anh/Chị chọn 01 quy trình thực tế trong doanh nghiệp, công việc mà mình hiểu rõ.
+Ví dụ: xin nghỉ phép, xử lý đơn hàng, tuyển dụng, thanh toán hóa đơn, phê duyệt mua hàng, xử lý
+khiếu nại, đăng ký sự kiện, tiếp nhận sinh viên, hỗ trợ IT.
+Hình thức
+• Báo cáo trực tiếp trước lớp
+• 10 - 15 phút/HV
+• Không cần nộp báo cáo Word
+• Nộp file slide để lưu minh chứng
+
+=== TRANG 2 ===
+
+BPM • AI • PROCESS EXCELLENCE
+NỘI DUNG:
+Process Overview
+• Tên quy trình
+• Mục tiêu
+• Điểm bắt đầu
+• Điểm kết thúc
+• Các bên tham gia
+AS-IS Process
+Vẽ Swimlane Diagram của quy trình hiện tại.
+Problems & Bottlenecks
+Chỉ ra ít nhất 2 vấn đề chính cần cải tiến
+Ví dụ: Waiting time cao, Phê duyệt nhiều cấp, Nhập dữ liệu lặp lại, Dễ sai sót, Thiếu thông tin,
+Rework, Không rõ trách nhiệm,...
+Quan trọng nhất là Anh/Chị cần xác định được:
+Vấn đề nằm chính xác ở bước nào hoặc đoạn chuyển tiếp nào của quy trình.
+Process Metrics
+Đề xuất ít nhất 2 KPIs để đo quy trình (Efficiency và Effectiveness)
+Ví dụ: Cycle Time, Waiting Time, Error Rate, On-Time Completion Rate, First-Time Resolution Rate,
+Customer Satisfaction,...
+
+=== TRANG 3 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TO-BE Process
+Học viên đề xuất quy trình cải tiến.
+Nên thể hiện:
+AS-IS → thay đổi → TO-BE
+Ví dụ: Nhân viên gửi email → thay bằng Form, Manager kiểm tra thủ công → tự động kiểm tra điều
+kiện, HR nhập lại Excel → hệ thống tự cập nhật,...
+Có thể vẽ lại TO-BE Process Map.
+AI & Automation Opportunity
+Trả lời câu hỏi:
+Trong quy trình này, AI hoặc tự động hóa có thể được dùng ở đâu?
+Ví dụ: AI phân loại yêu cầu, AI đọc tài liệu, Chatbot trả lời câu hỏi, Power Automate gửi approval,
+Power Automate cập nhật dữ liệu, Automated reminder,...
+
+=== TRANG 4 ===
+
+BPM • AI • PROCESS EXCELLENCE
+BÀI THU HOẠCH NHÓM CUỐI MÔN
+Hình thức thực hiện
+• Nhóm: 4 học viên/nhóm
+• Thời gian báo cáo: 20–30 phút/nhóm 
+• Trong đó nên có: 
+• 20 phút thuyết trình 
+• 10 phút demo 
+• Không nộp báo cáo Word 
+• Nhóm chuẩn bị: 
+• Slide trình bày 
+• Sơ đồ quy trình 
+• File dữ liệu nếu có 
+• Prototype Power Automate 
+• Demo trực tiếp
+
+=== TRANG 5 ===
+
+BPM • AI • PROCESS EXCELLENCE
+Chọn quy trình
+Mỗi nhóm chọn 01 quy trình nghiệp vụ có vấn đề thực tế và có khả năng cải tiến 
+hoặc tự động hóa.
+Ví dụ:
+• Quy trình xin nghỉ phép 
+• Quy trình mua hàng 
+• Quy trình phê duyệt thanh toán 
+• Quy trình xử lý hóa đơn 
+• Quy trình tuyển dụng 
+• Quy trình onboarding nhân viên 
+• Quy trình xử lý khiếu nại khách hàng 
+• Quy trình hỗ trợ IT 
+• Quy trình đăng ký sự kiện 
+• Quy trình hoàn ứng chi phí
+
+=== TRANG 6 ===
+
+BPM • AI • PROCESS EXCELLENCE
+1. Business Problem & Process Overview
+Nhóm giới thiệu:
+• Tên quy trình
+• Bối cảnh
+• Mục tiêu quy trình
+• Điểm bắt đầu
+• Điểm kết thúc
+• Các bên tham gia
+• Đầu vào
+• Đầu ra
+
+=== TRANG 7 ===
+
+BPM • AI • PROCESS EXCELLENCE
+2. Sơ đồ quy trình hiện tại - AS-IS
+Nhóm vẽ quy trình hiện tại bằng:
+• BPMN; 
+• Swimlane Diagram; 
+Sơ đồ cần thể hiện:
+• Các bước chính; 
+• Người/bộ phận thực hiện; 
+• Các điểm quyết định; 
+• Approval/rejection nếu có; 
+• Các vòng lặp hoặc rework nếu có.
+
+=== TRANG 8 ===
+
+BPM • AI • PROCESS EXCELLENCE
+3. Phân tích vấn đề và Bottleneck
+Nhóm xác định tối thiểu 1 vấn đề quan trọng trong quy trình hiện tại.
+Ví dụ:
+• Waiting time cao
+• Approval chậm
+• Manual data entry 
+• Nhập dữ liệu lặp lại
+• Rework 
+• Error 
+• Không rõ trách nhiệm
+• Quá nhiều bước trung gian
+• Thông tin bị phân tán
+• Khó theo dõi trạng thái
+Với mỗi vấn đề cần trả lời chi tiết:
+→ Vấn đề xảy ra ở đâu?
+→ Nguyên nhân là gì?
+→ Ảnh hưởng đến quy trình như thế nào?
+
+=== TRANG 9 ===
+
+BPM • AI • PROCESS EXCELLENCE
+4. Process Mining
+Nếu quy trình có dữ liệu hoặc nhóm có thể tạo bộ dữ liệu mô phỏng, nhóm thực hiện
+Process Mining.
+Nhóm phân tích:
+• Process variants 
+• Activity frequency 
+• Cycle time 
+• Waiting time 
+• Bottleneck 
+• Rework 
+• Loop 
+Sau đó kết luận:
+Dữ liệu Process Mining cho thấy vấn đề chính của quy trình nằm ở đâu?
+
+=== TRANG 10 ===
+
+BPM • AI • PROCESS EXCELLENCE
+5. Thiết kế quy trình cải tiến - TO-BE
+Nhóm thiết kế quy trình mới sau cải tiến (TO-BE Process Map)
+6. Power Automate Prototype
+Nhóm xây dựng 1 workflow có thể chạy được.
+Prototype nên có tối thiểu:
+• 1 Trigger 
+• 4 Actions 
+• 1 Condition 
+• 1 Data Source 
+• 1 Notification
+7. Đánh giá kết quả cải tiến
+Nếu TO-BE được triển khai, quy trình sẽ cải thiện như thế nào?
+
+=== TRANG 11 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TỔNG QUAN VỀ QUẢN TRỊ QUY TRÌNH NGHIỆP VỤ (BPM)
+Giới thiệu Khái niệm Cơ bản về Business Process Modeling (BPM)
+• Khái niệm BPM: Business Process Modeling (Mô hình hóa quy trình nghiệp vụ) là phương pháp luận đại diện và 
+phân tích các luồng công việc (workflows) nhằm hiểu rõ, cải tiến và tối ưu hóa vận hành tổ chức.
+• Thực trạng thị trường: Ngành công nghiệp BPM đã phát triển thành thị trường quy mô 14,4 tỷ USD.
+• Tác động cạnh tranh: Theo nghiên cứu của Deloitte, các doanh nghiệp sở hữu quy trình nghiệp vụ được thiết kế 
+bài bản có khả năng vượt trội hơn các đối thủ cạnh tranh tới 50%.
+• BPM ngày nay đang tạo ra những bước đột phá mới cùng các xu hướng như siêu tự động hóa, tích hợp trí tuệ
+nhân tạo (AI) và tự động hóa quy trình bằng robot (RPA), và mô hình song sinh kỹ thuật số quy trình
+• Mục tiêu học tập:
+1. Hiểu bản chất BPM và lý do BPM trở thành chiến lược thiết yếu cho tổ chức hiện đại.
+2. Nắm vững vai trò của BPM trong thúc đẩy hiệu suất, hỗ trợ ra quyết định và tăng năng lực thích ứng.
+3. Phân biệt được sự khác nhau giữa Quy trình (Process) và Tác vụ (Task).
+4. Xác định vai trò của các bên liên quan (Stakeholders) trong quản trị quy trình.
+1
+1
+
+=== TRANG 12 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TỔNG QUAN VỀ QUẢN TRỊ QUY TRÌNH NGHIỆP VỤ (BPM)
+Tầm Quan Trọng & Tác Động Kinh Tế Của BPM
+• Cắt giảm chi phí & Tăng hiệu suất (Efficiency & Cost Reduction):
+BPM hoạt động như một "huấn luyện viên cá nhân" cho luồng công việc, giúp loại bỏ sự trùng lặp và giảm thiểu độ trễ.
+Theo McKinsey, các doanh nghiệp ứng dụng BPM có thể giảm chi phí vận hành lên đến 30%.
+Ví dụ thực tế: Một công ty logistics đã giảm 25% thời gian giao hàng chỉ nhờ tối ưu hóa quy trình lập kế hoạch tuyến
+đường.
+• Nâng cao chất lượng Ra quyết định (Informed Decision-Making):
+BPM cung cấp thông tin thời gian thực về hiệu suất quy trình.
+Theo Gartner, doanh nghiệp sử dụng BPM cho phân tích dữ liệu giúp tăng 20% tốc độ ra quyết định.
+Ví dụ: Một công ty dịch vụ tài chính rút ngắn 40% thời gian phê duyệt khoản vay nhờ phát hiện các điểm nghẽn vận
+hành.
+• Đổi mới & Thích ứng linh hoạt (Innovation & Adaptability):
+Nghiên cứu của Deloitte chỉ ra rằng doanh nghiệp áp dụng công cụ BPM có khả năng thích ứng thành công trước các 
+biến động cao hơn 67%, thúc đẩy văn hóa đổi mới và cải tiến liên tục (Kaizen)
+Ví dụ: Trong đại dịch, các bán lẻ sử dụng BPM đã chuyển đổi mô hình sang kinh doanh trực tuyến một cách mượt mà.
+1
+2
+
+=== TRANG 13 ===
+
+BPM • AI • PROCESS EXCELLENCE
+Trao quyền cho người lao động;
+Tập trung vào việc giảm chi phí liên tục; 
+Quản lý chất lượng toàn diện; 
+Đúng thời điểm;
+Phân tích nguyên nhân gốc rễ;
+Quy trình dựa trên dữ liệu và tự động hóa với sự can thiệp của con người
+
+=== TRANG 14 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TỔNG QUAN VỀ QUẢN TRỊ QUY TRÌNH NGHIỆP VỤ (BPM)
+Cấu Trúc Hệ Thống: Phân Biệt Quy Trình (Process) Và Tác Vụ (Task)
+Khái niệm Quy trình (Process):
+• Là một chuỗi các tác vụ được thực hiện theo trình tự nhằm đạt được một mục tiêu cụ thể
+của tổ chức.
+• Đóng vai trò như một "bản đồ đường đi" (roadmap) dẫn dắt từ điểm bắt đầu đến kết quả
+mong muốn.
+Khái niệm Tác vụ (Task):
+• Là các hành động hoặc bước thực hiện đơn lẻ, cụ thể cấu thành nên quy trình.
+Ý nghĩa của sự phân cấp:
+• Việc phân biệt rõ giữa Process và Task giúp quản lý mô hình quy trình hiệu quả mà không
+bị mất mắt khỏi mục tiêu tổng thể lớn hơn khi xử lý các chi tiết nhỏ.
+1
+4
+
+=== TRANG 15 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TỔNG QUAN VỀ QUẢN TRỊ QUY TRÌNH NGHIỆP VỤ (BPM)
+Các Vai Trò Nhân Sự Cốt Lõi Trong Quản Trị Quy Trình (BPM Stakeholders)
+Chủ sở hữu quy trình (Process Owners):
+• Là các lãnh đạo chịu trách nhiệm định nghĩa và giám sát quy trình.
+• Đảm bảo quy trình luôn căn chỉnh chính xác với mục tiêu chiến lược của doanh nghiệp và
+vận hành hiệu quả.
+Chuyên viên phân tích (Process Analysts):
+• Chịu trách nhiệm tài liệu hóa và phân tích luồng công việc.
+• Tìm kiếm các cơ hội tối ưu hóa để làm cho quy trình hiệu quả và năng suất hơn.
+Người thực thi (Process Executors):
+• Là những cá nhân trực tiếp thực hiện các tác vụ trong quy trình.
+• Đóng góp ý kiến thực tế quan trọng để nhận diện các điểm nghẽn (bottlenecks) và thách
+thức trong vận hành hàng ngày.
+1
+5
+
+=== TRANG 16 ===
+
+BPM • AI • PROCESS EXCELLENCE
+VÒNG ĐỜI BPM (BPM LIFECYCLE) & NGHIÊN CỨU TÌNH HUỐNG THỰC TẾ
+Tổng Quan 5 Giai Đoạn Trong Vòng Đời BPM Lifecycle
+• Khái niệm BPM Lifecycle: Là khung quản trị gồm các giai đoạn liên tục giúp hướng dẫn 
+thiết kế, thực thi và tối ưu hóa các quy trình nghiệp vụ.
+• 5 Giai đoạn cốt lõi:
+1. Design (Thiết kế)
+2. Model (Mô hình hóa)
+3. Implement (Thực thi)
+4. Monitor (Giám sát)
+5. Optimize (Tối ưu hóa)
+• Tính chất: Là một chu trình lặp lại (iterative cycle) mang tính linh hoạt, hướng tới sự hoàn 
+hảo trong vận hành (Operational Excellence).
+1
+6
+
+=== TRANG 17 ===
+
+BPM • AI • PROCESS EXCELLENCE
+VÒNG ĐỜI BPM (BPM LIFECYCLE) & NGHIÊN CỨU TÌNH HUỐNG THỰC TẾ
+Chi Tiết Giai Đoạn Design, Model Và Implement
+Giai đoạn 1: Design (Thiết kế):
+• Xác định và tài liệu hóa các quy trình nghiệp vụ để đảm bảo căn chỉnh với mục tiêu tổ
+chức.
+• Đặt nền móng ban đầu bằng cách làm rõ quy trình cần đạt được những gì.
+Giai đoạn 2: Model (Mô hình hóa):
+• Tạo các bản vẽ trực quan cho luồng công việc sử dụng các chuẩn công cụ như BPMN.
+• Phân tích luồng để phát hiện các khu vực cần cải tiến, tạo sự minh bạch và đồng thuận
+giữa các bên liên quan.
+Giai đoạn 3: Implement (Thực thi):
+• Đưa quy trình đã thiết kế vào vận hành thực tế thông qua việc kết hợp công cụ công nghệ
+và nhân sự.
+• Chuyển các kế hoạch trên giấy thành hoạt động diễn ra theo thời gian thực.
+1
+7
+
+=== TRANG 18 ===
+
+BPM • AI • PROCESS EXCELLENCE
+
+
+=== TRANG 19 ===
+
+BPM • AI • PROCESS EXCELLENCE
+VÒNG ĐỜI BPM (BPM LIFECYCLE) & NGHIÊN CỨU TÌNH HUỐNG THỰC TẾ
+Chi Tiết Giai Đoạn Monitor Và Optimize
+Giai đoạn 4: Monitor (Giám sát):
+• Theo dõi và đo lường hiệu suất của các quy trình đang chạy
+• Sử dụng các chỉ số đo lường hiệu suất cốt lõi (KPIs) và công cụ phân tích để đảm bảo quy 
+trình đáp ứng mục tiêu và vận hành hiệu quả.
+Giai đoạn 5: Optimize (Tối ưu hóa):
+• Tiến hành cải tiến liên tục dựa trên dữ liệu thu thập và phản hồi từ giai đoạn giám sát.
+• Tinh chỉnh quy trình để thích ứng với sự thay đổi của môi trường kinh doanh và loại bỏ triệt 
+để các rác thải vận hành.
+1
+9
+
+=== TRANG 20 ===
+
+BPM • AI • PROCESS EXCELLENCE
+VÒNG ĐỜI BPM (BPM LIFECYCLE) & NGHIÊN CỨU TÌNH HUỐNG THỰC TẾ
+Case Study Thực Tế: Tối Ưu Quy Trình Phê Duyệt Khoản Vay Tại Majestic Bank
+Bối cảnh & Thách thức: Ngân hàng Majestic Bank gặp khủng hoảng vì quy trình đăng ký khoản vay 
+chậm chạp, giấy tờ phức tạp, phê duyệt kéo dài làm khách hàng thất vọng.
+Ứng dụng BPM Lifecycle:
+• Design: Phát hiện điểm nghẽn tại bước xác minh tài liệu thủ công và các cấp phê duyệt dư thừa.
+• Model: Vẽ sơ đồ quy trình bằng BPMN, làm rõ các khu vực có thể tự động hóa.
+• Implement: Triển khai công cụ kiểm tra tài liệu tự động và cổng nộp hồ sơ trực tuyến.
+• Monitor: Theo dõi thời gian xử lý và mức độ hài lòng khách hàng qua Bảng điều khiển (Dashboard) 
+thời gian thực.
+• Optimize: Tự động hóa giai đoạn phê duyệt cuối và tinh chỉnh dựa trên phản hồi.
+• Kết quả: Thời gian xử lý khoản vay giảm 50%, chi phí vận hành giảm mạnh và chỉ số hài lòng khách 
+hàng tăng vọt.
+2
+0
+
+=== TRANG 21 ===
+
+BPM • AI • PROCESS EXCELLENCE
+CÁC MÔ HÌNH & BẢNG ĐO LƯỜNG HIỆU SUẤT QUY TRÌNH (BPM METRICS)
+Chi Phí Do Trệch Hướng Quy Trình & Các Sản Phẩm Trực Quan (Artifacts)
+• Thực trạng tổn thất: Theo nghiên cứu của IDC, các sự yếu kém và thiếu hiệu quả trong
+quy trình tiêu tốn của doanh nghiệp tới 30% doanh thu hàng năm.
+• Sản phẩm trực quan (Visual Artifacts): Là công cụ cung cấp sự rõ ràng và cải tiến quy
+trình thông qua biểu diễn hình ảnh, giúp biến sự hỗn loạn trong vận hành thành sự nhịp
+nhàng và chuẩn xác.
+2
+1
+
+=== TRANG 22 ===
+
+BPM • AI • PROCESS EXCELLENCE
+CÁC MÔ HÌNH & BẢNG ĐO LƯỜNG HIỆU SUẤT QUY TRÌNH (BPM METRICS)
+Sơ Đồ Luồng (Flowchart), Swimlane Diagram & Ma Trận RACI
+Sơ đồ luồng (Process Flowcharts & Diagrams):
+• Minh họa trình tự các hoạt động, giúp luồng công việc dễ hiểu và hỗ trợ các đội nhóm dễ
+dàng nhận diện điểm yếu.
+• Ví dụ: Sơ đồ quy trình hoàn tất đơn hàng giúp căn chỉnh phối hợp giữa bộ phận vận hành,
+kho bãi và logistics.
+2
+2
+
+
+=== TRANG 23 ===
+
+BPM • AI • PROCESS EXCELLENCE
+CÁC MÔ HÌNH & BẢNG ĐO LƯỜNG HIỆU SUẤT QUY TRÌNH (BPM METRICS)
+Sơ Đồ Luồng (Flowchart), Swimlane Diagram & Ma Trận RACI
+Sơ đồ làn bơi (Swimlane
+Diagrams):
+• Phân chia các bước quy trình theo
+từng phòng ban hoặc cá nhân cụ
+thể.
+• Làm rõ vai trò, trách nhiệm, giúp
+các điểm nghẽn hiển thị rõ ràng.
+• Ví dụ: Hiển thị sự tương tác giữa
+Bán hàng (Sales), Kế toán (Billing)
+và Giao hàng (Shipping).
+2
+3
+
+
+=== TRANG 24 ===
+
+BPM • AI • PROCESS EXCELLENCE
+CÁC MÔ HÌNH & BẢNG ĐO LƯỜNG HIỆU SUẤT QUY TRÌNH (BPM METRICS)
+Sơ Đồ Luồng (Flowchart), Swimlane Diagram & Ma Trận RACI
+Ma trận RACI (RACI Matrix):
+• Định nghĩa rõ 4 vai trò cho từng tác vụ: Responsible (Người thực hiện), Accountable
+(Người chịu trách nhiệm chính), Consulted (Người tham vấn), Informed (Người nhận thông
+tin).
+• Giúp giảm thiểu sự chồng chéo và xung đột trong công việc.
+2
+4
+
+
+=== TRANG 25 ===
+
+BPM • AI • PROCESS EXCELLENCE
+CÁC MÔ HÌNH & BẢNG ĐO LƯỜNG HIỆU SUẤT QUY TRÌNH (BPM METRICS)
+Hiệu Suất (Efficiency)
+Bản chất: Đo lường mức độ nhanh chóng và mượt mà của quy trình, đo xem quy trình đạt
+kết quả với bao nhiêu thời gian, chi phí và nguồn lực.
+Các tiêu chí đánh giá:
+• Thời gian chu kỳ (Cycle Time): Đo lường tổng thời gian cần thiết để hoàn thành một quy 
+trình từ lúc bắt đầu đến khi kết thúc (ví dụ: từ khi khách đặt hàng đến khi nhận hàng).
+• Năng suất xử lý (Throughput): Đo lường khối lượng công việc hoàn thành trong một 
+khoảng thời gian nhất định (ví dụ: nhà máy sản xuất 500 sản phẩm/ngày).
+• Mức độ sử dụng nguồn lực (Resource Utilization): Kiểm tra xem nhân sự, thời gian và công 
+cụ có được khai thác hiệu quả hay không, tránh tình trạng quá tải hoặc lãng phí.
+2
+5
+
+=== TRANG 26 ===
+
+BPM • AI • PROCESS EXCELLENCE
+CÁC MÔ HÌNH & BẢNG ĐO LƯỜNG HIỆU SUẤT QUY TRÌNH (BPM METRICS)
+Hiệu Quả (Effectiveness) & KPIs
+Bản chất: Hiệu quả, Effectiveness: đo xem quy trình có đạt đúng mục tiêu hay không. Trọng tâm
+là chất lượng kết quả.
+Nhóm chỉ số Effectiveness:
+• Tỷ lệ chất lượng (Quality Rate): Tỷ lệ đầu ra đạt chuẩn ngay mà không cần làm lại (rework).
+• Độ hài lòng khách hàng (Customer Satisfaction): Đo lường qua khảo sát/phản hồi về mức độ
+đáp ứng kỳ vọng.
+• Tỷ lệ giải quyết lần đầu (First-Time Resolution Rate): Tỷ lệ sự cố được giải quyết triệt để ngay
+trong lần xử lý đầu tiên.
+Bản chất: là chỉ số hiệu suất then chốt được chọn để theo dõi một mục tiêu quan trọng. KPI có
+thể đo cả effectiveness lẫn efficiency.
+Nhóm chỉ số KPI thông dụng:
+• Tỷ lệ giao hàng đúng hạn (On-Time Delivery).
+• Hiệu suất chi phí (Cost Performance): So sánh chi phí thực tế với ngân sách.
+• Tỷ lệ tuân thủ (Compliance Rate): Đảm bảo quy trình đáp ứng chuẩn mực pháp lý (đặc biệt
+quan trọng trong Y tế, Tài chính). 2
+6
+
+=== TRANG 27 ===
+
+BPM • AI • PROCESS EXCELLENCE
+CÁC MÔ HÌNH & BẢNG ĐO LƯỜNG HIỆU SUẤT QUY TRÌNH (BPM METRICS)
+Case Study Thực Tế: Cải Tiến Quy Trình Xử Lý Đơn Hàng (Order Fulfillment)
+Vấn đề ban đầu: Tỷ lệ lỗi cao, thời gian chu kỳ kéo dài, độ hài lòng khách hàng sụt giảm.
+Chỉ số tập trung phân tích: thời gian giao hàng, tỷ lệ giao sai và sự hài lòng khách hàng đối
+với dịch vụ sau giao hàng.
+Nguyên nhân gốc rễ: Nhập liệu thủ công gây ra độ trễ và sai lệch thông tin.
+Giải pháp: Triển khai hệ thống xử lý đơn hàng tự động để chuẩn hóa dữ liệu nhập.
+Kết quả thu được:
+• Tỷ lệ lỗi giảm 40%.
+• Điểm hài lòng khách hàng tăng 25%.
+• Thời gian giao hàng nhanh hơn và đáng tin cậy hơn.
+2
+7
+
+=== TRANG 28 ===
+
+BPM • AI • PROCESS EXCELLENCE
+THÁCH THỨC CỦA BPM TRUYỀN THỐNG & SỰ BỨT PHÁ TỪ AI
+4 Thách Thức & Hạn Chế Cốt Lõi Của BPM Truyền Thống
+1. Khai phá quy trình tốn thời gian (Time-consuming Process Discovery): Việc vẽ bản đồ
+quy trình hoàn toàn thủ công, phỏng vấn nhân viên tốn hàng tuần, dễ phát sinh sai sót.
+2. Thiếu thông tin thời gian thực & Khả năng thích ứng kém: BPM truyền thống chỉ cung
+cấp dữ liệu quá khứ (historical data), khiến doanh nghiệp bị động trước các biến động thị
+trường.
+3. Khó khăn khi xử lý dữ liệu phi cấu trúc: Hệ thống cũ không thể xử lý hiệu quả email, tài
+liệu tải lên, tin nhắn mạng xã hội, làm bỏ lỡ các cơ hội kinh doanh (như bán chéo).
+4. Phụ thuộc quá lớn vào chuyên gia con người: Phê duyệt thủ công dẫn đến quyết định
+cảm tính, thiếu nhất quán, dễ rủi ro do thiên vị và chậm trễ.
+2
+8
+
+=== TRANG 29 ===
+
+BPM • AI • PROCESS EXCELLENCE
+THÁCH THỨC CỦA BPM TRUYỀN THỐNG & SỰ BỨT PHÁ TỪ AI
+Sự Bứt Phá Của Trí Tuệ Nhân Tạo (AI) Trong Quản Trị Quy Trình
+• Tự động khai phá quy trình (AI Process Mining): Sử dụng AI để phân tích nhật ký hệ thống
+(system logs) và tự động vẽ sơ đồ luồng công việc thực tế mà không cần làm thủ công.
+• Giám sát & Dự báo thời gian thực (Real-time Monitoring & Prediction): Sử dụng Học máy
+(Machine Learning) để theo dõi luồng công việc và dự báo điểm nghẽn trước khi nó xảy ra.
+• Tự động hóa tác vụ lặp lại (RPA & Hyper-automation): Kết hợp AI với Robotic Process
+Automation (RPA) để xử lý các tác vụ lặp lại, giải phóng con người cho công việc chiến lược.
+• Mô hình bản sao số quy trình (Process Digital Twins): Cho phép doanh nghiệp giả lập và
+mô phỏng các kịch bản vận hành (như đợt cao điểm lễ tết) trên không gian ảo để tối ưu hóa
+trước khi ứng dụng thực tế.
+2
+9
+
+=== TRANG 30 ===
+
+BPM • AI • PROCESS EXCELLENCE
+THÁCH THỨC CỦA BPM TRUYỀN THỐNG & SỰ BỨT PHÁ TỪ AI
+Case Study Thực Tế: Đột Phá Dịch Vụ Khách Hàng Ngành Viễn Thông
+Thách thức: Công ty viễn thông đối mặt với lượng cuộc gọi quá tải, thời gian phản hồi chậm,
+định tuyến thủ công gây trễ hạn.
+Giải pháp Tích hợp AI:
+1. AI Process Discovery: Phân tích log tương tác để tìm các vấn đề phổ biến nhất của khách
+hàng.
+2. Intelligent Chatbots: Xử lý tức thì các truy vấn lặp lại.
+3. Predictive Analytics: Dự báo khung giờ cao điểm để chủ động phân bổ nhân sự.
+Kết quả:
+• Thời gian phản hồi giảm 60%.
+• Độ hài lòng khách hàng tăng 35%.
+• Tăng 30% hiệu suất tổng thể theo chuẩn đánh giá của Deloitte.
+3
+0
+
+=== TRANG 31 ===
+
+BPM • AI • PROCESS EXCELLENCE
+THÁCH THỨC CỦA BPM TRUYỀN THỐNG & SỰ BỨT PHÁ TỪ AI
+So Sánh Tổng Quan: BPM Truyền Thống vs. BPM Tích Hợp AI
+3
+1
+Tiêu chí BPM Truyền thống BPM Tích hợp AI (AI-driven BPM)
+Khai phá quy trình Thủ công, tốn hàng tuần, dễ lỗi Tự động qua Process Mining log hệ thống
+Cung cấp dữ liệu Dữ liệu quá khứ, báo cáo tĩnh Giám sát & dự báo thời gian thực
+Xử lý dữ liệu Chỉ xử lý dữ liệu có cấu trúc Xử lý tốt dữ liệu phi cấu trúc (Email, Docs)
+Thực thi công việc Phụ thuộc con người, dễ nghẽn Tự động hóa thông minh (RPA + Chatbot)
+
+=== TRANG 32 ===
+
+BPM • AI • PROCESS EXCELLENCE
+Bài tập nhóm thực hành: Xây dựng Bản thiết kế Quy trình Nghiệp vụ
+
+=== TRANG 33 ===
+
+BPM • AI • PROCESS EXCELLENCE
+HỆ SINH THÁI CÔNG CỤ BPM AI & CÁC MÔ HÌNH GENAI CỐT LÕI
+Tổng Quan Hệ Sinh Thái Công Cụ BPM Tích Hợp AI Nổi Bật
+• Appian: Được ví như "Dao quân đội Thụy Sĩ“ đa năng, cho phép xây dựng luồng công việc
+nhanh chóng trong vài phút.
+• IBM BPM Suite: Chuyên gia phân tích dữ liệu, xử lý con số để hỗ trợ ra quyết định.
+• Microsoft Power Automate: chuyên xử lý các tác vụ lặp lại mượt mà.
+• Pega Systems: Bộ não phân tích dự báo (Predictive Analytics) đưa ra các quyết định
+thông minh.
+• Các công cụ hàng đầu khác: SAP Signavio, Oracle BPM Suite, Nintex, Kissflow: đều đóng
+vai trò quan trọng, từ khai thác dữ liệu quý giá đến quản lý quy trình một cách dễ dàng
+3
+3
+
+=== TRANG 34 ===
+
+BPM • AI • PROCESS EXCELLENCE
+HỆ SINH THÁI CÔNG CỤ BPM AI & CÁC MÔ HÌNH GENAI CỐT LÕI
+Bộ Ba Mô Hình GenAI Cốt Lõi Siêu Tăng Cường Tối Ưu Quy Trình
+OpenAI ChatGPT / CustomGPT:
+• Đóng vai trò là "Bạn đồng hành sáng tạo" (Brainstorming Buddy).
+• Xuất sắc trong việc phát sinh ý tưởng, tinh chỉnh quy trình và tạo tài liệu hướng dẫn.
+Anthropic Claude:
+• Chuyên gia phân tích dữ liệu sâu và đọc hiểu mã code.
+• Phát hiện điểm nghẽn trong tập dữ liệu phức tạp (như chuỗi cung ứng, hóa đơn).
+Google Gemini:
+• Tích hợp sâu vào hệ sinh thái Google Workspace (Docs, Sheets, Gmail, Drive).
+• Tối ưu hóa quy trình theo thời gian thực dựa trên phân tích dự báo.
+3
+4
+
+=== TRANG 35 ===
+
+3
+5
+
+
+=== TRANG 36 ===
+
+3
+6
+
+
+=== TRANG 37 ===
+
+BPM • AI • PROCESS EXCELLENCE
+HỆ SINH THÁI CÔNG CỤ BPM AI & CÁC MÔ HÌNH GENAI CỐT LÕI
+Thực Hành ChatGPT: Bảo Mật Dữ Liệu & Phân Tích Quy Trình Hóa Đơn
+Quy tắc bảo mật dữ liệu doanh nghiệp:
+Trong giao diện ChatGPT: Vào Settings → Data Controls → Tắt mục "Improve the model for
+everyone" để đảm bảo dữ liệu nhạy cảm không bị dùng để huấn luyện mô hình.
+Kịch bản thực hành (Phân tích Quy trình Hóa đơn e-Commerce):
+1. Prompt 1: Tìm cơ hội ứng dụng Generative AI trong quy trình hóa đơn
+2. Prompt 2: Rút ra 3 ưu tiên cốt lõi nhất
+3. Prompt 3: Bảng hóa thông tin & Xuất file → ChatGPT hỗ trợ tạo bảng và tạo link tải file
+Excel (.xlsx) trực tiếp.
+3
+7
+
+=== TRANG 38 ===
+
+BPM • AI • PROCESS EXCELLENCE
+HỆ SINH THÁI CÔNG CỤ BPM AI & CÁC MÔ HÌNH GENAI CỐT LÕI
+Thực Hành Google Gemini & Anthropic Claude Trong Phân Tích Dữ Liệu
+Thực hành Google Gemini (Tích hợp Workspace):
+• Mở Google Docs → Chọn biểu tượng Ask Gemini.
+• Nhập câu lệnh thiết kế quy trình thu mua (Procurement) → Nhấn Insert để chèn trực tiếp nội dung
+vào văn bản.
+Thực hành Anthropic Claude (Phân tích Dữ liệu Hóa đơn):
+• Tải lên file CSV dữ liệu 20 hóa đơn (ID, Ngày, Hạn thanh toán, Nhà cung cấp, Số tiền, Trạng thái).
+• Kết quả Claude phân tích:
+• Trạng thái: % đã trả, % quá hạn.
+• Phát hiện mẫu hình (Patterns): Mảng nào có tỷ lệ quá hạn cao nhất; Thanh toán chuyển khoản ngân
+hàng bị trễ nhiều nhất; Hóa đơn quá hạn lâu có giá trị trung bình lớn.
+3
+8
+
+=== TRANG 39 ===
+
+BPM • AI • PROCESS EXCELLENCE
+KHAI PHÁ & THIẾT KẾ QUY TRÌNH VỚI POWER AUTOMATE & CHATGPT
+Tự Động Khai Phá Quy Trình (Process Mining) Với Power Automate
+Thực trạng: 60% doanh nghiệp vẫn gặp khó khăn trong việc trực quan hóa luồng công việc.
+AI trong lập bản đồ quy trình với Power Automate:
+• Tự động khám phá quy trình: Phân tích dữ liệu nhật ký sự kiện để phát hiện các điểm kém
+hiệu quả trong quy trình.
+• Tích hợp dữ liệu liền mạch: Kết nối với tệp CSV ,cơ sở dữ liệu và các hệ thống khác, mang
+đến bức tranh toàn diện
+• Bản đồ quy trình tương tác: Giúp xác định các điểm nghẽn và những khu vực cần cải thiện.
+3
+9
+
+=== TRANG 40 ===
+
+BPM • AI • PROCESS EXCELLENCE
+KHAI PHÁ & THIẾT KẾ QUY TRÌNH VỚI POWER AUTOMATE & CHATGPT
+Tự Động Khai Phá Quy Trình (Process Mining) Với Power Automate
+Quy trình thực thi khai phá:
+1. Chuẩn bị dữ liệu: Tải lên file Nhật ký sự kiện (Event Log CSV) chứa các trường: Case ID,
+Activity Name, Start/End Timestamp, Resource, Role, Invoice Value.
+2. Ánh xạ thuộc tính (Attribute Mapping): Gán Invoice Value thành Financial, Resource
+thành Resource Type, Activity Name thành Activity.
+3. Chạy phân tích: Hệ thống tự động tạo Process Map (Bản đồ quy trình tương tác).
+4
+0
+
+=== TRANG 41 ===
+
+BPM • AI • PROCESS EXCELLENCE
+KHAI PHÁ & THIẾT KẾ QUY TRÌNH VỚI POWER AUTOMATE & CHATGPT
+Tự Động Khai Phá Quy Trình (Process Mining) Với Power Automate
+Quy trình hoàn tiền thanh toán:
+• Nhập dữ liệu nhật ký sự kiện: Bao gồm giá trị hóa đơn và dấu thời gian.
+• Tạo bản đồ quy trình: Chỉ với vài thao tác nhấp chuột.
+• Xác định điểm kém hiệu quả: Ví dụ các bước hoàn tiền xử lý chậm.
+• Thu thập thông tin chuyên sâu: Hỗ trợ xác định các cải tiến phù hợp và có mục tiêu.
+4
+1
+
+=== TRANG 42 ===
+
+BPM • AI • PROCESS EXCELLENCE
+KHAI PHÁ & THIẾT KẾ QUY TRÌNH VỚI POWER AUTOMATE & CHATGPT
+Phân Tích Sơ Đồ Quy Trình & Khai Thác Trợ Lý Copilot AI
+Kết quả phân tích từ dữ liệu mẫu (Accounts Payable Refund):
+• Khối lượng: 133 cases, 13 activities, 10 biến thể quy trình, thời gian trung bình 2.39 ngày.
+• Tỷ lệ làm lại (Rework rate): 18%, Tỷ lệ vòng lặp (Loop): 18%.
+Tương tác với Copilot AI (dành cho bản pro)
+• Câu hỏi: "Hoạt động nào có tỷ lệ làm lại cao nhất?" → Complete the customer memo có tỷ
+lệ rework lên tới 42%.
+• Phân tích nguyên nhân gốc rễ.
+4
+2
+
+=== TRANG 43 ===
+
+BPM • AI • PROCESS EXCELLENCE
+
+
+=== TRANG 44 ===
+
+BPM • AI • PROCESS EXCELLENCE
+
+
+=== TRANG 45 ===
+
+BPM • AI • PROCESS EXCELLENCE
+
+
+=== TRANG 46 ===
+
+BPM • AI • PROCESS EXCELLENCE
+
+
+=== TRANG 47 ===
+
+BPM • AI • PROCESS EXCELLENCE
+KHAI PHÁ & THIẾT KẾ QUY TRÌNH VỚI POWER AUTOMATE & CHATGPT
+Tại sao nên tự động hóa quy trình kinh doanh với AI
+Thực trạng: Mắc kẹt trong việc quản lý các công việc lặp đi lặp lại, phê duyệt hóa đơn, theo
+dõi yêu cầu nghỉ phép và chuyển tiếp tài liệu. Việc này tẻ nhạt, tốn thời gian và dễ xảy ra lỗi.
+=> Giờ hãy tưởng tượng AI can thiệp, tự động hóa các quy trình này và biến quy trình làm
+việc của bạn thành các hệ thống liền mạch và hiệu quả
+4
+7
+
+=== TRANG 48 ===
+
+BPM • AI • PROCESS EXCELLENCE
+KHAI PHÁ & THIẾT KẾ QUY TRÌNH VỚI POWER AUTOMATE & CHATGPT
+Thứ nhất, nó giúp giảm thiểu lỗi và chi phí vận hành.
+Thứ hai, mọi thứ đều được tăng tốc. Quá trình phê duyệt diễn ra nhanh hơn, và toàn bộ quy
+trình trở nên hiệu quả hơn.
+Cuối cùng, nhân viên được giải phóng khỏi các công việc không cần thiết để như chiến
+lược và đổi mới.
+4
+8
+Tại sao nên tự động hóa quy trình kinh doanh với AI
+
+=== TRANG 49 ===
+
+BPM • AI • PROCESS EXCELLENCE
+KHAI PHÁ & THIẾT KẾ QUY TRÌNH VỚI POWER AUTOMATE & CHATGPT
+Sáng Tạo Quy Trình Onboarding Khách Hàng Ngân Hàng Với ChatGPT (Bước 1 & 2)
+Kịch bản thiết kế luồng Onboarding tự động:
+Bước 1: Đề xuất Luồng công việc (Workflow Generation):
+1. Tương tác & Sàng lọc ban đầu (Chatbot AI).
+2. Định danh điện tử & Xác thực KYC (Đọc OCR tài liệu, Nhận diện khuôn mặt).
+3. Điền biểu mẫu thông minh & Chữ ký điện tử.
+4. Đánh giá rủi ro tự động & Phê duyệt tài khoản.
+Bước 2: Phân tích Điểm nghẽn & Giải pháp Cải tiến:
+• Điểm nghẽn: Giới hạn Chatbot AI, lỗi nhận diện OCR, cảnh báo gian lận giả (false
+positives).
+• Cải tiến: Đưa mô hình lai (Hybrid AI + Human support), tinh chỉnh ngưỡng AI
+4
+9
+
+=== TRANG 50 ===
+
+BPM • AI • PROCESS EXCELLENCE
+KHAI PHÁ & THIẾT KẾ QUY TRÌNH VỚI POWER AUTOMATE & CHATGPT
+Đánh Giá Chỉ Số, Thách Thức & Đào Tạo Nhân Sự Onboarding (Bước 3, 4 & 5)
+Bước 3: Chỉ số giám sát cốt lõi (Metrics):
+• Tỷ lệ bỏ cuộc (Drop-off rate), thời gian phê duyệt KYC, tỷ lệ hoàn tất chữ ký số.
+Bước 4: Thách thức & Giải pháp triển khai:
+• Tích hợp hệ thống cũ (Legacy systems), tuân thủ bảo mật dữ liệu (GDPR, CCPA).
+Bước 5: Chương trình đào tạo nhân sự:
+• Đội tuân thủ & Rủi ro: Đào tạo xử lý sai lệch rủi ro AI, chuẩn GDPR.
+• Đội ngũ IT: Đào tạo tinh chỉnh mô hình AI, tích hợp API.
+• Nhân viên tuyến đầu: Đào tạo phối hợp mô hình lai (AI + Con người).
+5
+0
+
+=== TRANG 51 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TỰ ĐỘNG HÓA QUY TRÌNH VỚI POWER AUTOMATE & SHAREPOINT
+Bài Toán Tự Động Hóa Quy Trình Quản Lý Nghỉ Phép (Leave Application)
+Vấn đề: Nhập liệu thủ công, duyệt qua email rải rác, kiểm tra ngày phép thủ công tốn thời
+gian và dễ nhầm lẫn.
+Mục tiêu tự động hóa:
+1. Thu thập đơn xin nghỉ phép qua Microsoft Forms.
+2. Tự động kiểm tra số ngày phép còn lại từ SharePoint List.
+3. Tính toán số ngày nghỉ và so sánh điều kiện.
+4. Duyệt tự động / Từ chối và gửi email thông báo + Cập nhật cơ sở dữ liệu.
+5
+1
+
+=== TRANG 52 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TỰ ĐỘNG HÓA QUY TRÌNH VỚI POWER AUTOMATE & SHAREPOINT
+Kiến Trúc Hệ Thống & Khởi Tạo Luồng Với Power Automate
+Cấu trúc Dữ liệu Đầu vào:
+• Microsoft Form: Thu thập Employee ID, Leave Start Date, Leave End Date.
+• SharePoint List 1 (Leave Balance Demo): Chứa dữ liệu Employee ID, Leave Balance.
+• SharePoint List 2 (Leave Register Demo): Nhật ký duyệt phép chứa Employee ID,
+Start/End Date, Status, Action Taken.
+Khởi tạo Workflow trong Power Automate:
+• Trigger: When a new response is submitted.
+• Action 1: Get response details (Lấy thông tin đơn).
+• Action 2: Get items từ SharePoint List với câu truy vấn lọc: title eq Employee ID.
+5
+2
+
+=== TRANG 53 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TỰ ĐỘNG HÓA QUY TRÌNH VỚI POWER AUTOMATE & SHAREPOINT
+Logic Cấu Trúc Luồng, Hàm Tính Toán & Kết Quả Vận Hành
+[MS Form Nộp Đơn] ──> [Lấy Thông Tin Đơn] ──> [Đọc Số Dư Phép SharePoint]
+│
+[Hàm Compose: Tính Số Ngày]
+│
+[Kiểm Tra Điều Kiện: Đủ Phép?]
+/                            \
+(ĐÚNG)    /                              \ (SAI)
+/                                \
+[Trừ Số Dư Phép & Cập Nhật SharePoint]          [Ghi Nhận Từ Chối Vào SharePoint]
+[Ghi Nhận Duyệt Vào Register]                   [Gửi Email Từ Chối + CC Cho HR]
+[Gửi Email Phê Duyệt Cho Nhân Viên]
+• Hàm Compose tính số ngày nghỉ: Sử dụng công thức toán học sub(LeaveEndDate, LeaveStartDate).
+• Nhánh ĐÚNG (Đủ ngày phép): Cập nhật Status = Approved, trừ ngày phép còn lại, gửi email phê duyệt.
+• Nhánh SAI (Không đủ phép): Cập nhật Status = Denied, gửi email từ chối đồng thời CC cho bộ phận HR.
+5
+3
+
+=== TRANG 54 ===
+
+BPM • AI • PROCESS EXCELLENCE
+QUẢN LÝ QUY TRÌNH MUA SẮM KHÔNG CODE VỚI PIPEFY AI
+Giới Thiệu Nền Tảng Low-Code Pipefy AI Trong Quản Lý Mua Sắm
+Khái niệm Pipefy: Nền tảng Low-Code / No-Code tích hợp AI giúp tự động hóa luồng công
+việc mà không cần viết mã lập trình.
+Ưu điểm trong Mua sắm (Procurement):
+• Loại bỏ sự chậm trễ và email rải rác trong quy trình phê duyệt mua sắm.
+• AI đóng vai trò như "Thấu kính tối ưu" ,tự động đề xuất luồng quy trình chuẩn ngành.
+• Tự động hóa định tuyến các đơn mua sắm giá trị cao lên cấp quản lý cao hơn.
+5
+4
+
+=== TRANG 55 ===
+
+BPM • AI • PROCESS EXCELLENCE
+QUẢN LÝ QUY TRÌNH MUA SẮM KHÔNG CODE VỚI PIPEFY AI
+Khởi Tạo Quy Trình Mua Sắm Bằng Câu Lệnh (Prompt-Based Generation)
+Câu lệnh khởi tạo (Prompting Pipefy AI):
+• "Tạo một quy trình mua sắm đơn giản gồm biểu mẫu yêu cầu và các giai đoạn: Approval
+(Phê duyệt), Vendor Selection (Chọn nhà cung cấp), Purchase Order (Đơn đặt hàng),
+Delivery (Giao hàng), Receipt (Nhận hàng) và Completion (Hoàn thành)".
+Kết quả Pipefy tạo tự động:
+• Khởi tạo ngay một bảng Kanban Board với đầy đủ các cột giai đoạn tương ứng.
+• Tự động tạo biểu mẫu (Form) thu thập thông tin mua sắm ban đầu.
+5
+5
+
+=== TRANG 56 ===
+
+BPM • AI • PROCESS EXCELLENCE
+QUẢN LÝ QUY TRÌNH MUA SẮM KHÔNG CODE VỚI PIPEFY AI
+Vận Hành Bảng Kanban & Xử Lý Thẻ Đơn Hàng Mua Sắm (Card Tracking)
+• Tạo thẻ yêu cầu (Add Card): Nhập tên vật tư (VD: Văn phòng phẩm), số lượng (100), ngân 
+sách ($1000), lý do bổ sung, độ ưu tiên (High).
+• Chuyển giai đoạn Phê duyệt (Approval Stage):
+• Điền hạn phê duyệt, người đánh giá (Reviewer), tích chọn danh mục kiểm tra tuân thủ 
+(Checklist).
+• Chuyển tiếp tự động: Khi trạng thái chuyển thành Approved, thẻ đơn hàng sẽ tự động di 
+chuyển sang cột Vendor Selection.
+• Ý nghĩa: Giúp quản lý theo dõi minh bạch trạng thái của từng giao dịch mua sắm từ đầu 
+đến cuối theo thời gian thực.
+5
+6
+
+=== TRANG 57 ===
+
+BPM • AI • PROCESS EXCELLENCE
+TỔNG KẾT & LỘ TRÌNH CHUYỂN ĐỔI QUY TRÌNH
+Tổng Kết Bài Học & Lộ Trình Hướng Tới Operational Excellence
+Tóm tắt hành trình chuyển đổi:
+1. Nền tảng: Hiểu rõ BPM Lifecycle và các chỉ số đo lường (Cycle time, Efficiency,
+Effectiveness).
+2. Đột phá: Khắc phục hạn chế của BPM truyền thống bằng AI, Process Mining và Giám sát
+thời gian thực.
+3. Thực thi: Sử dụng linh hoạt bộ công cụ Generative AI (ChatGPT, Claude, Gemini) kết hợp
+Power Automate và Pipefy để tự động hóa công việc.
+5
+7

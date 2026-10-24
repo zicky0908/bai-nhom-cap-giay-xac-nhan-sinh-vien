@@ -4,17 +4,16 @@ node_modules/
 __pycache__/
 *.py[cod]
 .pytest_cache/
-# Bí mật local của prototype (dùng .env.example làm mẫu)
-prototype/.env
-# Sản phẩm trung gian khi soát slide
-slides/qa/
-slides/.fonts/
-slides/*.pdf
-analysis/out/run.log
 *.db
-slides/variants/*/qa/
-slides/variants/*/output/*.png
-slides/variants/*/output/*.json
-slides/variants/*/output/*.pdf
-bo-tai-lieu-slide/.qa/
-bo-tai-lieu-slide/*.pdf
+
+# Bí mật local của prototype (dùng .env.example làm mẫu)
+05-prototype/.env
+
+# Sản phẩm trung gian
+04-process-mining/out/run.log
+06-slide/ma-nguon/.fonts/
+06-slide/ma-nguon/**/qa/
+06-slide/ma-nguon/ai-khac/*/output/
+*.pdf
+!01-de-bai/tai-lieu-mon-hoc/*.pdf
+.qa/

@@ -1,0 +1,183 @@
+PHẦN I. BÀI TẬP CÁ NHÂN
+BÀI TẬP CÁ NHÂN: PHÂN TÍCH VÀ ĐỀ XUẤT CẢI TIẾN MỘT QUY TRÌNH NGHIỆP VỤ
+Mỗi Anh/Chị chọn 01 quy trình thực tế trong doanh nghiệp, công việc mà mình hiểu rõ.
+Ví dụ:
+- Xin nghỉ phép
+- Xử lý đơn hàng
+- Tuyển dụng
+- Thanh toán hóa đơn
+- Phê duyệt mua hàng
+- Xử lý khiếu nại
+- Đăng ký sự kiện
+- Tiếp nhận sinh viên
+- Hỗ trợ IT
+Hình thức thực hiện
+- Báo cáo trực tiếp trước lớp.
+- Thời gian: 10–15 phút/học viên.
+- Không cần nộp báo cáo Word.
+- Nộp file slide để lưu minh chứng.
+Nội dung bài tập cá nhân
+1. Process Overview – Tổng quan quy trình
+Trình bày các nội dung:
+- Tên quy trình
+- Mục tiêu
+- Điểm bắt đầu
+- Điểm kết thúc
+- Các bên tham gia
+2. AS-IS Process – Quy trình hiện tại
+Vẽ Swimlane Diagram của quy trình hiện tại.
+3. Problems & Bottlenecks – Vấn đề và điểm nghẽn
+Chỉ ra ít nhất 2 vấn đề chính cần cải tiến.
+Ví dụ:
+- Waiting time cao
+- Phê duyệt nhiều cấp
+- Nhập dữ liệu lặp lại
+- Dễ sai sót
+- Thiếu thông tin
+- Rework
+- Không rõ trách nhiệm
+Quan trọng nhất là Anh/Chị cần xác định được:
+Vấn đề nằm chính xác ở bước nào hoặc đoạn chuyển tiếp nào của quy trình.
+4. Process Metrics – Chỉ số đo lường quy trình
+Đề xuất ít nhất 2 KPIs để đo quy trình (Efficiency và Effectiveness).
+Ví dụ:
+- Cycle Time
+- Waiting Time
+- Error Rate
+- On-Time Completion Rate
+- First-Time Resolution Rate
+- Customer Satisfaction
+5. TO-BE Process – Quy trình cải tiến
+Học viên đề xuất quy trình cải tiến.
+Nên thể hiện:
+AS-IS → Thay đổi → TO-BE
+Ví dụ:
+- Nhân viên gửi email → thay bằng Form.
+- Manager kiểm tra thủ công → tự động kiểm tra điều kiện.
+- HR nhập lại Excel → hệ thống tự cập nhật.
+Có thể vẽ lại TO-BE Process Map.
+6. AI & Automation Opportunity – Cơ hội ứng dụng AI và tự động hóa
+Trả lời câu hỏi:
+Trong quy trình này, AI hoặc tự động hóa có thể được dùng ở đâu?
+Ví dụ:
+- AI phân loại yêu cầu.
+- AI đọc tài liệu.
+- Chatbot trả lời câu hỏi.
+- Power Automate gửi approval.
+- Power Automate cập nhật dữ liệu.
+- Automated reminder.
+
+PHẦN II. BÀI THU HOẠCH NHÓM CUỐI MÔN
+1. Hình thức thực hiện
+- Nhóm: 4 học viên/nhóm.
+- Thời gian báo cáo: 20–30 phút/nhóm.
+- Trong đó nên có:
+  - 20 phút thuyết trình.
+  - 10 phút demo.
+- Không nộp báo cáo Word.
+Nhóm cần chuẩn bị:
+- Slide trình bày.
+- Sơ đồ quy trình.
+- File dữ liệu nếu có.
+- Prototype Power Automate.
+- Demo trực tiếp.
+2. Chọn quy trình
+Mỗi nhóm chọn 01 quy trình nghiệp vụ có vấn đề thực tế và có khả năng cải tiến hoặc tự động hóa.
+Ví dụ:
+- Quy trình xin nghỉ phép.
+- Quy trình mua hàng.
+- Quy trình phê duyệt thanh toán.
+- Quy trình xử lý hóa đơn.
+- Quy trình tuyển dụng.
+- Quy trình onboarding nhân viên.
+- Quy trình xử lý khiếu nại khách hàng.
+- Quy trình hỗ trợ IT.
+- Quy trình đăng ký sự kiện.
+- Quy trình hoàn ứng chi phí.
+3. Nội dung thực hiện bài tập nhóm
+1. Business Problem & Process Overview – Tổng quan vấn đề và quy trình
+Nhóm giới thiệu:
+- Tên quy trình
+- Bối cảnh
+- Mục tiêu quy trình
+- Điểm bắt đầu
+- Điểm kết thúc
+- Các bên tham gia
+- Đầu vào
+- Đầu ra
+2. Sơ đồ quy trình hiện tại – AS-IS
+Nhóm vẽ quy trình hiện tại bằng:
+- BPMN
+- Swimlane Diagram
+Sơ đồ cần thể hiện:
+- Các bước chính.
+- Người/bộ phận thực hiện.
+- Các điểm quyết định.
+- Approval/rejection nếu có.
+- Các vòng lặp hoặc rework nếu có.
+3. Phân tích vấn đề và Bottleneck
+Nhóm xác định tối thiểu 1 vấn đề quan trọng trong quy trình hiện tại.
+Ví dụ:
+- Waiting time cao.
+- Approval chậm.
+- Manual data entry.
+- Nhập dữ liệu lặp lại.
+- Rework.
+- Error.
+- Không rõ trách nhiệm.
+- Quá nhiều bước trung gian.
+- Thông tin bị phân tán.
+- Khó theo dõi trạng thái.
+Với mỗi vấn đề cần trả lời chi tiết:
+1. Vấn đề xảy ra ở đâu?
+2. Nguyên nhân là gì?
+3. Ảnh hưởng đến quy trình như thế nào?
+4. Process Mining – Khai phá quy trình
+Nếu quy trình có dữ liệu hoặc nhóm có thể tạo bộ dữ liệu mô phỏng, nhóm thực hiện Process Mining.
+Nhóm phân tích:
+- Process variants
+- Activity frequency
+- Cycle time
+- Waiting time
+- Bottleneck
+- Rework
+- Loop
+Sau đó kết luận:
+Dữ liệu Process Mining cho thấy vấn đề chính của quy trình nằm ở đâu?
+5. Thiết kế quy trình cải tiến – TO-BE
+Nhóm thiết kế quy trình mới sau cải tiến (TO-BE Process Map).
+6. Power Automate Prototype
+Nhóm xây dựng 1 workflow có thể chạy được.
+Prototype nên có tối thiểu:
+- 1 Trigger
+- 4 Actions
+- 1 Condition
+- 1 Data Source
+- 1 Notification
+7. Đánh giá kết quả cải tiến
+Trả lời câu hỏi:
+Nếu TO-BE được triển khai, quy trình sẽ cải thiện như thế nào?
+
+PHẦN III. TỔNG HỢP YÊU CẦU CỦA GIẢNG VIÊN
+Mình tổng hợp thêm bảng này để anh dễ đối chiếu khi bắt đầu làm bài. Đây là phần mình hệ thống hóa, không phải nội dung nguyên văn của slide.
+Tiêu chí	Bài cá nhân	Bài nhóm
+Số người	1	4
+Thời gian	10–15 phút	20–30 phút
+Chọn quy trình thực tế	Có	Có
+Tổng quan quy trình	Có	Có
+Sơ đồ AS-IS	Swimlane	BPMN hoặc Swimlane
+Phân tích Bottleneck	Ít nhất 2 vấn đề	Ít nhất 1 vấn đề
+KPI	Ít nhất 2	Không nêu yêu cầu cụ thể
+Process Mining	Không yêu cầu	Thực hiện nếu có dữ liệu hoặc dữ liệu mô phỏng
+Sơ đồ TO-BE	Có thể vẽ lại	Cần thiết kế
+AI & Automation	Đề xuất cơ hội ứng dụng	Xây dựng workflow
+Power Automate chạy được	Không yêu cầu	Có
+Demo trực tiếp	Không yêu cầu	Có
+Nộp Word	Không	Không
+Nộp slide	Có	Có
+Một số điểm cần đặc biệt lưu ý
+Đối với bài cá nhân: Trọng tâm là chứng minh anh hiểu quy trình hiện tại, xác định đúng những điểm bất hợp lý và đề xuất cải tiến có cơ sở. Không bắt buộc phải xây dựng hệ thống tự động hóa chạy thực tế.
+Đối với bài nhóm: Yêu cầu cao hơn ở phần triển khai. Không chỉ phân tích AS-IS và thiết kế TO-BE, nhóm còn cần xây dựng được một Power Automate workflow hoạt động thực tế, đồng thời thực hiện Process Mining khi có dữ liệu phù hợp.
+Một điểm quan trọng: Giảng viên nhấn mạnh việc xác định vấn đề xảy ra chính xác ở đâu trong quy trình, thay vì chỉ nói chung chung rằng quy trình chậm hoặc kém hiệu quả.
+Như vậy, anh đã có đầy đủ nội dung bài tập từ các ảnh để sử dụng làm đề cương.
+Với công việc IT trong môi trường trường học của anh, hai đề tài quy trình hỗ trợ IT và quy trình tiếp nhận, xử lý yêu cầu của sinh viên đều có thể khai thác cho cả bài cá nhân lẫn bài nhóm. Đặc biệt, chúng có thể thiết kế sơ đồ Swimlane, tạo Event Log cho Process Mining và xây dựng prototype Power Automate tương đối rõ ràng.
