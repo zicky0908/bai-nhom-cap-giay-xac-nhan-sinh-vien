@@ -16,3 +16,5 @@ slides/variants/*/qa/
 slides/variants/*/output/*.png
 slides/variants/*/output/*.json
 slides/variants/*/output/*.pdf
+bo-tai-lieu-slide/.qa/
+bo-tai-lieu-slide/*.pdf
