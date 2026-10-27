@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cấp giấy xác nhận sinh viên</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
+<style>
+/* Sân khấu 1920×1080 co theo cửa sổ; một bảng màu cố định cho trình chiếu (không đổi theo theme). */
+:root {
+  --ink: #0F3A3F; --text: #1E2B2D; --muted: #4D5E60; --paper: #F5F7F5; --card: #FFFFFF; --line: #DCE5E2;
+  --teal: #0E7C74; --teal-d: #0B5F59; --teal-l: #D7EAE6; --teal-bg: #E3EFEC; --lane: #E6EFED; --lane2: #EEF4F2;
+  --hot: #D9861A; --hot-bg: #F6E3C4; --hot-ink: #5E3204; --hot-t: #8A4705; --hot-soft: #FDF3E3;
+  --red: #B8423A; --red-bg: #F2DCDA; --red-ink: #7A2A24;
+  --night: #0F3A3F; --night2: #1C5258; --mint: #7FD1C4; --mist: #BFD8D5; --snow: #F2F6F5;
+  --mute: #5E7C78; --pale: #9DBFB9; --frame: #0A1C1F;
+  --font: 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif;
+  color-scheme: light;
+}
+html, body { height: 100%; }
+body { margin: 0; background: var(--frame); color: var(--text); font-family: var(--font); overflow: hidden; }
+* { box-sizing: border-box; }
+p, h1, h2, h3 { margin: 0; }
+
+#viewport { position: fixed; inset: 0; }
+#deck { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; background: var(--paper); }
+#bar { position: absolute; left: 0; top: 0; height: 6px; width: 1920px; background: var(--teal); transform-origin: 0 0; transform: scaleX(0); transition: transform .6s cubic-bezier(.2,.7,.2,1); z-index: 5; }
+
+.slide { position: absolute; inset: 0; background: var(--paper); color: var(--text); opacity: 0; visibility: hidden;
+  transform: translateX(var(--dx, 40px)); transition: opacity .45s ease, transform .6s cubic-bezier(.2,.7,.2,1), visibility 0s .6s; }
+.slide.cur { opacity: 1; visibility: visible; transform: none; transition: opacity .45s ease, transform .6s cubic-bezier(.2,.7,.2,1), visibility 0s; }
+.slide.dark { background: var(--night); color: var(--snow); }
+.slide.reset, .slide.reset * { transition: none !important; animation: none !important; }
+.notes { display: none; }
+
+.wires { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; pointer-events: none; }
+.t { position: absolute; left: 128px; top: 112px; width: 1664px; font-size: 60px; font-weight: 700; line-height: 1.1; color: var(--ink); text-wrap: balance; letter-spacing: -0.01em; }
+.tag { position: absolute; right: 128px; top: 124px; font-size: 24px; font-weight: 600; color: var(--hot-t); background: var(--hot-bg); padding: 10px 22px; border-radius: 24px; }
+.foot { position: absolute; left: 128px; right: 128px; top: 1012px; display: flex; justify-content: space-between; font-size: 20px; color: var(--muted); letter-spacing: .02em; }
+.dark .foot { color: var(--mist); }
+.foot b { font-weight: 600; color: var(--ink); }
+.dark .foot b { color: var(--mint); }
+.pad { position: absolute; left: 128px; top: 232px; width: 1664px; height: 740px; display: flex; flex-direction: column; gap: 32px; }
+.row { display: flex; flex-direction: row; gap: 40px; }
+
+.box { position: absolute; background: var(--card); border: 2px solid var(--pale); border-radius: 16px; padding: 12px 16px; font-size: 24px; line-height: 1.3; color: var(--ink); }
+.box.c { text-align: center; display: flex; align-items: center; justify-content: center; }
+.box.hot { background: var(--hot-bg); border: 3px solid var(--hot); color: var(--hot-ink); }
+.box.sys { background: var(--teal); border-color: var(--teal); color: #FFFFFF; }
+.box.end { background: var(--teal-l); border-color: var(--teal); }
+.box.red { background: var(--red-bg); border-color: var(--red); color: var(--red-ink); }
+.box.dk { background: var(--night); border-color: var(--night); color: var(--snow); }
+.box.cond { background: var(--teal-bg); border: 2px dashed var(--teal); }
+.box small { display: block; font-size: 24px; color: var(--muted); }
+.box.sys small, .box.dk small { color: var(--teal-l); }
+.box .role { display: block; font-size: 22px; letter-spacing: .04em; color: var(--teal); }
+.box.sys .role, .box.dk .role { color: var(--mint); }
+.lane { position: absolute; left: 64px; width: 1792px; border-radius: 14px; background: var(--lane); }
+.lane.b { background: var(--lane2); }
+.lane.s { background: var(--teal-l); }
+.lane-n { position: absolute; left: 80px; width: 124px; font-size: 24px; font-weight: 700; line-height: 1.2; color: #3F5557; }
+.lbl { position: absolute; font-size: 24px; color: var(--muted); line-height: 1.35; }
+.card { background: var(--card); border: 2px solid var(--line); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px; }
+.card h3 { font-size: 32px; font-weight: 800; color: var(--ink); line-height: 1.2; }
+.card p { font-size: 24px; line-height: 1.4; }
+.big { font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.ic { width: 80px; height: 80px; border-radius: 40px; background: var(--teal-l); color: var(--teal); display: flex; align-items: center; justify-content: center; flex: none; }
+.ic.hot { background: var(--hot-bg); color: #B25E08; }
+.ic svg, .ico { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* đường nối */
+path.e { fill: none; stroke: var(--mute); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+path.e.hot { stroke: var(--hot); stroke-width: 4; }
+path.e.thick { stroke-width: 8; }
+path.e.teal { stroke: var(--teal); }
+path.e.red { stroke: var(--red); }
+path.e.light { stroke: var(--mint); }
+path.e.pale { stroke: var(--pale); }
+path.e.dash { stroke-dasharray: 12 10; }
+.dot { pointer-events: none; }
+
+/* hiệu ứng theo bước */
+.fx { transition: opacity .5s ease var(--d, 0s), transform .55s cubic-bezier(.2,.7,.2,1) var(--d, 0s); }
+.fx[data-step]:not(.on) { opacity: 0; transform: translateY(18px); }
+path.e.fx { transition: stroke-dashoffset .8s cubic-bezier(.4,0,.2,1) var(--d, 0s), opacity .4s ease var(--d, 0s); }
+path.e.fx:not(.dash):not(.on) { stroke-dashoffset: var(--len); }
+path.e.fx.dash:not(.on) { opacity: 0; }
+path.e.fx[data-step]:not(.on) { transform: none; }
+.bar { transform-origin: 0 50%; transition: transform 1s cubic-bezier(.2,.7,.2,1) var(--d, 0s); }
+.bar.fx:not(.on) { transform: scaleX(0); }
+.bar.wobble.on { animation: wobble .5s ease 1.1s 2; }
+@keyframes wobble { 0%,100% { translate: 0 0; } 30% { translate: 8px 0; } 70% { translate: -4px 0; } }
+.pulse.on { animation: glow 1.5s ease-in-out var(--pd, .6s) 3; }
+@keyframes glow { 0% { box-shadow: 0 0 0 0 rgba(217,134,26,.6); } 70% { box-shadow: 0 0 0 22px rgba(217,134,26,0); } 100% { box-shadow: 0 0 0 0 rgba(217,134,26,0); } }
+.zoom.fx[data-step]:not(.on) { transform: scale(.94); }
+
+/* giao diện trình chiếu */
+#notes { position: fixed; left: 0; right: 0; bottom: 0; max-height: 42vh; overflow: auto; background: rgba(10,28,31,.96); color: var(--snow);
+  padding: 16px max(16px, env(safe-area-inset-right, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); font-size: 18px; line-height: 1.55; z-index: 20; border-top: 2px solid var(--teal); }
+#notes .meta { color: var(--mint); font-size: 14px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; display: flex; gap: 18px; flex-wrap: wrap; }
+#notes p { max-width: 75ch; }
+#overview { position: fixed; inset: 0; background: rgba(10,28,31,.97); z-index: 30; overflow: auto; padding: 32px max(16px, env(safe-area-inset-right, 0px)) 32px max(16px, env(safe-area-inset-left, 0px)); }
+#overview h2 { color: var(--mint); font-size: 16px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; font-weight: 600; }
+#overview .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+#overview button { text-align: left; font: inherit; font-size: 16px; line-height: 1.35; color: var(--snow); background: var(--night2); border: 1px solid #2D6A70; border-radius: 12px; padding: 14px; cursor: pointer; min-width: 0; }
+#overview button span { display: block; color: var(--mint); font-size: 13px; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+#overview button[aria-current="true"] { border-color: var(--hot); }
+#overview button:focus-visible, #notes:focus-visible { outline: 3px solid var(--hot); outline-offset: 2px; }
+#hint { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: rgba(10,28,31,.9); color: var(--snow); font-size: 14px; padding: 10px 14px; border-radius: 10px; z-index: 15; transition: opacity .6s; max-width: calc(100% - 32px); }
+#hint kbd { font-family: inherit; background: var(--night2); border-radius: 4px; padding: 1px 6px; }
+#hint.gone { opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide *, #bar { transition: none !important; animation: none !important; }
+}
+@media print {
+  @page { size: 1920px 1080px; margin: 0; }
+  body { overflow: visible; background: #FFFFFF; height: auto; }
+  #viewport { position: static; }
+  #deck { position: static; transform: none !important; width: 1920px; height: auto; overflow: visible; }
+  #bar, #notes, #overview, #hint { display: none !important; }
+  .slide { position: relative; width: 1920px; height: 1080px; opacity: 1 !important; visibility: visible !important; transform: none !important; break-after: page; }
+  .fx { opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="ah-mute" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5E7C78"/></marker>
+    <marker id="ah-hot" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="22" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#D9861A"/></marker>
+    <marker id="ah-teal" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C74"/></marker>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B8423A"/></marker>
+    <marker id="ah-light" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7FD1C4"/></marker>
+    <marker id="ah-pale" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9DBFB9"/></marker>
+  </defs>
+</svg>
+
+<div id="viewport">
+<div id="deck" role="region" aria-roledescription="trình chiếu" aria-label="Cấp giấy xác nhận sinh viên">
+<div id="bar"></div>
+
+<!-- 1 · Bìa -->
+<section class="slide dark" data-title="Cấp giấy xác nhận sinh viên" data-tv="TV1" data-at="0:00" data-nofoot>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e light" data-p="1250,236 1320,236" data-flow></path>
+    <path class="e light" data-p="1510,236 1580,236" style="--d:1.2s"></path>
+  </svg>
+  <p class="box c" style="left:1100px;top:200px;width:150px;height:72px;border-radius:36px;background:var(--mint);border-color:var(--mint);font-weight:600;font-size:26px">Nộp</p>
+  <p class="box c pulse fx" style="left:1320px;top:200px;width:190px;height:72px;border-radius:36px;background:#E9A23B;border-color:#E9A23B;font-weight:600;font-size:26px;--pd:.9s">Chờ ký</p>
+  <p class="box c" style="left:1580px;top:200px;width:212px;height:72px;border-radius:36px;background:var(--mint);border-color:var(--mint);font-weight:600;font-size:26px">Nhận giấy</p>
+  <p class="lbl" style="left:1280px;top:292px;width:270px;text-align:center;color:#E9A23B;font-size:22px">điểm nghẽn</p>
+  <p style="position:absolute;left:128px;top:520px;font-size:28px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--mint)">Bài nhóm · BPM &amp; AI</p>
+  <h1 style="position:absolute;left:128px;top:570px;width:1500px;font-size:104px;font-weight:800;line-height:1.05;color:var(--snow);letter-spacing:-0.02em">Cấp giấy xác nhận<br>sinh viên</h1>
+  <p style="position:absolute;left:128px;top:812px;width:1400px;font-size:40px;line-height:1.35;color:var(--mist)">Phân tích và tự động hóa quy trình tại trường cao đẳng Y Dược</p>
+  <div style="position:absolute;left:128px;top:904px;display:flex;gap:24px;align-items:center">
+    <p style="font-size:28px;color:var(--snow);background:var(--night2);padding:12px 24px;border-radius:12px">Nhóm 4 · TV1 · TV2 · TV3 · TV4</p>
+    <p style="font-size:24px;color:var(--mist)">Bối cảnh giả định cho mục đích học thuật</p>
+  </div>
+  <aside class="notes">TV1 mở đầu: giới thiệu đề tài và 4 thành viên. Nói rõ ngay từ đầu: bối cảnh và mọi số liệu là giả định hoặc mô phỏng cho mục đích học thuật, không phải số liệu chính thức của trường. Chỉ vào ba viên ở góc phải: hồ sơ được nộp, nằm chờ ký, rồi mới đến tay sinh viên. Viên màu cam là chỗ cả bài xoay quanh.</aside>
+</section>
+
+<!-- 2 · Bài toán -->
+<section class="slide" data-title="Sinh viên không biết hồ sơ đang ở đâu" data-tv="TV1" data-at="0:45" data-sec="Bài toán và quy trình hiện tại">
+  <h2 class="t">Sinh viên không biết hồ sơ đang ở đâu</h2>
+  <div class="pad" style="flex-direction:row;gap:48px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:22px">
+      <div class="row" data-step="0" style="gap:24px;align-items:center;--d:.1s"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></div><div><h3 style="font-size:32px;font-weight:700;color:var(--ink)">Không tra được trạng thái</h3><p style="font-size:26px;color:var(--muted)">Số thứ tự ghi sổ không báo cho SV, nên SV phải hỏi lại</p></div></div>
+      <div class="row" data-step="0" style="gap:24px;align-items:center;--d:.25s"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2z"/><path d="M4 5v15"/></svg></div><div><h3 style="font-size:32px;font-weight:700;color:var(--ink)">Thiếu giấy tờ phát hiện muộn</h3><p style="font-size:26px;color:var(--muted)">Thiếu hoặc sai chỉ lộ ra khi kiểm tra, phải bổ sung nhiều vòng</p></div></div>
+      <div class="row" data-step="0" style="gap:24px;align-items:center;--d:.4s"><div class="ic hot pulse fx" style="--pd:1.2s"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h3 style="font-size:32px;font-weight:700;color:var(--hot-t)">Chờ ký lâu</h3><p style="font-size:26px;color:var(--muted)">Hồ sơ đã soạn nằm chờ phiên ký theo lô</p></div></div>
+      <div class="row" data-step="0" style="gap:24px;align-items:center;--d:.55s"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><div><h3 style="font-size:32px;font-weight:700;color:var(--ink)">Quá hạn chỉ lộ khi rà sổ</h3><p style="font-size:26px;color:var(--muted)">Không có mốc thời gian; cán bộ rà hồ sơ quá hạn mỗi chiều thứ Sáu</p></div></div>
+      <div class="row" data-step="0" style="gap:24px;align-items:center;--d:.7s"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></div><div><h3 style="font-size:32px;font-weight:700;color:var(--ink)">Thông báo không lưu vết</h3><p style="font-size:26px;color:var(--muted)">Báo kết quả qua điện thoại hoặc Zalo, không có bằng chứng đã báo</p></div></div>
+    </div>
+    <div data-step="0" style="width:520px;background:var(--night);border-radius:24px;padding:48px;display:flex;flex-direction:column;gap:24px;--d:.9s">
+      <p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--mint)">Mục tiêu dự kiến</p>
+      <div style="font-size:28px;line-height:1.45;color:var(--snow);display:flex;flex-direction:column;gap:16px">
+        <p>Có mã hồ sơ, tra được trạng thái</p><p>Kiểm tra đủ hay thiếu ngay khi nộp</p><p>Tách thời gian chờ và thời gian xử lý</p><p>Nhắc hạn, đóng hồ sơ quá hạn đúng hạn</p><p>Thông báo có lưu vết và có lý do</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">TV1: năm vấn đề hiện ra lần lượt, không cần bấm. Đây là giả thuyết, cần phỏng vấn cán bộ để xác minh. Vấn đề tô cam (chờ ký lâu) là ứng viên điểm nghẽn mà phần Process Mining sẽ kiểm chứng ở slide 8. Khung bên phải là mục tiêu dự kiến, mỗi mục tiêu ứng với một vấn đề bên trái.</aside>
+</section>
+
+<!-- 3 · Tổng quan -->
+<section class="slide" data-title="Một hồ sơ, ba cách kết thúc" data-tv="TV1" data-at="2:15" data-sec="Bài toán và quy trình hiện tại">
+  <h2 class="t">Một hồ sơ, ba cách kết thúc</h2>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e" data-p="448,430 648,430" data-step="2" data-flow></path>
+    <path class="e" data-p="1128,350 1352,290" data-r="hvh" data-step="3"></path>
+    <path class="e" data-p="1128,430 1352,430" data-step="3" style="--d:.1s"></path>
+    <path class="e" data-p="1128,510 1352,570" data-r="hvh" data-step="3" style="--d:.2s"></path>
+  </svg>
+  <p class="box" data-step="1" style="left:128px;top:350px;width:320px;height:160px;padding:24px;font-size:28px;border-radius:20px"><b>Sinh viên nộp yêu cầu</b><small>đơn giấy hoặc form</small></p>
+  <div class="box" data-step="2" style="left:648px;top:280px;width:480px;height:300px;padding:28px;border-radius:20px;background:var(--teal-bg);border-color:var(--teal);display:flex;flex-direction:column;gap:10px;--d:.5s">
+    <p style="font-size:28px;font-weight:700">Trường xử lý</p>
+    <p style="font-size:26px;line-height:1.45;color:#2E4143">Tiếp nhận, ghi sổ<br>Kiểm tra thông tin, tư cách<br>Soạn giấy, trình ký<br>Ký, đóng dấu, báo kết quả</p>
+  </div>
+  <p class="box" data-step="3" style="left:1352px;top:240px;width:440px;height:100px;padding:0 28px;display:flex;align-items:center;font-size:28px;border-radius:20px;background:var(--teal-l);border-color:var(--teal-l);--d:.5s"><span><b>E1</b> · Nhận giấy</span></p>
+  <p class="box" data-step="3" style="left:1352px;top:380px;width:440px;height:100px;padding:0 28px;display:flex;align-items:center;font-size:28px;border-radius:20px;background:var(--red-bg);border-color:var(--red-bg);color:var(--red-ink);--d:.6s"><span><b>E2</b> · Bị từ chối, có lý do</span></p>
+  <p class="box" data-step="3" style="left:1352px;top:520px;width:440px;height:100px;padding:0 28px;display:flex;align-items:center;gap:0 8px;font-size:28px;line-height:1.2;border-radius:20px;background:var(--hot-bg);border-color:var(--hot-bg);color:#7A4306;--d:.7s"><span><b>E3</b> · Đóng do quá hạn bổ sung</span></p>
+  <div data-step="4" style="position:absolute;left:128px;top:710px;width:1200px;height:80px;background:var(--teal);border-radius:16px;padding:20px 28px;font-size:28px;color:var(--snow)" class="grow"><b>Thời gian phía trường</b> · từ lúc nộp tới lúc SV biết kết quả</div>
+  <div data-step="5" style="position:absolute;left:128px;top:830px;width:1664px;height:80px;background:var(--pale);border-radius:16px;padding:20px 28px;font-size:28px;color:var(--ink)"><b>Thời gian phía SV</b> · cộng thêm lúc SV chuẩn bị bổ sung và đến nhận giấy</div>
+  <aside class="notes">TV1: [Bấm] sinh viên nộp → [Bấm] trường xử lý → [Bấm] ba kết cục E1, E2, E3. Ngoài phạm vi: ký số, giá trị pháp lý, tích hợp cơ sở dữ liệu của trường. [Bấm] thanh xanh đậm → [Bấm] thanh xanh nhạt: hai mốc đo, tách thời gian của SV ra để không tính nhầm thành điểm nghẽn của trường. Giờ làm việc giả định thứ Hai đến thứ Sáu, 7:30–11:30 và 13:30–17:00.</aside>
+</section>
+
+<!-- 4 · AS-IS luồng chính -->
+<section class="slide" data-title="Hôm nay: 4 người chuyền tay một hồ sơ" data-tv="TV2" data-at="3:30" data-sec="Bài toán và quy trình hiện tại">
+  <h2 class="t">Hôm nay: 4 người chuyền tay một hồ sơ</h2>
+  <div class="lane" style="top:240px;height:150px"></div>
+  <div class="lane b" style="top:400px;height:150px"></div>
+  <div class="lane" style="top:560px;height:150px"></div>
+  <div class="lane b" style="top:720px;height:150px"></div>
+  <p class="lane-n" style="top:300px">Sinh viên</p>
+  <p class="lane-n" style="top:460px">Cán bộ</p>
+  <p class="lane-n" style="top:620px">Lãnh đạo</p>
+  <p class="lane-n" style="top:780px">Văn thư</p>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e" data-p="416,315 553,427" data-r="hv" data-step="2" data-flow></path>
+    <path class="e" data-p="653,475 690,475" data-step="3" data-flow></path>
+    <path class="e hot" data-p="890,475 1027,587" data-r="hv" data-step="4" data-flow></path>
+    <path class="e" data-p="1127,635 1264,747" data-r="hv" data-step="5" data-flow></path>
+    <path class="e" data-p="1364,795 1501,523" data-r="hv" data-step="6" data-flow></path>
+    <path class="e" data-p="1601,475 1738,363" data-r="hv" data-step="7" data-flow></path>
+  </svg>
+  <p class="box" data-step="1" style="left:216px;top:267px;width:200px;height:96px"><b>1</b> · Nộp đơn</p>
+  <p class="box" data-step="2" style="left:453px;top:427px;width:200px;height:96px;--d:.6s"><b>2</b> · Tiếp nhận, ghi sổ</p>
+  <p class="box" data-step="3" style="left:690px;top:427px;width:200px;height:96px;--d:.4s"><b>3</b> · Kiểm tra, soạn giấy</p>
+  <p class="box hot pulse" data-step="4" style="left:927px;top:587px;width:200px;height:96px;--d:.6s;--pd:1.2s"><b>4</b> · Xem xét, ký</p>
+  <p class="box" data-step="5" style="left:1164px;top:747px;width:200px;height:96px;--d:.6s"><b>5</b> · Đóng dấu, vào sổ</p>
+  <p class="box" data-step="6" style="left:1401px;top:427px;width:200px;height:96px;--d:.6s"><b>6</b> · Báo SV<br>đến nhận</p>
+  <p class="box end" data-step="7" style="left:1638px;top:267px;width:200px;height:96px;--d:.6s"><b>7</b> · Nhận giấy</p>
+  <p class="lbl" data-step="8" style="left:216px;top:606px;width:680px;font-size:28px;font-weight:600;color:var(--hot-t)">Hồ sơ chờ tới phiên ký thứ Ba hoặc thứ Năm</p>
+  <p class="lbl" style="left:128px;top:900px;width:1664px">Luồng chính khi hồ sơ đủ và được duyệt. Các nhánh bổ sung, từ chối, quá hạn: slide sau.</p>
+  <aside class="notes">TV2: mỗi hàng ngang là một người; hồ sơ đi từ trái sang phải, mỗi lần mũi tên đổi hàng là một lần chuyển tay. Bấm 7 lần cho 7 bước, mỗi bước một câu, dừng ở bước 4. [Bấm] lần 8 hiện dòng chữ cam: lãnh đạo ký gom vào 2 giờ chiều thứ Ba và thứ Năm. Ví dụ giấy soạn xong 3 giờ chiều thứ Năm, vừa lỡ phiên, thì nằm chờ tới chiều thứ Ba tuần sau. Sơ đồ BPMN đầy đủ ở thư mục 03-so-do-quy-trinh.</aside>
+</section>
+
+<!-- 5 · AS-IS nhánh -->
+<section class="slide" data-title="Hai chỗ rẽ nhánh của hồ sơ" data-tv="TV2" data-at="5:15" data-sec="Bài toán và quy trình hiện tại">
+  <h2 class="t">Hai chỗ rẽ nhánh của hồ sơ</h2>
+  <div style="position:absolute;left:1168px;top:240px;width:624px;height:630px;background:var(--card);border:2px solid var(--line);border-radius:20px" data-step="4"></div>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e" data-p="588,330 588,375 268,375 268,420"></path>
+    <path class="e" data-p="588,330 588,420" style="--d:.15s"></path>
+    <path class="e" data-p="588,330 588,375 908,375 908,420" style="--d:.3s"></path>
+    <path class="e hot" data-p="548,520 548,590" data-step="1" data-flow></path>
+    <path class="e hot dash" data-p="448,640 100,640 100,286 448,286" data-step="2"></path>
+    <path class="e red" data-p="690,520 690,645 768,645" data-step="3" data-flow></path>
+    <path class="e" data-p="1480,430 1480,480 1340,480 1340,540" data-step="4" style="--d:.4s"></path>
+    <path class="e" data-p="1480,430 1480,480 1620,480 1620,540" data-step="4" style="--d:.5s"></path>
+  </svg>
+  <p class="box c dk" style="left:448px;top:240px;width:280px;height:90px;font-size:28px;font-weight:700">Kiểm tra hồ sơ</p>
+  <p class="box end" style="left:128px;top:420px;width:280px;padding:14px 20px"><b>ĐỦ</b><br>soạn giấy, trình ký</p>
+  <p class="box hot" style="left:448px;top:420px;width:280px;height:100px;padding:14px 20px"><b>THIẾU / SAI</b><br>báo SV bổ sung</p>
+  <p class="box" style="left:768px;top:420px;width:300px;padding:14px 18px"><b>KHÔNG ĐỦ TƯ CÁCH</b><br>đề xuất từ chối</p>
+  <p class="box" data-step="1" style="left:448px;top:590px;width:200px;height:100px;border-color:var(--hot);color:var(--hot-ink);--d:.5s">SV nộp lại trong hạn</p>
+  <p class="lbl" data-step="2" style="left:128px;top:560px;width:300px;font-weight:600;color:var(--hot-t)">↺ kiểm tra lại</p>
+  <p class="box red" data-step="3" style="left:768px;top:590px;width:300px;padding:14px 18px;--d:.5s"><b>Quá hạn → đóng (E3)</b><br>lộ ra khi rà sổ thứ Sáu</p>
+  <p class="lbl" data-step="4" style="left:1208px;top:268px;width:544px;text-align:center">từ nhánh ĐỦ hoặc KHÔNG ĐỦ TƯ CÁCH</p>
+  <p class="box c dk" data-step="4" style="left:1330px;top:330px;width:300px;height:100px;font-size:28px;font-weight:700;line-height:1.25;--d:.15s">Lãnh đạo<br>quyết định</p>
+  <p class="box end" data-step="4" style="left:1208px;top:540px;width:264px;height:140px;padding:16px 20px;--d:.8s"><b>DUYỆT</b><br>ký, đóng dấu<br>→ E1 nhận giấy</p>
+  <p class="box red" data-step="4" style="left:1488px;top:540px;width:264px;height:140px;padding:16px 20px;--d:.9s"><b>TỪ CHỐI</b><br>báo lý do<br>→ E2</p>
+  <p class="lbl" data-step="4" style="left:1208px;top:720px;width:544px;--d:1s">Hồ sơ không đủ tư cách vẫn qua lãnh đạo: cán bộ chỉ đề xuất, không tự từ chối.</p>
+  <aside class="notes">TV2: chỗ rẽ thứ nhất ở bước kiểm tra: đủ thì đi tiếp, không đủ tư cách thì trình đề xuất từ chối, thiếu hoặc sai thì báo bổ sung. [Bấm] SV nộp lại → [Bấm] đường đứt nét cam: vòng lặp quay về kiểm tra, có thể lặp nhiều lần. [Bấm] ô đỏ: không nộp lại đúng hạn thì hồ sơ bị đóng, nhưng chỉ phát hiện khi rà sổ chiều thứ Sáu. [Bấm] khung phải: chỗ rẽ thứ hai là lãnh đạo duyệt hoặc từ chối.</aside>
+</section>
+
+<!-- 6 · Điểm nghẽn -->
+<section class="slide" data-title="Bốn chỗ có thể gây trễ" data-tv="TV2" data-at="6:45" data-sec="Bài toán và quy trình hiện tại">
+  <h2 class="t">Bốn chỗ có thể gây trễ, để dữ liệu kiểm chứng</h2>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e" data-p="328,340 372,340"></path>
+    <path class="e" data-p="572,340 616,340" style="--d:.1s"></path>
+    <path class="e hot" data-p="816,340 860,340" style="--d:.2s"></path>
+    <path class="e" data-p="1060,340 1104,340" style="--d:.3s"></path>
+    <path class="e" data-p="1304,340 1348,340" style="--d:.4s"></path>
+    <path class="e" data-p="1548,340 1592,340" style="--d:.5s"></path>
+  </svg>
+  <p class="box c" style="left:128px;top:300px;width:200px;height:80px;border-radius:40px">Tiếp nhận</p>
+  <p class="box c" style="left:372px;top:300px;width:200px;height:80px;border-radius:40px">Kiểm tra</p>
+  <p class="box c" style="left:616px;top:300px;width:200px;height:80px;border-radius:40px">Soạn giấy</p>
+  <p class="box c" style="left:860px;top:300px;width:200px;height:80px;border-radius:40px;border-color:var(--hot);color:var(--hot-ink)">Ký</p>
+  <p class="box c" style="left:1104px;top:300px;width:200px;height:80px;border-radius:40px">Đóng dấu</p>
+  <p class="box c" style="left:1348px;top:300px;width:200px;height:80px;border-radius:40px">Báo SV</p>
+  <p class="box c" style="left:1592px;top:300px;width:200px;height:80px;border-radius:40px">Nhận giấy</p>
+  <p class="box c pulse" data-step="1" style="left:802px;top:216px;width:72px;height:56px;border-radius:28px;background:var(--hot);border:none;color:#FFFFFF;font-weight:700;--pd:.5s">H1</p>
+  <p class="box c" data-step="2" style="left:412px;top:216px;width:120px;height:56px;border-radius:28px;background:var(--teal);border:none;color:#FFFFFF;font-weight:700">H2 ↺</p>
+  <p class="box c" data-step="3" style="left:314px;top:216px;width:72px;height:56px;border-radius:28px;background:var(--teal);border:none;color:#FFFFFF;font-weight:700">H3</p>
+  <p class="box c" data-step="4" style="left:1046px;top:216px;width:72px;height:56px;border-radius:28px;background:var(--teal);border:none;color:#FFFFFF;font-weight:700">H4</p>
+  <div class="card" data-step="1" style="position:absolute;left:128px;top:450px;width:392px;height:410px;background:var(--hot);border-color:var(--hot);color:#FFFFFF;--d:.15s">
+    <h3 style="color:#FFFFFF">H1 · Chờ ký</h3><p>Soạn giấy → lãnh đạo ký</p><p><b>Vì sao:</b> ký theo lô, người ký vắng</p><p><b>Hậu quả:</b> kéo dài thời gian phía trường; SV hỏi lại</p>
+  </div>
+  <div class="card" data-step="2" style="position:absolute;left:552px;top:450px;width:392px;height:410px;--d:.15s">
+    <h3>H2 · Vòng bổ sung</h3><p style="color:var(--muted)">Kiểm tra → báo bổ sung → nộp lại</p><p><b>Vì sao:</b> biểu mẫu không nêu rõ giấy tờ</p><p><b>Hậu quả:</b> làm lại nhiều lần; thêm hồ sơ bị đóng quá hạn</p>
+  </div>
+  <div class="card" data-step="3" style="position:absolute;left:976px;top:450px;width:392px;height:410px;--d:.15s">
+    <h3>H3 · Chờ kiểm tra</h3><p style="color:var(--muted)">Tiếp nhận → kiểm tra</p><p><b>Vì sao:</b> cán bộ kiêm nhiệm, tra cứu tay</p><p><b>Hậu quả:</b> ứ đọng đầu vào, hồ sơ nằm lâu</p>
+  </div>
+  <div class="card" data-step="4" style="position:absolute;left:1400px;top:450px;width:392px;height:410px;--d:.15s">
+    <h3>H4 · Chờ chuyển giấy</h3><p style="color:var(--muted)">Lãnh đạo ký → văn thư</p><p><b>Vì sao:</b> giấy đã ký chờ chuyển theo lô</p><p><b>Hậu quả:</b> thêm thời gian không ai theo dõi</p>
+  </div>
+  <p class="lbl" data-step="5" style="left:128px;top:892px;width:1664px"><b style="color:var(--ink)">Tiêu chí chốt trước khi chạy dữ liệu:</b> trung vị chờ nằm trong top 3 · ít nhất 50% ca chờ quá 1 ngày làm việc · xuất hiện ở ít nhất 10% số ca. Đạt cả ba mới gọi là điểm nghẽn.</p>
+  <aside class="notes">TV2: bốn giả thuyết, đánh dấu ngay trên chuỗi bước. [Bấm] H1 chờ ký, [Bấm] H2 vòng bổ sung, [Bấm] H3 chờ kiểm tra, [Bấm] H4 chờ chuyển giấy; mỗi thẻ một câu. Phần "vì sao" chỉ là nguyên nhân giả định. [Bấm] dòng tiêu chí: nhóm chốt ba tiêu chí trước khi chạy dữ liệu để không chọn điểm nghẽn theo cảm tính. Thời gian SV đến nhận giấy không tính là điểm nghẽn của trường.</aside>
+</section>
+
+<!-- 7 · Mô phỏng -->
+<section class="slide" data-title="Ba kịch bản, cùng một dòng hồ sơ đến" data-tv="TV3" data-at="8:30" data-sec="Process Mining">
+  <h2 class="t" style="width:1360px">Ba kịch bản, cùng một dòng hồ sơ đến</h2>
+  <p class="tag">Dữ liệu mô phỏng</p>
+  <div class="pad" style="gap:36px">
+    <div class="row" style="gap:48px">
+      <div style="flex:1"><p class="big" style="font-size:88px;color:var(--teal)"><span data-count="400">400</span></p><p style="font-size:26px;color:var(--muted);margin-top:6px">hồ sơ mỗi lần chạy, 12 tuần</p></div>
+      <div style="flex:1"><p class="big" style="font-size:88px;color:var(--teal)"><span data-count="20">20</span></p><p style="font-size:26px;color:var(--muted);margin-top:6px">lần chạy, mỗi lần một bộ số ngẫu nhiên</p></div>
+      <div style="flex:1"><p class="big" style="font-size:88px;color:var(--teal)"><span data-count="7">7</span></p><p style="font-size:26px;color:var(--muted);margin-top:6px">cấu hình: AS-IS + 2 kịch bản × 3 mức bổ sung</p></div>
+    </div>
+    <div class="row" style="gap:32px;flex:1">
+      <div class="card" data-step="1" style="flex:1"><h3>AS-IS · hiện tại</h3><p>Ký theo lô thứ Ba, thứ Năm 14:00</p><p>Phải bổ sung: 30% lần đầu, 15% lần sau</p><p>Quá hạn phát hiện khi rà sổ thứ Sáu</p></div>
+      <div class="card" data-step="2" style="flex:1"><h3>S0 · chỉ tự động hóa</h3><p>Form web, email, nhắc hạn tự động</p><p style="color:var(--hot-t)"><b>Vẫn ký theo lô</b> như hiện tại</p><p>Bổ sung 15% / 8%, thử thêm 22% và 30%</p></div>
+      <div class="card" data-step="3" style="flex:1;background:var(--teal-bg);border-color:var(--teal)"><h3>S1 · tự động + đổi lịch ký</h3><p>Như S0</p><p style="color:var(--teal-d)"><b>Ký 2 lần mỗi ngày</b>, 10:30 và 16:00</p><p>Tách được tác động của lịch ký</p></div>
+    </div>
+    <p style="font-size:24px;color:var(--muted)"><b style="color:var(--ink)">Giữ nguyên ở cả ba:</b> số hồ sơ đến, loại giấy, hành vi SV, 1 cán bộ tiếp nhận</p>
+  </div>
+  <aside class="notes">TV3: trường làm trên sổ giấy và Zalo, chưa có nhật ký theo phút, nên nhóm tạo dữ liệu bằng mô phỏng: 400 hồ sơ mỗi lần, chạy 20 lần. [Bấm] ba thẻ lần lượt: AS-IS là hiện tại; S0 chỉ thêm phần mềm, vẫn ký gom; S1 là phần mềm cộng đổi lịch ký. Có S0 để trả lời: chỉ mua phần mềm mà không đổi cách ký thì có đỡ không. Code và event log ở thư mục 04-process-mining.</aside>
+</section>
+
+<!-- 8 · Kết quả -->
+<section class="slide" data-title="Dữ liệu chỉ ra: hồ sơ nằm chờ ký lâu nhất" data-tv="TV3" data-at="10:00" data-sec="Process Mining">
+  <h2 class="t" style="width:1360px">Dữ liệu chỉ ra: hồ sơ nằm chờ ký lâu nhất</h2>
+  <p class="tag">Dữ liệu mô phỏng</p>
+  <p class="lbl" style="left:128px;top:216px;width:900px">Số trên mũi tên: trung vị phút chờ giữa hai bước</p>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e" data-p="308,372 340,372"></path>
+    <path class="e" data-p="520,372 552,372" style="--d:.08s"></path>
+    <path class="e" data-p="732,372 764,372" style="--d:.16s"></path>
+    <path class="e hot thick" data-p="944,372 976,372" style="--d:.24s"></path>
+    <path class="e" data-p="1156,372 1188,372" style="--d:.32s"></path>
+    <path class="e" data-p="1368,372 1400,372" style="--d:.4s"></path>
+    <path class="e" data-p="1580,372 1612,372" style="--d:.48s"></path>
+    <path class="e pale" data-p="600,414 600,490" style="--d:.5s"></path>
+    <path class="e pale" data-p="684,490 684,414" style="--d:.6s"></path>
+  </svg>
+  <p class="box c" style="left:128px;top:330px;width:180px;height:84px">Nộp đơn</p>
+  <p class="box c" style="left:340px;top:330px;width:180px;height:84px">Tiếp nhận</p>
+  <p class="box c" style="left:552px;top:330px;width:180px;height:84px">Kiểm tra</p>
+  <p class="box c" style="left:764px;top:330px;width:180px;height:84px">Soạn giấy</p>
+  <p class="box c hot pulse" data-step="1" style="left:976px;top:330px;width:180px;height:84px;--pd:.9s"><b>Ký</b></p>
+  <p class="box c" style="left:1188px;top:330px;width:180px;height:84px">Đóng dấu</p>
+  <p class="box c" style="left:1400px;top:330px;width:180px;height:84px">Xác nhận cấp</p>
+  <p class="box c" style="left:1612px;top:330px;width:180px;height:84px">Báo SV</p>
+  <p class="lbl" style="left:264px;top:276px;width:120px;text-align:center">249′*</p>
+  <p class="lbl" style="left:476px;top:276px;width:120px;text-align:center">12′</p>
+  <p class="lbl" style="left:688px;top:276px;width:120px;text-align:center">10′</p>
+  <p class="lbl" data-step="1" style="left:870px;top:256px;width:180px;text-align:center;font-size:44px;font-weight:800;color:#B25E08"><span data-count="621">621</span>′</p>
+  <p class="lbl" style="left:1112px;top:276px;width:120px;text-align:center">135′</p>
+  <p class="lbl" style="left:1324px;top:276px;width:120px;text-align:center">27′</p>
+  <p class="lbl" style="left:1536px;top:276px;width:120px;text-align:center">54′</p>
+  <p class="box c" style="left:540px;top:490px;width:204px;height:70px;border-style:dashed;color:var(--muted)">SV bổ sung</p>
+  <p class="lbl" style="left:368px;top:432px;width:220px;text-align:right">báo bổ sung</p>
+  <p class="lbl" style="left:698px;top:432px;width:160px">nộp lại</p>
+  <p class="lbl" style="left:128px;top:582px;width:820px">SV chuẩn bị bổ sung mất trung vị 826′, nhưng đó là thời gian của SV, không tính vào điểm nghẽn của trường.</p>
+  <div data-step="3" style="position:absolute;left:128px;top:664px;width:820px;display:flex;flex-direction:column;gap:8px">
+    <p style="font-size:26px;font-weight:700;color:var(--ink);margin-bottom:6px">Các đường đi của hồ sơ</p>
+    <div class="row" style="gap:16px;align-items:center;height:36px"><div class="bar" style="width:399px;height:28px;background:var(--teal);border-radius:6px"></div><p style="font-size:24px">62,3% đi thẳng</p></div>
+    <div class="row" style="gap:16px;align-items:center;height:36px"><div class="bar" style="width:118px;height:28px;background:#5FA8A0;border-radius:6px;--d:.1s"></div><p style="font-size:24px">18,5% bổ sung 1 vòng</p></div>
+    <div class="row" style="gap:16px;align-items:center;height:36px"><div class="bar" style="width:29px;height:28px;background:var(--red);border-radius:6px;--d:.2s"></div><p style="font-size:24px">4,5% bổ sung rồi bị đóng quá hạn</p></div>
+    <div class="row" style="gap:16px;align-items:center;height:36px"><div class="bar" style="width:22px;height:28px;background:#5FA8A0;border-radius:6px;--d:.3s"></div><p style="font-size:24px">3,5% bổ sung 2 vòng</p></div>
+    <div class="row" style="gap:16px;align-items:center;height:36px"><div class="bar" style="width:20px;height:28px;background:var(--pale);border-radius:6px;--d:.4s"></div><p style="font-size:24px">3,2% không đủ tư cách, bị từ chối</p></div>
+  </div>
+  <div data-step="2" style="position:absolute;left:1040px;top:490px;width:752px;height:400px;background:var(--hot);border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;color:#FFFFFF">
+    <p class="big" style="font-size:96px"><span data-count="621">621</span> phút</p>
+    <p style="font-size:28px;line-height:1.35">trung vị chờ từ lúc soạn xong giấy tới lúc lãnh đạo ký</p>
+    <p style="font-size:26px;line-height:1.35"><b>63%</b> số ca chờ quá 1 ngày làm việc · có ở <b>369/400</b> ca</p>
+    <p style="font-size:26px;line-height:1.35;font-weight:700">Đạt cả ba tiêu chí → điểm nghẽn H1</p>
+  </div>
+  <p class="lbl" style="left:128px;top:950px;width:1664px;font-size:22px">Seed 20260302 · phút làm việc, 1 ngày = 450′ · *249′ chủ yếu do quy ước: đơn giấy chỉ ghi ngày nên tính từ 7:30</p>
+  <aside class="notes">TV3: đọc từ trái sang phải; số trên mỗi mũi tên là thời gian chờ trung vị, hầu hết chỉ vài chục phút. [Bấm] số 621 hiện ra → [Bấm] thẻ cam: 621 phút, hơn một ngày làm việc; 63% hồ sơ chờ quá một ngày; 369/400 hồ sơ đi qua. Đạt cả ba tiêu chí → H1 là điểm nghẽn. Chỉ vào 249 và 826: không tính (quy ước làm tròn giờ nộp; thời gian của SV). [Bấm] các đường đi: gần hai phần ba đi thẳng.</aside>
+</section>
+
+<!-- 9 · Kiểm chứng -->
+<section class="slide" data-title="Code tính đúng: khớp với số tính tay" data-tv="TV3" data-at="12:00" data-sec="Process Mining">
+  <h2 class="t" style="width:1360px">Code tính đúng: khớp với số tính tay</h2>
+  <p class="tag">Dữ liệu mô phỏng</p>
+  <div class="pad" style="flex-direction:row;gap:48px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+      <div style="border-radius:16px;overflow:hidden;border:2px solid var(--line)">
+        <div class="row" style="gap:0;background:var(--night);color:var(--snow);font-size:26px;font-weight:700;padding:16px 24px"><p style="flex:1">Hồ sơ mẫu</p><p style="width:200px;text-align:right">Phía trường</p><p style="width:160px;text-align:right">Chờ ký</p></div>
+        <div class="row" data-step="0" style="gap:0;background:var(--card);font-size:26px;padding:18px 24px;--d:.15s;font-variant-numeric:tabular-nums"><p style="flex:1"><b>C001</b> · đi thẳng, được duyệt</p><p style="width:200px;text-align:right">843</p><p style="width:160px;text-align:right">555</p></div>
+        <div class="row" data-step="0" style="gap:0;background:var(--lane);font-size:26px;padding:18px 24px;--d:.3s;font-variant-numeric:tabular-nums"><p style="flex:1"><b>C002</b> · bổ sung 1 vòng</p><p style="width:200px;text-align:right">1.693</p><p style="width:160px;text-align:right">585</p></div>
+        <div class="row" data-step="0" style="gap:0;background:var(--card);font-size:26px;padding:18px 24px;--d:.45s;font-variant-numeric:tabular-nums"><p style="flex:1"><b>C003</b> · không đủ tư cách</p><p style="width:200px;text-align:right">1.233</p><p style="width:160px;text-align:right">–</p></div>
+        <div class="row" data-step="0" style="gap:0;background:var(--lane);font-size:26px;padding:18px 24px;--d:.6s;font-variant-numeric:tabular-nums"><p style="flex:1"><b>C004</b> · quá hạn bổ sung, đóng</p><p style="width:200px;text-align:right">5.740</p><p style="width:160px;text-align:right">–</p></div>
+      </div>
+      <p style="font-size:24px;line-height:1.4;color:var(--muted)">Đơn vị: phút làm việc. C004: trễ phát hiện quá hạn 2.130′; thời gian ròng tới lúc đóng 2.235′.</p>
+    </div>
+    <div class="card" data-step="0" style="width:560px;padding:40px;gap:20px;align-self:flex-start;--d:.8s">
+      <div class="row" style="gap:20px;align-items:center"><div class="ic" style="width:72px;height:72px"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></div><p style="font-size:32px;font-weight:800;color:var(--ink)"><span data-count="12" style="--d:.8s">12</span> test tự động đạt</p></div>
+      <p>Hàm lịch làm việc khớp bộ tính tay C001–C004</p>
+      <p>Hàm KPI kiểm trực tiếp trên ca C001</p>
+      <p>Log đúng quy tắc: bắt đầu trước khi xong, chỉ đóng dấu sau khi duyệt</p>
+      <p>Codex và Antigravity (Gemini) rà code 2 đợt; lỗi tìm được đã sửa trước khi chốt số</p>
+    </div>
+  </div>
+  <aside class="notes">TV3: trước khi tin các con số, nhóm tính tay bốn hồ sơ mẫu, mỗi hồ sơ một kiểu đường đi, rồi so với code. Bảng tính tay ở mục 4.6 của báo cáo. Không nói "khớp 100% mọi ca": hàm KPI mới được kiểm trực tiếp trên ca C001. Có thể kể lỗi đã tìm ra: thời gian xử lý từng bị tính cả giờ nghỉ trưa.</aside>
+</section>
+
+<!-- 10 · Bốn thay đổi -->
+<section class="slide" data-title="Bốn thay đổi, mỗi cái nhắm một vấn đề" data-tv="TV4" data-at="13:00" data-sec="Quy trình cải tiến và prototype">
+  <h2 class="t">Bốn thay đổi, mỗi cái nhắm một vấn đề</h2>
+  <div class="pad" style="gap:22px">
+    <div class="row" style="gap:24px;padding:0 30px;font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase"><p style="width:532px;color:var(--muted)">Hôm nay</p><p style="width:56px"></p><p style="flex:1;color:var(--teal)">Sau cải tiến</p></div>
+    <div class="row" data-step="1" style="gap:24px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:24px 28px">
+      <p style="width:532px;font-size:26px;color:var(--muted)">Đơn giấy, thiếu gì mới biết</p>
+      <svg class="ico" viewBox="0 0 56 24" style="width:56px;height:24px;color:var(--teal)"><path d="M2 12h48M40 4l10 8-10 8"/></svg>
+      <p style="flex:1;font-size:26px;color:var(--ink)"><b>Form web + danh sách giấy tờ cần nộp</b></p>
+      <p style="font-size:24px;font-weight:600;color:var(--teal-d);background:var(--teal-l);padding:8px 18px;border-radius:20px;white-space:nowrap">Tự động hóa</p>
+    </div>
+    <div class="row" data-step="2" style="gap:24px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:24px 28px">
+      <p style="width:532px;font-size:26px;color:var(--muted)">Ghi sổ tay, SV không tra được</p>
+      <svg class="ico" viewBox="0 0 56 24" style="width:56px;height:24px;color:var(--teal)"><path d="M2 12h48M40 4l10 8-10 8"/></svg>
+      <p style="flex:1;font-size:26px;color:var(--ink)"><b>Mã hồ sơ, email xác nhận, tra cứu trạng thái</b></p>
+      <p style="font-size:24px;font-weight:600;color:var(--teal-d);background:var(--teal-l);padding:8px 18px;border-radius:20px;white-space:nowrap">Tự động hóa</p>
+    </div>
+    <div class="row pulse" data-step="3" style="gap:24px;align-items:center;background:var(--hot-soft);border:3px solid var(--hot);border-radius:20px;padding:24px 28px;--pd:.7s">
+      <p style="width:532px;font-size:26px;color:var(--hot-ink)">Ký theo lô thứ Ba, thứ Năm</p>
+      <svg class="ico" viewBox="0 0 56 24" style="width:56px;height:24px;color:var(--hot)"><path d="M2 12h48M40 4l10 8-10 8"/></svg>
+      <p style="flex:1;font-size:26px;color:var(--hot-ink)"><b>2 khung ký mỗi ngày, cảnh báo nếu chờ quá 1 ngày</b></p>
+      <p style="font-size:24px;font-weight:600;color:#FFFFFF;background:var(--hot);padding:8px 18px;border-radius:20px;white-space:nowrap">Đổi cách làm</p>
+    </div>
+    <div class="row" data-step="4" style="gap:24px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:24px 28px">
+      <p style="width:532px;font-size:26px;color:var(--muted)">Báo qua điện thoại, rà sổ thứ Sáu</p>
+      <svg class="ico" viewBox="0 0 56 24" style="width:56px;height:24px;color:var(--teal)"><path d="M2 12h48M40 4l10 8-10 8"/></svg>
+      <p style="flex:1;font-size:26px;color:var(--ink)"><b>Email có lưu vết, nhắc trước hạn, đóng đúng hạn</b></p>
+      <p style="font-size:24px;font-weight:600;color:var(--teal-d);background:var(--teal-l);padding:8px 18px;border-radius:20px;white-space:nowrap">Tự động hóa</p>
+    </div>
+    <p style="font-size:24px;color:var(--muted);padding:0 8px"><b style="color:var(--ink)">Giữ nguyên:</b> lãnh đạo quyết định · ký và đóng dấu giấy · tiêu chí tư cách</p>
+  </div>
+  <aside class="notes">TV4: mỗi dòng là một thay đổi, bên trái là cách làm hiện tại. Bấm 4 lần cho 4 dòng. Dòng cam là thay đổi quan trọng nhất và không phải phần mềm: đổi lịch ký sang hai khung giờ mỗi ngày. Slide 15 sẽ cho thấy chỉ tự động hóa mà giữ ký theo lô thì chờ ký không giảm. Quyền quyết định và chữ ký của lãnh đạo giữ nguyên.</aside>
+</section>
+
+<!-- 11 · TO-BE luồng -->
+<section class="slide" data-title="Sau cải tiến: hệ thống lo phần giấy tờ" data-tv="TV4" data-at="14:15" data-sec="Quy trình cải tiến và prototype">
+  <h2 class="t">Sau cải tiến: hệ thống lo phần giấy tờ</h2>
+  <div class="lane b" style="top:240px;height:200px"></div>
+  <div class="lane s" style="top:455px;height:200px"></div>
+  <div class="lane b" style="top:670px;height:200px"></div>
+  <p class="lane-n" style="top:322px">Sinh viên</p>
+  <p class="lane-n" style="top:522px;color:var(--teal-d)">Hệ thống<br>web + n8n</p>
+  <p class="lane-n" style="top:727px">Cán bộ<br>Lãnh đạo<br>Văn thư</p>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e" data-p="416,340 553,495" data-r="hv" data-step="2" data-flow></path>
+    <path class="e" data-p="653,555 790,710" data-r="hv" data-step="3" data-flow></path>
+    <path class="e" data-p="890,770 1027,615" data-r="hv" data-step="4" data-flow></path>
+    <path class="e hot" data-p="1127,555 1264,710" data-r="hv" data-step="5" data-flow></path>
+    <path class="e" data-p="1364,770 1501,615" data-r="hv" data-step="6" data-flow></path>
+    <path class="e" data-p="1601,555 1738,400" data-r="hv" data-step="7" data-flow></path>
+  </svg>
+  <p class="box" data-step="1" style="left:216px;top:280px;width:200px;height:120px"><b>1</b> · Nộp form web</p>
+  <p class="box sys" data-step="2" style="left:453px;top:495px;width:200px;height:120px;--d:.6s"><b>2</b> · Kiểm tra form, cấp mã, gửi email</p>
+  <p class="box" data-step="3" style="left:690px;top:710px;width:200px;height:120px;--d:.6s"><b>3</b> · Cán bộ kiểm tra tư cách</p>
+  <p class="box sys" data-step="4" style="left:927px;top:495px;width:200px;height:120px;--d:.6s"><b>4</b> · Sinh giấy từ mẫu</p>
+  <p class="box hot pulse" data-step="5" style="left:1164px;top:710px;width:200px;height:120px;--d:.6s;--pd:1.2s"><b>5</b> · Lãnh đạo ký 10:30 hoặc 16:00</p>
+  <p class="box sys" data-step="6" style="left:1401px;top:495px;width:200px;height:120px;--d:.6s"><b>6</b> · Email kết quả, báo văn thư</p>
+  <p class="box end" data-step="7" style="left:1638px;top:280px;width:200px;height:120px;--d:.6s"><b>7</b> · Nhận giấy</p>
+  <p class="lbl" style="left:128px;top:900px;width:1664px"><b style="color:var(--teal-d)">Ô xanh đậm:</b> hệ thống tự làm. Nếu thiếu giấy tờ, hệ thống gửi email bổ sung, nhắc trước hạn và đóng hồ sơ đúng hạn.</p>
+  <aside class="notes">TV4: cùng kiểu sơ đồ với slide 4 để dễ so sánh; hàng giữa là hệ thống (web + n8n). Bấm 7 lần cho 7 bước. Mọi ô xanh đậm không cần người làm; con người chỉ còn hai việc cần phán đoán: cán bộ xem tư cách và lãnh đạo ký, giờ ký theo hai khung mỗi ngày. Prototype demo chưa làm phần nhắc hạn và đóng quá hạn tự động. File BPMN: 03-so-do-quy-trinh/to-be.bpmn.</aside>
+</section>
+
+<!-- 12 · Kiến trúc -->
+<section class="slide" data-title="Prototype: mỗi phần làm đúng một việc" data-tv="TV4" data-at="15:30" data-sec="Quy trình cải tiến và prototype">
+  <h2 class="t">Prototype: mỗi phần làm đúng một việc</h2>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e" data-p="408,490 568,490" data-step="1" data-flow style="--d:.3s"></path>
+    <path class="e" data-p="768,590 768,700" data-step="1" data-flow style="--d:.6s"></path>
+    <path class="e" data-p="968,450 1208,450" data-step="2" data-flow></path>
+    <path class="e" data-p="1418,590 1418,700" data-step="3" data-flow></path>
+    <path class="e teal" data-p="1208,540 968,540" data-step="4" data-flow style="stroke-width:4px"></path>
+  </svg>
+  <div class="box" data-step="1" style="left:128px;top:390px;width:280px;height:200px;padding:24px;border-radius:20px;display:flex;flex-direction:column;gap:12px">
+    <svg class="ico" viewBox="0 0 24 24" style="color:var(--teal)"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5a5 5 0 0 1 5.5 5"/></svg>
+    <p style="font-size:28px;font-weight:700">Người dùng</p><p style="color:var(--muted)">SV, cán bộ, lãnh đạo</p>
+  </div>
+  <div class="box dk" data-step="1" style="left:568px;top:390px;width:400px;height:200px;padding:24px;border-radius:20px;display:flex;flex-direction:column;gap:12px;--d:.15s">
+    <svg class="ico" viewBox="0 0 24 24" style="color:var(--mint)"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    <p style="font-size:28px;font-weight:700">Web app (FastAPI)</p><p style="color:var(--mist)">bên duy nhất ghi trạng thái</p>
+  </div>
+  <div class="box sys" data-step="2" style="left:1208px;top:390px;width:420px;height:200px;padding:24px;border-radius:20px;display:flex;flex-direction:column;gap:12px;--d:.6s">
+    <svg class="ico" viewBox="0 0 24 24" style="color:#FFFFFF"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.5 12h4l5-6M11.5 12l5 6"/></svg>
+    <p style="font-size:28px;font-weight:700">n8n</p><p style="color:var(--teal-bg)">điều phối: kiểm tra, gửi email</p>
+  </div>
+  <p class="box" data-step="1" style="left:568px;top:700px;width:400px;height:120px;padding:22px 24px;border-radius:20px;--d:.9s"><b style="font-size:28px">PostgreSQL</b><small>hồ sơ, nhật ký sự kiện</small></p>
+  <p class="box" data-step="3" style="left:1208px;top:700px;width:420px;height:120px;padding:22px 24px;border-radius:20px;--d:.6s"><b style="font-size:28px">Mailpit</b><small>hộp thư thử, không ra Internet</small></p>
+  <p class="lbl" data-step="1" style="left:412px;top:440px;width:156px;text-align:center;color:#3F5557;--d:.3s">① thao tác</p>
+  <p class="lbl" data-step="1" style="left:788px;top:626px;width:360px;color:#3F5557;--d:.6s">② lưu hồ sơ, nhật ký</p>
+  <p class="lbl" data-step="2" style="left:968px;top:404px;width:240px;text-align:center;color:#3F5557">③ webhook</p>
+  <p class="lbl" data-step="3" style="left:1438px;top:626px;width:300px;color:#3F5557">④ gửi email</p>
+  <p class="lbl" data-step="4" style="left:968px;top:550px;width:240px;text-align:center;font-weight:700;color:var(--teal-d)">⑤ báo đã gửi</p>
+  <p class="lbl" data-step="4" style="left:128px;top:870px;width:1664px;font-size:26px;color:var(--text);--d:.5s">Web chỉ hiện <b>“Đã thông báo”</b> khi n8n báo lại ở bước ⑤. n8n lỗi thì hồ sơ giữ trạng thái chờ, <b>không báo thành công giả</b>.</p>
+  <aside class="notes">TV4: đi theo số thứ tự. [Bấm] người dùng thao tác trên web; web là bên duy nhất ghi trạng thái và nhật ký vào PostgreSQL. [Bấm] có sự kiện thì web gọi webhook sang n8n. [Bấm] n8n gửi email qua Mailpit, hộp thư thử chạy trên máy. [Bấm] n8n báo lại cho web. Giảng viên đã đồng ý dùng n8n tự host thay Power Automate. Gửi lại cùng một yêu cầu không tạo hồ sơ trùng.</aside>
+</section>
+
+<!-- 13 · n8n -->
+<section class="slide" data-title="Workflow n8n: đủ 5 thành phần đề yêu cầu" data-tv="TV4" data-at="16:30" data-sec="Quy trình cải tiến và prototype">
+  <h2 class="t">Workflow n8n: đủ 5 thành phần đề yêu cầu</h2>
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <path class="e" data-p="328,725 365,725" data-step="1" data-flow></path>
+    <path class="e" data-p="565,725 602,725" data-step="2" data-flow></path>
+    <path class="e teal" data-p="802,701 939,570" data-r="hv" data-step="3" data-flow></path>
+    <path class="e" data-p="939,420 1076,310" data-r="vh" data-step="4" data-flow></path>
+    <path class="e" data-p="1039,500 1076,500" data-step="4" style="--d:.2s"></path>
+    <path class="e pale" data-p="802,749 1313,749" data-step="5"></path>
+    <path class="e" data-p="1276,310 1453,660" data-r="hv" data-step="5" data-flow style="--d:.2s"></path>
+    <path class="e" data-p="1276,500 1373,660" data-r="hv" data-step="5" style="--d:.3s"></path>
+    <path class="e" data-p="1513,725 1550,725" data-step="6" data-flow></path>
+  </svg>
+  <p class="box dk" style="left:128px;top:660px;width:200px;height:130px;padding:14px 16px"><span class="role">Trigger</span><b>Webhook từ web</b></p>
+  <p class="box" data-step="1" style="left:365px;top:660px;width:200px;height:130px;padding:14px 16px;--d:.4s"><span class="role">Data source</span><b>Đọc hồ sơ qua API</b></p>
+  <p class="box cond" data-step="2" style="left:602px;top:660px;width:200px;height:130px;padding:14px 16px;--d:.4s"><span class="role">Condition</span><b>Cần tiền kiểm?</b></p>
+  <p class="box cond" data-step="3" style="left:839px;top:420px;width:200px;height:150px;--d:.6s"><span class="role">Condition</span><b>Đủ điều kiện, đủ thông tin?</b></p>
+  <p class="lbl" data-step="3" style="left:820px;top:610px;width:110px;font-weight:700;color:var(--teal-d)">Có</p>
+  <p class="box" data-step="4" style="left:1076px;top:250px;width:200px;height:120px;--d:.6s"><span class="role" style="color:var(--muted)">Action</span><b>Ghi: đạt</b></p>
+  <p class="box" data-step="4" style="left:1076px;top:440px;width:200px;height:120px;--d:.5s"><span class="role" style="color:var(--muted)">Action</span><b>Ghi: cần bổ sung</b></p>
+  <p class="box sys" data-step="5" style="left:1313px;top:660px;width:200px;height:130px;padding:14px 16px;--d:.6s"><span class="role">Notification</span><b>Gửi email</b></p>
+  <p class="lbl" data-step="5" style="left:830px;top:760px;width:460px">Không: chỉ gửi thông báo</p>
+  <p class="box" data-step="6" style="left:1550px;top:660px;width:200px;height:130px;padding:14px 16px;--d:.4s"><span class="role" style="color:var(--muted)">Action ×2</span><b>Báo lại web, phản hồi</b></p>
+  <p class="lbl" data-step="7" style="left:128px;top:880px;width:1664px;font-size:26px;color:var(--text)"><b>1</b> trigger · <b>1</b> data source · <b>2</b> condition · <b>4</b> action · <b>1</b> notification, vượt mức tối thiểu của đề (1 · 1 · 1 · 4 · 1).</p>
+  <aside class="notes">TV4: đọc từ ô Trigger góc trái dưới. [Bấm] đọc hồ sơ (data source). [Bấm] điều kiện 1: sự kiện có cần tiền kiểm không. [Bấm] có thì hỏi tiếp: SV còn hiệu lực và đủ thông tin không. [Bấm] ghi "đạt" hoặc "cần bổ sung" về web. [Bấm] gửi email; nhánh "Không" (ví dụ giấy đã cấp) đi thẳng tới đây. [Bấm] báo lại web và trả phản hồi. [Bấm] dòng đếm thành phần.</aside>
+</section>
+
+<!-- 14 · Màn hình -->
+<section class="slide" data-title="Một hồ sơ chạy thật, từ form tới email" data-tv="TV4" data-at="17:30" data-sec="Quy trình cải tiến và prototype">
+  <h2 class="t">Một hồ sơ chạy thật, từ form tới email</h2>
+  <div class="pad" style="gap:40px">
+    <div class="row" style="gap:40px;flex:1">
+      <figure class="zoom" data-step="0" style="flex:1;margin:0;display:flex;flex-direction:column;gap:20px;--d:.1s">
+        <div style="height:340px;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:12px;display:flex;align-items:center;justify-content:center"><img src="anh/07-man-hinh-sinh-vien.png" alt="Màn hình sinh viên nộp form và nhận mã hồ sơ" style="width:100%;height:100%;object-fit:contain;border-radius:10px"></div>
+        <p style="font-size:28px;font-weight:700;color:var(--ink)">1 · SV nộp form</p>
+        <p style="font-size:24px;line-height:1.4;color:var(--muted)">Nhận mã hồ sơ GXN-…; n8n tiền kiểm tự động</p>
+      </figure>
+      <figure class="zoom" data-step="0" style="flex:1;margin:0;display:flex;flex-direction:column;gap:20px;--d:.35s">
+        <div style="height:340px;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:12px;display:flex;align-items:center;justify-content:center"><img src="anh/08-man-hinh-can-bo-chi-tiet.png" alt="Màn hình cán bộ xem chi tiết hồ sơ và nhật ký" style="width:100%;height:100%;object-fit:contain;border-radius:10px"></div>
+        <p style="font-size:28px;font-weight:700;color:var(--ink)">2 · Cán bộ xử lý</p>
+        <p style="font-size:24px;line-height:1.4;color:var(--muted)">Mỗi bước ghi vào nhật ký; làm sai thứ tự bị chặn; hiện “Đã thông báo”</p>
+      </figure>
+      <figure class="zoom" data-step="0" style="flex:1;margin:0;display:flex;flex-direction:column;gap:20px;--d:.6s">
+        <div style="height:340px;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:12px;display:flex;align-items:center;justify-content:center"><img src="anh/09-email-mailpit.png" alt="Email thông báo kết quả trong hộp thư thử Mailpit" style="width:100%;height:100%;object-fit:contain;border-radius:10px"></div>
+        <p style="font-size:28px;font-weight:700;color:var(--ink)">3 · Email trong Mailpit</p>
+        <p style="font-size:24px;line-height:1.4;color:var(--muted)">Có bằng chứng thư đã gửi</p>
+      </figure>
+    </div>
+    <p style="font-size:24px;color:var(--muted)">Đã chạy thử qua giao diện ngày 24/10/2026: luồng cấp giấy và vòng yêu cầu bổ sung đều đạt.</p>
+  </div>
+  <aside class="notes">TV4: ba ảnh chụp từ lần chạy thử ngày 24/10: SV nộp form, cán bộ xử lý, email trong Mailpit. Phần demo sẽ chạy trực tiếp đúng ba bước này. Nếu máy hoặc mạng trục trặc lúc demo, quay lại slide này để trình bày.</aside>
+</section>
+
+<!-- 15 · Đánh giá -->
+<section class="slide" data-title="Phải đổi lịch ký, chờ ký mới giảm" data-tv="TV3" data-at="18:00" data-sec="Đánh giá và kết luận">
+  <h2 class="t" style="width:1360px">Phải đổi lịch ký, chờ ký mới giảm</h2>
+  <p class="tag">Dữ liệu mô phỏng</p>
+  <div class="pad" style="flex-direction:row;gap:48px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:36px">
+      <div data-step="1" style="display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:28px;font-weight:700;color:var(--ink)">Thời gian phía trường <span style="font-weight:400;color:var(--muted)">· trung vị, phút</span></p>
+        <div class="row" style="gap:16px;align-items:center"><p style="width:90px;font-size:24px;font-weight:600">AS-IS</p><div class="bar" style="width:700px;height:40px;background:var(--pale);border-radius:6px"></div><p style="font-size:26px;font-weight:700"><span data-count="1363">1.363</span></p></div>
+        <div class="row" style="gap:16px;align-items:center"><p style="width:90px;font-size:24px;font-weight:600">S0</p><div class="bar" style="width:485px;height:40px;background:#5FA8A0;border-radius:6px;--d:.15s"></div><p style="font-size:26px;font-weight:700"><span data-count="944">944</span></p></div>
+        <div class="row" style="gap:16px;align-items:center"><p style="width:90px;font-size:24px;font-weight:600">S1</p><div class="bar" style="width:405px;height:40px;background:var(--teal);border-radius:6px;--d:.3s"></div><p style="font-size:26px;font-weight:700"><span data-count="788">788</span></p></div>
+      </div>
+      <div data-step="2" style="display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:28px;font-weight:700;color:var(--ink)">Chờ trước khi ký <span style="font-weight:400;color:var(--muted)">· trung vị, phút</span></p>
+        <div class="row" style="gap:16px;align-items:center"><p style="width:90px;font-size:24px;font-weight:600">AS-IS</p><div class="bar" style="width:660px;height:40px;background:var(--pale);border-radius:6px"></div><p style="font-size:26px;font-weight:700"><span data-count="551">551</span></p></div>
+        <div class="row" style="gap:16px;align-items:center"><p style="width:90px;font-size:24px;font-weight:600">S0</p><div class="bar wobble" style="width:700px;height:40px;background:var(--hot);border-radius:6px;--d:.15s"></div><p style="font-size:26px;font-weight:700;color:var(--hot-t)"><span data-count="584">584</span> · không giảm</p></div>
+        <div class="row" style="gap:16px;align-items:center"><p style="width:90px;font-size:24px;font-weight:600">S1</p><div class="bar" style="width:145px;height:40px;background:var(--teal);border-radius:6px;--d:.3s"></div><p style="font-size:26px;font-weight:700"><span data-count="121">121</span></p></div>
+      </div>
+      <p style="font-size:24px;color:var(--muted)">S0: chỉ tự động hóa, vẫn ký theo lô · S1: tự động + ký 2 lần/ngày</p>
+    </div>
+    <div class="card" data-step="3" style="width:540px;padding:40px;gap:18px;align-self:flex-start">
+      <h3 style="font-size:28px">So theo cặp, 20 lần chạy</h3>
+      <p>S1 tốt hơn AS-IS ở <b>20/20</b> lần</p>
+      <p>S0 giảm chờ ký ở <b>0/20</b> lần (3/20, 4/20 khi tỷ lệ bổ sung 22%, 30%)</p>
+      <p>Thao tác cán bộ: <b>43 → 21</b> phút mỗi hồ sơ</p>
+      <p>Trễ phát hiện quá hạn: <b>1.239′ → 0</b></p>
+      <p style="color:var(--red-ink);background:var(--red-bg);border-radius:14px;padding:16px 20px"><b>Không được kết luận</b> hiệu quả thực tế tại trường, hay phần mềm tự nó làm giảm chờ ký.</p>
+    </div>
+  </div>
+  <aside class="notes">TV3: [Bấm] biểu đồ trên: thời gian phía trường giảm ở cả hai kịch bản, 1.363 xuống 944 (S0) và 788 (S1). [Bấm] biểu đồ dưới, chỉ thanh cam: S0 chỉ có phần mềm nên chờ ký không giảm, còn tăng nhẹ 551 lên 584, vì hồ sơ đến bàn lãnh đạo sớm hơn rồi nằm chờ phiên ký lâu hơn. Chỉ S1 đổi lịch ký mới giảm xuống 121. [Bấm] thẻ phải: S1 tốt hơn cả 20/20 lần; phần mềm giảm thao tác cán bộ 43 xuống 21 phút và phát hiện quá hạn ngay. Đây là kết quả mô phỏng.</aside>
+</section>
+
+<!-- 16 · Kết luận -->
+<section class="slide dark" data-title="Kết quả mô phỏng chỉ minh họa phương pháp" data-tv="TV1" data-at="19:15" data-sec="Đánh giá và kết luận">
+  <div class="pad" style="top:128px;height:824px;gap:40px">
+    <h2 style="font-size:64px;font-weight:800;line-height:1.1;color:var(--snow);text-wrap:balance">Kết quả mô phỏng chỉ minh họa phương pháp</h2>
+    <p style="font-size:28px;line-height:1.45;color:var(--mist);max-width:1500px"><b style="color:#E9A23B">Giới hạn:</b> tham số là giả định, 1 cán bộ tiếp nhận, chưa loại trừ ngày lễ; prototype chưa có nhắc hạn và đóng quá hạn tự động.</p>
+    <div class="row" style="gap:32px;flex:1">
+      <div data-step="1" style="flex:1;background:var(--night2);border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px">
+        <p class="big" style="font-size:56px;color:var(--mint)">1</p><p style="font-size:30px;font-weight:700">Thu nhật ký thật</p><p style="font-size:24px;line-height:1.45;color:var(--mist)">Sổ tiếp nhận, phiếu trình, sổ văn thư của một học kỳ, dựng thành event log</p>
+      </div>
+      <div data-step="1" style="flex:1;background:var(--night2);border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;--d:.2s">
+        <p class="big" style="font-size:56px;color:var(--mint)">2</p><p style="font-size:30px;font-weight:700">Chạy lại Process Mining</p><p style="font-size:24px;line-height:1.45;color:var(--mist)">Hiệu chỉnh tham số, xác nhận hoặc bác giả thuyết chờ ký H1</p>
+      </div>
+      <div data-step="1" style="flex:1;background:var(--night2);border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;--d:.4s">
+        <p class="big" style="font-size:56px;color:var(--mint)">3</p><p style="font-size:30px;font-weight:700">Thí điểm nhỏ</p><p style="font-size:24px;line-height:1.45;color:var(--mist)">Lịch ký 2 khung giờ và form web cho một loại giấy, đo hằng tuần</p>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end"><p data-step="2" class="pulse" style="font-size:28px;font-weight:700;color:var(--night);background:#E9A23B;padding:16px 32px;border-radius:40px;--pd:.6s">Tiếp theo: demo 10 phút</p></div>
+  </div>
+  <aside class="notes">TV1: tóm lại, kết quả mới minh họa được phương pháp; tham số là giả định, prototype chưa có nhắc hạn và đóng hồ sơ tự động. [Bấm] ba thẻ: ba bước để kiểm chứng. [Bấm] nút cam: "Sau đây nhóm xin demo trực tiếp prototype trong 10 phút."</aside>
+</section>
+
+</div>
+</div>
+
+<div id="notes" hidden tabindex="-1" aria-live="polite"><div class="meta"></div><p></p></div>
+<div id="overview" hidden><h2>Chọn slide · Esc để đóng</h2><div class="grid"></div></div>
+<div id="hint"><kbd>→</kbd> tiếp · <kbd>←</kbd> lùi · <kbd>N</kbd> ghi chú · <kbd>O</kbd> danh sách · <kbd>F</kbd> toàn màn hình</div>
+
+<script>
+(function () {
+  const deck = document.getElementById('deck');
+  const slides = [...deck.querySelectorAll('.slide')];
+  const bar = document.getElementById('bar');
+  const notesEl = document.getElementById('notes');
+  const overview = document.getElementById('overview');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ARROW = { hot: 'ah-hot', teal: 'ah-teal', red: 'ah-red', light: 'ah-light', pale: 'ah-pale' };
+  const DOT = { hot: '#D9861A', teal: '#0E7C74', red: '#B8423A', light: '#7FD1C4', pale: '#9DBFB9' };
+  let cur = 0, step = 0, presenter = null;
+
+  // Đường nối: data-p = "x,y x,y …", data-r = hv | vh | hvh | vhv (đi vuông góc giữa 2 điểm)
+  function route(p, r) {
+    if (p.length > 2 || !r) return p;
+    const [[a, b], [c, d]] = p;
+    if (r === 'hv') return [[a, b], [c, b], [c, d]];
+    if (r === 'vh') return [[a, b], [a, d], [c, d]];
+    if (r === 'hvh') { const m = (a + c) / 2; return [[a, b], [m, b], [m, d], [c, d]]; }
+    if (r === 'vhv') { const m = (b + d) / 2; return [[a, b], [a, m], [c, m], [c, d]]; }
+    return p;
+  }
+  function pathD(p, rad = 16) {
+    let d = 'M' + p[0];
+    for (let i = 1; i < p.length - 1; i++) {
+      const [x0, y0] = p[i - 1], [x1, y1] = p[i], [x2, y2] = p[i + 1];
+      const l1 = Math.hypot(x1 - x0, y1 - y0), l2 = Math.hypot(x2 - x1, y2 - y1);
+      const r = Math.min(rad, l1 / 2, l2 / 2);
+      d += ` L${x1 + (x0 - x1) / l1 * r},${y1 + (y0 - y1) / l1 * r} Q${x1},${y1} ${x1 + (x2 - x1) / l2 * r},${y1 + (y2 - y1) / l2 * r}`;
+    }
+    return d + ' L' + p[p.length - 1];
+  }
+  const tone = el => Object.keys(ARROW).find(k => el.classList.contains(k));
+
+  slides.forEach((s, i) => {
+    s.querySelectorAll('path.e').forEach(el => {
+      const pts = el.dataset.p.trim().split(/\s+/).map(t => t.split(',').map(Number));
+      el.setAttribute('d', pathD(route(pts, el.dataset.r)));
+      const len = el.getTotalLength();
+      if (!el.classList.contains('dash')) { el.style.strokeDasharray = len; el.style.setProperty('--len', len); }
+      el.dataset.arrow = ARROW[tone(el)] || 'ah-mute';
+    });
+    s.querySelectorAll('[data-step], path.e, [data-count], .bar, .pulse').forEach(el => el.classList.add('fx'));
+    s.maxStep = Math.max(0, ...[...s.querySelectorAll('[data-step]')].map(e => +e.dataset.step));
+    if (!s.hasAttribute('data-nofoot')) {
+      const f = document.createElement('div');
+      f.className = 'foot';
+      f.innerHTML = `<span>${s.dataset.sec || ''}</span><span><b>${s.dataset.tv}</b> · ${String(i + 1).padStart(2, '0')} / ${slides.length}</span>`;
+      s.appendChild(f);
+    }
+  });
+
+  const stepOf = el => +((el.closest('[data-step]') || el).dataset.step || 0);
+  const delayOf = el => (parseFloat(getComputedStyle(el).getPropertyValue('--d')) || 0) * 1000;
+
+  function countUp(el) {
+    const target = +el.dataset.count, fmt = n => Math.round(n).toLocaleString('vi-VN');
+    if (reduce) { el.textContent = fmt(target); return; }
+    const wait = delayOf(el) + 250, dur = 1100;
+    el.textContent = fmt(0);
+    const t0 = performance.now() + wait;
+    const tick = now => {
+      const k = Math.min(1, Math.max(0, (now - t0) / dur));
+      el.textContent = fmt(target * (1 - Math.pow(1 - k, 3)));
+      if (k < 1 && el.classList.contains('on')) requestAnimationFrame(tick);
+      else el.textContent = fmt(target);
+    };
+    requestAnimationFrame(tick);
+  }
+  function flowDot(path) {
+    const svg = path.ownerSVGElement, len = path.getTotalLength();
+    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    dot.setAttribute('r', path.classList.contains('thick') ? 12 : 9);
+    dot.setAttribute('class', 'dot');
+    dot.setAttribute('fill', DOT[tone(path)] || '#0F3A3F');
+    svg.appendChild(dot);
+    const t0 = performance.now() + delayOf(path) + 150, dur = 850;
+    const tick = now => {
+      const k = Math.min(1, Math.max(0, (now - t0) / dur));
+      const pt = path.getPointAtLength(len * (1 - Math.pow(1 - k, 2)));
+      dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y);
+      dot.setAttribute('opacity', k >= 1 ? 0 : 1);
+      if (k < 1 && path.classList.contains('on')) requestAnimationFrame(tick); else dot.remove();
+    };
+    requestAnimationFrame(tick);
+  }
+  function enter(el, animate) {
+    if (el.matches('path.e')) {
+      const show = () => { if (el.classList.contains('on')) el.setAttribute('marker-end', `url(#${el.dataset.arrow})`); };
+      if (reduce || !animate) show(); else setTimeout(show, delayOf(el) + 650);
+      if (animate && !reduce && el.hasAttribute('data-flow')) flowDot(el);
+    }
+    if (el.hasAttribute('data-count')) countUp(el);
+  }
+  function leave(el) { if (el.matches('path.e')) el.removeAttribute('marker-end'); }
+
+  function apply(animate) {
+    slides[cur].querySelectorAll('.fx').forEach(el => {
+      const on = stepOf(el) <= step;
+      if (on === el.classList.contains('on')) return;
+      el.classList.toggle('on', on);
+      if (on) enter(el, animate); else leave(el);
+    });
+  }
+
+  function go(n, st, dir) {
+    n = Math.max(0, Math.min(slides.length - 1, n));
+    if (n !== cur) {
+      const old = slides[cur], s = slides[n];
+      old.style.setProperty('--dx', dir > 0 ? '-40px' : '40px');
+      old.classList.remove('cur');
+      s.classList.add('reset');
+      s.style.setProperty('--dx', dir > 0 ? '40px' : '-40px');
+      s.querySelectorAll('.fx.on').forEach(el => { el.classList.remove('on'); leave(el); });
+      void s.offsetWidth;
+      s.classList.remove('reset');
+      cur = n;
+      s.classList.add('cur');
+    }
+    step = Math.max(0, Math.min(slides[cur].maxStep, st));
+    requestAnimationFrame(() => requestAnimationFrame(() => apply(true)));
+    sync();
+  }
+  function next() { if (step < slides[cur].maxStep) { step++; apply(true); sync(); } else if (cur < slides.length - 1) go(cur + 1, 0, 1); }
+  function prev() { if (step > 0) { step--; apply(true); sync(); } else if (cur > 0) go(cur - 1, slides[cur - 1].maxStep, -1); }
+
+  function noteText(s) { const a = s.querySelector('.notes'); return a ? a.textContent.trim() : ''; }
+  function sync() {
+    const s = slides[cur];
+    bar.style.transform = `scaleX(${(cur + (s.maxStep ? step / (s.maxStep + 1) : 0)) / (slides.length - 1)})`;
+    try { history.replaceState(null, '', '#s' + (cur + 1)); } catch (e) { /* trang chạy trong khung không cho đổi địa chỉ */ }
+    const meta = [`Slide ${cur + 1}/${slides.length}`, s.dataset.tv, `bước ${step}/${s.maxStep}`, `mốc ${s.dataset.at}`];
+    notesEl.querySelector('.meta').innerHTML = meta.map(m => `<span>${m}</span>`).join('');
+    notesEl.querySelector('p').textContent = noteText(s);
+    overview.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', i === cur));
+    if (presenter && !presenter.closed) renderPresenter();
+  }
+
+  // Cửa sổ người nói (chạy khi mở file trên máy; trong khung xem trực tuyến thì dùng phím N)
+  let started = 0;
+  function renderPresenter() {
+    const d = presenter.document, s = slides[cur], nx = slides[cur + 1];
+    d.getElementById('m').textContent = `Slide ${cur + 1}/${slides.length} · ${s.dataset.tv} · bước ${step}/${s.maxStep} · mốc kịch bản ${s.dataset.at}`;
+    d.getElementById('n').textContent = noteText(s);
+    d.getElementById('x').textContent = nx ? `Slide kế: ${nx.dataset.title} (${nx.dataset.tv})` : 'Slide cuối';
+  }
+  function openPresenter() {
+    try { presenter = window.open('', 'gxn-nguoi-noi', 'width=960,height=640'); } catch (e) { presenter = null; }
+    if (!presenter) { toggleNotes(true); return; }
+    started = started || Date.now();
+    presenter.document.write(`<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>Ghi chú người nói</title>
+      <style>body{margin:0;padding:24px;background:#0F3A3F;color:#F2F6F5;font:20px/1.6 'Be Vietnam Pro','Segoe UI',Arial,sans-serif}
+      #m{color:#7FD1C4;font-size:15px;letter-spacing:.05em;text-transform:uppercase}#t{font-size:44px;font-weight:700;font-variant-numeric:tabular-nums}
+      #n{font-size:24px;max-width:70ch}#x{color:#BFD8D5;margin-top:18px}</style></head>
+      <body><div id="t">00:00</div><div id="m"></div><p id="n"></p><p id="x"></p>
+      <script>document.onkeydown=e=>opener&&opener.postMessage({gxnKey:e.key},'*');
+      setInterval(()=>{const s=Math.floor((Date.now()-${started})/1000);document.getElementById('t').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},500);<\/script></body></html>`);
+    presenter.document.close();
+    renderPresenter();
+  }
+  window.addEventListener('message', e => { if (e.data && e.data.gxnKey) key({ key: e.data.gxnKey, preventDefault() {} }); });
+
+  function toggleNotes(force) { notesEl.hidden = force === undefined ? !notesEl.hidden : !force; }
+  function toggleOverview(force) {
+    overview.hidden = force === undefined ? !overview.hidden : !force;
+    if (!overview.hidden) (overview.querySelector('[aria-current="true"]') || overview.querySelector('button')).focus();
+  }
+  slides.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.innerHTML = `<span>${String(i + 1).padStart(2, '0')} · ${s.dataset.tv} · ${s.dataset.at}</span>${s.dataset.title}`;
+    b.addEventListener('click', () => { toggleOverview(false); go(i, 0, i >= cur ? 1 : -1); });
+    overview.querySelector('.grid').appendChild(b);
+  });
+
+  function key(e) {
+    const k = e.key;
+    if (!overview.hidden) { if (k === 'Escape' || k === 'o' || k === 'O') { e.preventDefault(); toggleOverview(false); } return; }
+    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown', 'Enter'].includes(k)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(k)) { e.preventDefault(); prev(); }
+    else if (k === 'Home') go(0, 0, -1);
+    else if (k === 'End') go(slides.length - 1, slides[slides.length - 1].maxStep, 1);
+    else if (k === 'n' || k === 'N') toggleNotes();
+    else if (k === 'p' || k === 'P') openPresenter();
+    else if (k === 'o' || k === 'O') toggleOverview(true);
+    else if (k === 'f' || k === 'F') {
+      try { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {}); } catch (err) { /* không hỗ trợ */ }
+    }
+    else if (k === 'Escape') { toggleNotes(false); }
+    document.getElementById('hint').classList.add('gone');
+  }
+  document.addEventListener('keydown', key);
+  deck.addEventListener('click', e => { if (e.clientX < innerWidth * 0.25) prev(); else next(); });
+  let tx = null;
+  deck.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  deck.addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); } tx = null; });
+
+  function fit() {
+    const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    deck.style.transform = `scale(${s}) translate(-50%, -50%)`;
+  }
+  addEventListener('resize', fit);
+  fit();
+  setTimeout(() => document.getElementById('hint').classList.add('gone'), 6000);
+
+  const m = /^#s(\d+)$/.exec(location.hash);
+  cur = m ? Math.max(0, Math.min(slides.length - 1, +m[1] - 1)) : 0;
+  slides[cur].classList.add('cur');
+  go(cur, 0, 1);
+})();
+</script>
+</body>
+</html>

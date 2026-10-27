@@ -1,4 +1,6 @@
-# Slide HTML (bản mới nhất)
+# Slide HTML (bản mẫu Slides, đã thay bằng `../trinh-chieu/`)
+
+> Bản trình chiếu chính hiện là `06-slide/trinh-chieu/index.html`. Thư mục này giữ lại để tham khảo.
 
 Bộ slide 16 trang dạng HTML do Claude làm từ nội dung của `../Slide-Claude.pptx`. So với bản PowerPoint, các sơ đồ đã được vẽ lại cho dễ đọc: mỗi sơ đồ chỉ có một luồng chính đi từ trái sang phải, nhánh rẽ tách sang slide riêng, mũi tên đánh số theo thứ tự xảy ra. Khi trình chiếu, ô và mũi tên hiện lần lượt theo lời nói.
 

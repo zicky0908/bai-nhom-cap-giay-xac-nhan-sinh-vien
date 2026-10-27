@@ -1,6 +1,8 @@
 # Slide
 
-**Bản mới nhất: `slide-html/`** (16 slide HTML, sơ đồ vẽ lại cho dễ đọc; xem `slide-html/README.md`). Ba file `.pptx` dưới đây là bản PowerPoint trước đó.
+**Bản trình chiếu chính: `trinh-chieu/index.html`**: 16 slide có hiệu ứng, mở thẳng bằng trình duyệt, chạy không cần mạng (phím tắt và cách sửa: `trinh-chieu/README.md`).
+
+`slide-html/` là bản trước làm bằng mẫu Slides của Claude (chỉ xem được qua link). Ba file `.pptx` dưới đây là bản PowerPoint đầu tiên.
 
 | File | Ai làm | Ghi chú |
 |---|---|---|
